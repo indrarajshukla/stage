@@ -7,7 +7,7 @@ interface PageHeadingProps {
 
 const PageHeading: React.FC<PageHeadingProps> = ({ title }) => {
   return (
-    <Heading size="md" pb="4">
+    <Heading size="md" pb="4" pt="4">
       {title}
     </Heading>
   );

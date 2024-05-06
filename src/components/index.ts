@@ -1,1 +1,1 @@
-export * from "../AppLayout/SideNavigation"
+export * from "../AppLayout/AppSideNavigation"
