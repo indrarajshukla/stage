@@ -15,13 +15,16 @@ import {
   MdSwapCalls,
 } from "react-icons/md";
 import Vaults from "./pages/vaults/Vaults";
+import SourceCatalog from "./pages/source/SourceCatalog";
+import CreateSource from "./pages/source/CreateSource";
 
 export interface IAppRoute {
   label: string
   component: React.ComponentType<any>
   path: string
   title: string
-  isMain: boolean
+  isMain?: boolean
+  isSubPath?: boolean
   icon?: React.ComponentType<any>
 }
 
@@ -46,10 +49,26 @@ const routes: AppRouteConfig[] = [
     icon: MdLogout,
   },
   {
+    component: SourceCatalog,
+    label: "Source catalog",
+    path: "/source/catalog",
+    title: `${AppBranding} | Source`,
+    isSubPath: true,
+    icon: MdLogin,
+  },
+  {
+    component: CreateSource,
+    label: "Create source",
+    path: "/source/create_source/:sourceId",
+    title: `${AppBranding} | Source`,
+    isSubPath: true,
+    icon: MdLogin,
+  },
+  {
     component: Sink,
-    label: "Sink",
-    path: "/sink",
-    title: `${AppBranding} | Sink`,
+    label: "Destination",
+    path: "/destination",
+    title: `${AppBranding} | Destination`,
     isMain: true,
     icon: MdLogin,
   },

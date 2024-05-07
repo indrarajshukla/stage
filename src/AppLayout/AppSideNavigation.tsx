@@ -76,7 +76,7 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
 
         {routes.map((route) => {
           return (
-            !route.isMain && (
+            !route.isMain && !route.isSubPath && (
               <NavLink to={route.path} key={route.label}>
                 {({ isActive }) => (
                   <Box

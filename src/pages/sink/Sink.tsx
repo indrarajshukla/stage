@@ -14,14 +14,14 @@ const Sink: React.FC = () => {
 
   return (
     <>
-      <PageHeading title={"Sink"} />
+      <PageHeading title={"Destination"} />
 
       {!isCreatingForm ? (
         <Box>
           <Toolbar
             primaryAction={
               <Button leftIcon={<AddIcon />} onClick={updateIsCreatingForm}>
-                New sink
+                New destination
               </Button>
             }
           />
