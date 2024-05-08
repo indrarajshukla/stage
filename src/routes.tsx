@@ -3,7 +3,7 @@ import React from "react";
 import Home from "./pages/home/Home";
 import { AppBranding } from "./utils/constants";
 import Source from "./pages/source/Source";
-import Sink from "./pages/sink/Sink";
+import Destination from "./pages/destination/Destination";
 import Pipeline from "./pages/pipeline/Pipeline";
 import Setting from "./pages/setting/Setting";
 import {
@@ -17,15 +17,17 @@ import {
 import Vaults from "./pages/vaults/Vaults";
 import SourceCatalog from "./pages/source/SourceCatalog";
 import CreateSource from "./pages/source/CreateSource";
+import DestinationCatalog from "./pages/destination/DestinationCatalog";
+import CreateDestination from "./pages/destination/CreateDestination";
 
 export interface IAppRoute {
-  label: string
-  component: React.ComponentType<any>
-  path: string
-  title: string
-  isMain?: boolean
-  isSubPath?: boolean
-  icon?: React.ComponentType<any>
+  label: string;
+  component: React.ComponentType<any>;
+  path: string;
+  title: string;
+  isMain?: boolean;
+  isSubPath?: boolean;
+  icon?: React.ComponentType<any>;
 }
 
 export type AppRouteConfig = IAppRoute;
@@ -54,7 +56,7 @@ const routes: AppRouteConfig[] = [
     path: "/source/catalog",
     title: `${AppBranding} | Source`,
     isSubPath: true,
-    icon: MdLogin,
+    icon: MdLogout,
   },
   {
     component: CreateSource,
@@ -62,14 +64,30 @@ const routes: AppRouteConfig[] = [
     path: "/source/create_source/:sourceId",
     title: `${AppBranding} | Source`,
     isSubPath: true,
-    icon: MdLogin,
+    icon: MdLogout,
   },
   {
-    component: Sink,
+    component: Destination,
     label: "Destination",
     path: "/destination",
     title: `${AppBranding} | Destination`,
     isMain: true,
+    icon: MdLogin,
+  },
+  {
+    component: DestinationCatalog,
+    label: "Destination catalog",
+    path: "/destination/catalog",
+    title: `${AppBranding} | Destination`,
+    isSubPath: true,
+    icon: MdLogin,
+  },
+  {
+    component: CreateDestination,
+    label: "Create destination",
+    path: "/destination/create_destination/:destinationId",
+    title: `${AppBranding} | Destination`,
+    isSubPath: true,
     icon: MdLogin,
   },
   {

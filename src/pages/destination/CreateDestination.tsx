@@ -23,15 +23,15 @@ import postgreSql from "../../assets/PostgreSQL.png";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 
-const CreateSource: React.FC = () => {
+const CreateDestination: React.FC = () => {
   return (
     <>
-      <PageHeader title="Create source" isPadded />
+      <PageHeader title="Create destination" isPadded />
       <Box mr="32" ml="32" bg="white" borderRadius="lg" p="4" shadow="md">
         <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
-              Fill the form below or use the smart editor to setup a new source
+              Fill the form below or use the smart editor to setup a new destination
               connector.
             </Text>
           </Box>
@@ -60,7 +60,7 @@ const CreateSource: React.FC = () => {
             borderRadius="lg"
           >
             <FormControl isRequired>
-              <FormLabel>Source type</FormLabel>
+              <FormLabel>Destination type</FormLabel>
               <Box
                 width="50px"
                 // pl="4"
@@ -72,14 +72,14 @@ const CreateSource: React.FC = () => {
               </Box>
             </FormControl>
             <FormControl isRequired>
-              <FormLabel>Source name</FormLabel>
+              <FormLabel>Destination name</FormLabel>
               <Input type="text" bg="white" />
             </FormControl>
             <FormControl>
               <FormLabel>Detail</FormLabel>
               <Input type="text" bg="white" />
               <FormHelperText>
-                Add a one liner to describe your source or what you plan to
+                Add a one liner to describe your destination or where you plan to
                 capture.
               </FormHelperText>
             </FormControl>
@@ -168,7 +168,7 @@ const CreateSource: React.FC = () => {
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid">Create source</Button>
+            <Button variant="solid">Create destination</Button>
           </Box>
         </Flex>
       </Box>
@@ -176,4 +176,4 @@ const CreateSource: React.FC = () => {
   );
 };
 
-export default CreateSource;
+export default CreateDestination;

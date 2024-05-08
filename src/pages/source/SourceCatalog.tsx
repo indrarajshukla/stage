@@ -23,21 +23,20 @@ import mySql from "../../assets/my-sql.png";
 import postgreSql from "../../assets/PostgreSQL.png";
 import sqlServer from "../../assets/sql-server.png";
 import { useNavigate } from "react-router-dom";
-import AppBreadcrumb from "../../AppLayout/AppBreadcrumb";
+import PageHeader from "../../components/PageHeader";
 
 const SourceCatalog: React.FC = () => {
   const navigate = useNavigate();
 
-
   const onCardClick = (sourceId: string) => {
     navigate(`/source/create_source/${sourceId}`);
-  }
+  };
   return (
     <>
-    <AppBreadcrumb />
-      <Heading size="md" pb="4" pt="4" pr="32" pl="32">
-        Selected the type of source you want to connect
-      </Heading>
+      <PageHeader
+        title="Selected the type of source you want to connect"
+        isPadded
+      />
       <Box pr="32" pl="32">
         <Flex mt="4" pb="4">
           <Box>

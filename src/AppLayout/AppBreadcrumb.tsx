@@ -4,11 +4,10 @@ import { MdOutlineChevronRight } from "react-icons/md";
 import { useLocation } from "react-router-dom";
 
 const AppBreadcrumb: React.FC = () => {
-
   const location = useLocation();
 
   const appBreadcrumb = (route: string) => {
-    switch(true) {
+    switch (true) {
       case route === "/":
         return (
           <Breadcrumb
@@ -62,11 +61,48 @@ const AppBreadcrumb: React.FC = () => {
               <BreadcrumbLink href="#">Create source</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-        )
+        );
+      case route === "/destination/catalog":
+        return (
+          <Breadcrumb
+            pb="2"
+            spacing="8px"
+            fontSize="sm"
+            separator={<MdOutlineChevronRight color="gray.500" />}
+          >
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/destination">Destination</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href="#">Catalog</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        );
+      case route.includes("/destination/create_destination"):
+        return (
+          <Breadcrumb
+            pb="2"
+            spacing="8px"
+            fontSize="sm"
+            separator={<MdOutlineChevronRight color="gray.500" />}
+          >
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/destination">Destination</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/destination/catalog">
+                Catalog
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href="#">Create Destination</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        );
     }
   };
-
-  console.log(location.pathname);
   return <>{appBreadcrumb(location.pathname)}</>;
 };
 

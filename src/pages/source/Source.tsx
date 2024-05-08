@@ -1,13 +1,10 @@
 import { AddIcon } from "@chakra-ui/icons";
-import {
-  Button,
-  Icon,
-} from "@chakra-ui/react";
+import { Button, Icon } from "@chakra-ui/react";
 import React from "react";
-import PageHeading from "../../components/PageHeading";
 import { MdLogout } from "react-icons/md";
 import EmptyState from "../../components/EmptyState";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../components/PageHeader";
 
 const Source: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +15,7 @@ const Source: React.FC = () => {
 
   return (
     <>
-      <PageHeading title={"Source"} />
+      <PageHeader title="Source" isPadded={false} />
       <EmptyState
         icon={<Icon as={MdLogout} boxSize={20} />}
         title="No source available"

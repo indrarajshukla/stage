@@ -25,11 +25,11 @@ import eventHub from "../assets/Azure-event-hub.png";
 import { BsTags } from "react-icons/bs";
 import { AppThemeGreen } from "../utils/constants";
 
-interface SinkTableProps {
+interface DestinationTableProps {
   // Define the props for your component here
 }
 
-const SinkTable: React.FC<SinkTableProps> = () => {
+const DestinationTable: React.FC<DestinationTableProps> = () => {
   // Implement your component logic here
 
   return (
@@ -270,4 +270,4 @@ const SinkTable: React.FC<SinkTableProps> = () => {
   );
 };
 
-export default SinkTable;
+export default DestinationTable;
