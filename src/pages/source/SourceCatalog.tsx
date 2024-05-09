@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
 
 const SourceCatalog: React.FC = () => {
+
   const navigate = useNavigate();
 
   const onCardClick = (sourceId: string) => {
@@ -38,7 +39,7 @@ const SourceCatalog: React.FC = () => {
         isPadded
       />
       <Box pr="32" pl="32">
-        <Flex mt="4" pb="4">
+        <Flex pb="4">
           <Box>
             <InputGroup bg="white" width="450px">
               <InputLeftElement pointerEvents="none">

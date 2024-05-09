@@ -4,8 +4,15 @@ import React from "react";
 import { MdSwapCalls } from "react-icons/md";
 import EmptyState from "../../components/EmptyState";
 import PageHeading from "../../components/PageHeading";
+import { useNavigate } from "react-router-dom";
 
 const Pipeline: React.FC = () => {
+  const navigate = useNavigate();
+
+  const updateIsEmpty = () => {
+    navigate("/pipeline/create_pipeline");
+  };
+
   return (
     <>
       <PageHeading title={"Pipeline"} />
@@ -14,7 +21,7 @@ const Pipeline: React.FC = () => {
         title="No Pipeline available"
         message="No Pipeline configured for this cluster, add a Pipeline to start
         collection change data event from."
-        action={<Button leftIcon={<AddIcon />}>New Pipeline</Button>}
+        action={<Button onClick={updateIsEmpty} leftIcon={<AddIcon />}>New Pipeline</Button>}
       />
     </>
   );

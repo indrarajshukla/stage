@@ -19,6 +19,7 @@ import SourceCatalog from "./pages/source/SourceCatalog";
 import CreateSource from "./pages/source/CreateSource";
 import DestinationCatalog from "./pages/destination/DestinationCatalog";
 import CreateDestination from "./pages/destination/CreateDestination";
+import CreatePipeline from "./pages/pipeline/CreatePipeline";
 
 export interface IAppRoute {
   label: string;
@@ -104,6 +105,14 @@ const routes: AppRouteConfig[] = [
     path: "/pipeline",
     title: `${AppBranding} | Pipeline`,
     isMain: true,
+    icon: MdSwapCalls,
+  },
+  {
+    component: CreatePipeline,
+    label: "Create Pipeline",
+    path: "/pipeline/create_pipeline",
+    title: `${AppBranding} | Pipeline`,
+    isSubPath: true,
     icon: MdSwapCalls,
   },
   {

@@ -11,7 +11,6 @@ const AppBreadcrumb: React.FC = () => {
       case route === "/":
         return (
           <Breadcrumb
-            pb="2"
             spacing="8px"
             fontSize="sm"
             separator={<MdOutlineChevronRight color="gray.500" />}
@@ -28,7 +27,6 @@ const AppBreadcrumb: React.FC = () => {
       case route === "/source/catalog":
         return (
           <Breadcrumb
-            pb="2"
             spacing="8px"
             fontSize="sm"
             separator={<MdOutlineChevronRight color="gray.500" />}
@@ -45,7 +43,6 @@ const AppBreadcrumb: React.FC = () => {
       case route.includes("/source/create_source"):
         return (
           <Breadcrumb
-            pb="2"
             spacing="8px"
             fontSize="sm"
             separator={<MdOutlineChevronRight color="gray.500" />}
@@ -65,7 +62,6 @@ const AppBreadcrumb: React.FC = () => {
       case route === "/destination/catalog":
         return (
           <Breadcrumb
-            pb="2"
             spacing="8px"
             fontSize="sm"
             separator={<MdOutlineChevronRight color="gray.500" />}
@@ -82,7 +78,6 @@ const AppBreadcrumb: React.FC = () => {
       case route.includes("/destination/create_destination"):
         return (
           <Breadcrumb
-            pb="2"
             spacing="8px"
             fontSize="sm"
             separator={<MdOutlineChevronRight color="gray.500" />}
@@ -98,6 +93,22 @@ const AppBreadcrumb: React.FC = () => {
 
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">Create Destination</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        );
+      case route === "/pipeline/create_pipeline":
+        return (
+          <Breadcrumb
+            spacing="8px"
+            fontSize="sm"
+            separator={<MdOutlineChevronRight color="gray.500" />}
+          >
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/pipeline">Pipeline</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem isCurrentPage>
+              <BreadcrumbLink href="#">Create pipeline</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
         );
