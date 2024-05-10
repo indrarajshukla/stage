@@ -1,0 +1,165 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useCallback, useState } from "react";
+import ReactFlow, {
+  applyNodeChanges,
+  applyEdgeChanges,
+  addEdge,
+  NodeChange,
+  Node,
+  EdgeChange,
+  Edge,
+  Connection,
+  Background,
+  Controls,
+  MiniMap,
+} from "reactflow";
+import { Image } from "@chakra-ui/react";
+import { AppThemeGreen } from "../utils/constants";
+import AddTransformationNode from "./AddTransformationNode";
+import DataNode from "./DataNode";
+import cassandra from "../assets/Cassandra.png";
+import kafka from "../assets/kafka.png";
+import TransformationNode from "./TransformationNode";
+
+const initialNodes = [
+  {
+    id: "source",
+    data: {
+      image: (
+        <Image
+          boxSize={14}
+          objectFit="fill"
+          src={cassandra}
+          alt="Cassandra logo"
+        />
+      ),
+      label: "Cassandra",
+      type: "source",
+    },
+    position: { x: 250, y: 150 },
+    type: "dataNode",
+  },
+  {
+    id: "transformation_group",
+    data: { label: "Transformation" },
+    position: { x: 400, y: 50 },
+    className: "light",
+    style: {
+      backgroundColor: "rgba(240, 255, 244, 0.2)",
+      width: 250,
+      height: 350,
+    },
+    type: "group",
+  },
+  {
+    id: "transformation_1",
+    data: {
+      label: "transformation_1",
+      sourcePosition: "bottom",
+      targetPosition: "left",
+    },
+    position: { x: 50, y: 65 },
+    type: "transformationNode",
+    parentId: "transformation_group",
+    extent: "parent",
+  },
+  {
+    id: "add_transformation",
+    data: {
+      label: "Transformation",
+      sourcePosition: "right",
+      targetPosition: "top",
+    },
+    position: { x: 50, y: 205 },
+    type: "addTransformation",
+    parentId: "transformation_group",
+    extent: "parent",
+  },
+  {
+    id: "destination",
+    data: {
+      image: (
+        <Image w="12" h="12" objectFit="fill" src={kafka} alt="Kafka logo" />
+      ),
+      label: "Kafka",
+      type: "destination",
+    },
+    position: { x: 700, y: 150 },
+    type: "dataNode",
+  },
+];
+
+const initialEdges = [
+  {
+    id: "source-transformation_1",
+    source: "source",
+    target: "transformation_1",
+    animated: true,
+    sourceHandle: "a",
+  },
+  {
+    id: "transformation_1-add_transformation",
+    source: "transformation_1",
+    target: "add_transformation",
+    animated: true,
+  },
+  {
+    id: "add_transformation-destination",
+    source: "add_transformation",
+    target: "destination",
+    animated: true,
+    sourceHandle: "a",
+  },
+];
+
+// we define the nodeTypes outside of the component to prevent re-renderings
+// you could also use useMemo inside the component
+const nodeTypes = {
+  dataNode: DataNode,
+  addTransformation: AddTransformationNode,
+  transformationNode: TransformationNode,
+};
+
+const proOptions = { hideAttribution: true };
+
+function PipelineFlow() {
+  const [nodes, setNodes] = useState<any>(initialNodes);
+  const [edges, setEdges] = useState<any>(initialEdges);
+
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) =>
+      setNodes((nds: Node[]) => applyNodeChanges(changes, nds)),
+    [setNodes]
+  );
+  const onEdgesChange = useCallback(
+    (changes: EdgeChange[]) =>
+      setEdges((eds: Edge[]) => applyEdgeChanges(changes, eds)),
+    [setEdges]
+  );
+  const onConnect = useCallback(
+    (connection: Connection) => {
+      console.log("Connection:", connection);
+      setEdges((eds: Edge[]) => addEdge(connection, eds)); // Call addEdge here
+    },
+    [setEdges]
+  );
+
+  return (
+    <ReactFlow
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      onConnect={onConnect}
+      nodeTypes={nodeTypes}
+      proOptions={proOptions}
+      fitView
+    >
+      <MiniMap />
+      <Background style={{ background: AppThemeGreen.Background }} />
+      <Controls />
+    </ReactFlow>
+  );
+}
+
+export default PipelineFlow;

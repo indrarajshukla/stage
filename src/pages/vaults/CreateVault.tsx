@@ -1,23 +1,23 @@
 import React from "react";
-import PageHeader from "../../components/PageHeader";
 import {
-  Box,
-  Button,
   Flex,
+  Spacer,
   FormControl,
   FormLabel,
   Icon,
-  Spacer,
   Switch,
+  Button,
+  Box,
   Text,
 } from "@chakra-ui/react";
 import { BsCodeSquare } from "react-icons/bs";
-import CreationFlow from "../../components/CreationFlow";
+import PageHeader from "../../components/PageHeader";
+import PipelineFlow from "../../components/PipelineFlow";
 
-const CreatePipeline: React.FC = () => {
+const CreateVault: React.FC = () => {
   return (
     <>
-      <PageHeader title="Create Pipeline" isPadded={false} />
+      <PageHeader title="Create vault" isPadded={false} />
       <Box
         // mr="32" ml="32"
         bg="white"
@@ -46,7 +46,7 @@ const CreatePipeline: React.FC = () => {
           </Box>
         </Flex>
         <Box m="2" border="1px" borderColor="gray.500" height="600px">
-          <CreationFlow />
+          <PipelineFlow />
         </Box>
         <Flex pt="4">
           <Box>
@@ -64,4 +64,4 @@ const CreatePipeline: React.FC = () => {
   );
 };
 
-export default CreatePipeline;
+export default CreateVault;

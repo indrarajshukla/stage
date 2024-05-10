@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 const Pipeline: React.FC = () => {
   const navigate = useNavigate();
 
-  const updateIsEmpty = () => {
+  const navigateToCreate = () => {
     navigate("/pipeline/create_pipeline");
   };
 
@@ -21,7 +21,7 @@ const Pipeline: React.FC = () => {
         title="No Pipeline available"
         message="No Pipeline configured for this cluster, add a Pipeline to start
         collection change data event from."
-        action={<Button onClick={updateIsEmpty} leftIcon={<AddIcon />}>New Pipeline</Button>}
+        action={<Button onClick={navigateToCreate} leftIcon={<AddIcon />}>New Pipeline</Button>}
       />
     </>
   );

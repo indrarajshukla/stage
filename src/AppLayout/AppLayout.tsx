@@ -17,7 +17,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
       gridTemplateColumns={"80px 1fr"}
       h="100vh"
       gap="0"
-      color="blackAlpha.700"
+      // color="blackAlpha.700"
     >
       <SideNavigation />
 

@@ -20,6 +20,7 @@ import CreateSource from "./pages/source/CreateSource";
 import DestinationCatalog from "./pages/destination/DestinationCatalog";
 import CreateDestination from "./pages/destination/CreateDestination";
 import CreatePipeline from "./pages/pipeline/CreatePipeline";
+import CreateVault from "./pages/vaults/CreateVault";
 
 export interface IAppRoute {
   label: string;
@@ -97,6 +98,14 @@ const routes: AppRouteConfig[] = [
     path: "/vault",
     title: `${AppBranding} | Vaults`,
     isMain: true,
+    icon: MdOutlineVpnKey,
+  },
+  {
+    component: CreateVault,
+    label: "Create Vault",
+    path: "/vaults/create_vault",
+    title: `${AppBranding} | Vaults`,
+    isSubPath: true,
     icon: MdOutlineVpnKey,
   },
   {

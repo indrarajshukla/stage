@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useState } from "react";
-import DataNode from "./DataNode";
+import DataDefaultNode from "./DataDefaultNode";
 import ReactFlow, {
   applyNodeChanges,
   applyEdgeChanges,
@@ -14,29 +14,45 @@ import ReactFlow, {
   Controls,
   MiniMap,
 } from "reactflow";
-import { AppThemeGreen } from "../utils/constants";
-import { MdOutlineAutoFixHigh, MdStorage } from "react-icons/md";
+import { AppThemeGreen } from "../utils/constants"
+import AddTransformationNode from "./AddTransformationNode"
+import { FiDatabase } from "react-icons/fi";
 
 const initialNodes = [
   {
     id: "source",
-    data: { icon: MdStorage, label: "Source" },
+    data: { icon: FiDatabase, label: "Source" },
     position: { x: 150, y: 150 },
-    targetPosition: "right",
-    type: "textUpdater",
+    type: "dataDefaultPoint",
+  },
+  {
+    id: "transformation_group",
+    data: { label: "Transformation" },
+    position: { x: 330, y: 120 },
+    className: "light",
+    style: {
+      backgroundColor: "rgba(198,246,213, 0.2)",
+      // backgroundColor: "rgba(240, 255, 244, 0.2)",
+            // backgroundColor: "rgba(226,232,240, 0.2)",
+      width: 200,
+      height: 150,
+    },
+    type: "group",
   },
   {
     id: "add_transformation",
-    data: { icon: MdOutlineAutoFixHigh, label: "Transformation" },
-    position: { x: 350, y: 150 },
+    data: { label: "Transformation", sourcePosition: "right", targetPosition: "left"},
+    position: { x: 25, y: 35 },
     targetPosition: "left",
-    type: "textUpdater",
+    type: "addTransformation",
+    parentId: "transformation_group",
+    extent: "parent",
   },
   {
     id: "destination",
-    data: { icon: MdStorage, label: "Destination" },
+    data: { icon: FiDatabase, label: "Destination" },
     position: { x: 600, y: 150 },
-    type: "textUpdater",
+    type: "dataDefaultPoint",
   },
 ];
 
@@ -46,7 +62,7 @@ const initialEdges = [
     source: "source",
     target: "add_transformation",
     animated: true,
-    sourceHandle: 'a'
+    sourceHandle: "a",
   },
   {
     id: "add_transformation-destination",
@@ -58,12 +74,14 @@ const initialEdges = [
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
-const nodeTypes = { textUpdater: DataNode };
+const nodeTypes = {
+  dataDefaultPoint: DataDefaultNode,
+  addTransformation: AddTransformationNode,
+};
 
 const proOptions = { hideAttribution: true };
 
-
-function CustomFlow() {
+function CreationFlow() {
   const [nodes, setNodes] = useState<any>(initialNodes);
   const [edges, setEdges] = useState<any>(initialEdges);
 
@@ -79,7 +97,7 @@ function CustomFlow() {
   );
   const onConnect = useCallback(
     (connection: Connection) => {
-        console.log("Connection:", connection);
+      console.log("Connection:", connection);
       setEdges((eds: Edge[]) => addEdge(connection, eds)); // Call addEdge here
     },
     [setEdges]
@@ -97,10 +115,11 @@ function CustomFlow() {
       fitView
     >
       <MiniMap />
+      {/* <Background style={{ background: "#FFFFFF" }} /> */}
       <Background style={{ background: AppThemeGreen.Background }} />
       <Controls />
     </ReactFlow>
   );
 }
 
-export default CustomFlow;
+export default CreationFlow;

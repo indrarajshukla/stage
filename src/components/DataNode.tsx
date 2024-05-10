@@ -1,47 +1,34 @@
-import { AddIcon, Icon } from "@chakra-ui/icons";
-import {
-  Box,
-  Button,
-  Center,
-  ComponentWithAs,
-  Flex,
-  IconProps,
-} from "@chakra-ui/react";
+import { Box, Text, Center, Flex } from "@chakra-ui/react";
 import { Handle, Position } from "reactflow";
 
 interface DataNodeProps {
-  data: { icon: ComponentWithAs<"svg", IconProps>; label: string };
+  data: { image: React.ReactNode; label: string, type: string};
 }
 
 const DataNode: React.FC<DataNodeProps> = ({ data }) => {
   return (
-    <Box shadow="md" style={{ background: "white", borderRadius: "5px" }}>
-      {data.label === "Source" && (
-        <Handle type="source" position={Position.Right} id="smt-output" />
-      )}
-      {data.label.includes("ransformation") && (
-        <Handle type="target" id="smt-output" position={Position.Left} />
+    <Box shadow="md" style={{ borderRadius: "25px" }}>
+      {data.type === "source" && (
+        <Handle type="source" position={Position.Right} id="smt-input" />
       )}
 
-      <Center bg="gray.100" p="2">
+      <Center
+        bg="gray.100"
+        p="2"
+        style={{ background: "white", borderRadius: "25px" }}
+      >
         <Flex direction="column">
-          <Center>
-            <Icon as={data.icon} boxSize={8} />
-          </Center>
-          <Box pr="4" pl="4" pt="2" pb="1">
-            <Button variant="outline" leftIcon={<AddIcon />} size="xs">
+          <Center>{data.image}</Center>
+          <Box pr="2" pl="2" pt="2" pb="1">
+            <Text fontSize="sm" fontWeight="bold">
               {data.label}
-            </Button>
+            </Text>
           </Box>
         </Flex>
       </Center>
-      {data.label === "Destination" && (
+      {data.type === "destination" && (
         <Handle type="target" position={Position.Left} id="smt-output" />
       )}
-      {data.label.includes("ransformation") && (
-        <Handle type="source" id="smt-output" position={Position.Right} />
-      )}
-      <Handle type="target" position={Position.Bottom} id="smt-output" />
     </Box>
   );
 };

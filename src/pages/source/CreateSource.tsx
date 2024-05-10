@@ -23,7 +23,7 @@ import { AppThemeGreen } from "../../utils/constants";
 import postgreSql from "../../assets/PostgreSQL.png";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
-import CustomFlow from "../../components/CustomFlow";
+import CustomFlow from "../../components/CreationFlow";
 
 const CreateSource: React.FC = () => {
   const [isSmartEditor, setIsSmartEditor] = useState(false);
