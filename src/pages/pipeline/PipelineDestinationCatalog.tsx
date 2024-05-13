@@ -31,11 +31,11 @@ import pravega from "../../assets/pravega.webp";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
 
-const DestinationCatalog: React.FC = () => {
+const PipelineDestinationCatalog: React.FC = () => {
   const navigate = useNavigate();
 
   const onCardClick = (destinationId: string) => {
-    navigate(`/destination/create_destination/${destinationId}`);
+    navigate(`/pipeline/create_pipeline/destination/new_destination/${destinationId}`);
   };
   return (
     <>
@@ -362,4 +362,4 @@ const DestinationCatalog: React.FC = () => {
   );
 };
 
-export default DestinationCatalog;
+export default PipelineDestinationCatalog;

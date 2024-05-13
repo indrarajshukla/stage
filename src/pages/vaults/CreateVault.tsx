@@ -1,23 +1,18 @@
 import React from "react";
-import {
-  Flex,
-  Spacer,
-  FormControl,
-  FormLabel,
-  Icon,
-  Switch,
-  Button,
-  Box,
-  Text,
-} from "@chakra-ui/react";
-import { BsCodeSquare } from "react-icons/bs";
+import { Flex, Spacer, Button, Box, Text } from "@chakra-ui/react";
 import PageHeader from "../../components/PageHeader";
 import PipelineFlow from "../../components/PipelineFlow";
+import { useNavigate } from "react-router-dom";
 
 const CreateVault: React.FC = () => {
+  const navigate = useNavigate();
+
+  const navigateTo = () => {
+    navigate(`/pipeline/create_pipeline/configure`);
+  };
   return (
     <>
-      <PageHeader title="Create vault" isPadded={false} />
+      <PageHeader title="Configure pipeline" isPadded={false} />
       <Box
         // mr="32" ml="32"
         bg="white"
@@ -33,17 +28,6 @@ const CreateVault: React.FC = () => {
             </Text>
           </Box>
           <Spacer />
-          <Box>
-            <FormControl display="flex" alignItems="center">
-              <FormLabel>
-                <Flex align="center">
-                  <Icon as={BsCodeSquare} w={5} h={5} mr="2" />
-                  Smart editor
-                </Flex>
-              </FormLabel>
-              <Switch id="smart-editor" />
-            </FormControl>
-          </Box>
         </Flex>
         <Box m="2" border="1px" borderColor="gray.500" height="600px">
           <PipelineFlow />
@@ -54,8 +38,8 @@ const CreateVault: React.FC = () => {
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid" isDisabled>
-              Create pipeline
+            <Button variant="solid" onClick={() => navigateTo()}>
+            Configure pipeline
             </Button>
           </Box>
         </Flex>

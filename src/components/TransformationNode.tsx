@@ -14,10 +14,10 @@ interface TransformationNodeProps {
 
 const TransformationNode: React.FC<TransformationNodeProps> = ({ data }) => {
   return (
-    <Box shadow="md" style={{background: "white", borderRadius: "5px"}} >
+    <Box shadow="md" style={{ borderRadius: "5px"}} >
       
       <Handle type="target" id="smt-input" position={data.targetPosition} />
-      <Center bg="gray.100" p="2">
+      <Center bg="gray.100" p="2" style={{ background: "white", borderRadius: "5px" }}>
         <Flex direction="column">
           <Center>
             <Icon as={MdOutlineAutoFixHigh} boxSize={8} />

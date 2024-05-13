@@ -18,8 +18,8 @@ import { AppThemeGreen } from "../utils/constants";
 import AddTransformationNode from "./AddTransformationNode";
 import DataNode from "./DataNode";
 import cassandra from "../assets/Cassandra.png";
-import kafka from "../assets/kafka.png";
 import TransformationNode from "./TransformationNode";
+import apachePulsar from "../assets/apachePulsar.png";
 
 const initialNodes = [
   {
@@ -42,12 +42,12 @@ const initialNodes = [
   {
     id: "transformation_group",
     data: { label: "Transformation" },
-    position: { x: 400, y: 50 },
+    position: { x: 400, y: 100 },
     className: "light",
     style: {
       backgroundColor: "rgba(240, 255, 244, 0.2)",
       width: 250,
-      height: 350,
+      height: 250,
     },
     type: "group",
   },
@@ -58,7 +58,7 @@ const initialNodes = [
       sourcePosition: "bottom",
       targetPosition: "left",
     },
-    position: { x: 50, y: 65 },
+    position: { x: 50, y: 25 },
     type: "transformationNode",
     parentId: "transformation_group",
     extent: "parent",
@@ -70,7 +70,7 @@ const initialNodes = [
       sourcePosition: "right",
       targetPosition: "top",
     },
-    position: { x: 50, y: 205 },
+    position: { x: 50, y: 150 },
     type: "addTransformation",
     parentId: "transformation_group",
     extent: "parent",
@@ -79,9 +79,15 @@ const initialNodes = [
     id: "destination",
     data: {
       image: (
-        <Image w="12" h="12" objectFit="fill" src={kafka} alt="Kafka logo" />
+        <Image
+          w="12"
+          h="12"
+          objectFit="fill"
+          src={apachePulsar}
+          alt="apachePulsar logo"
+        />
       ),
-      label: "Kafka",
+      label: "Apache pulsar",
       type: "destination",
     },
     position: { x: 700, y: 150 },
@@ -153,6 +159,7 @@ function PipelineFlow() {
       onConnect={onConnect}
       nodeTypes={nodeTypes}
       proOptions={proOptions}
+      maxZoom={1.5}
       fitView
     >
       <MiniMap />

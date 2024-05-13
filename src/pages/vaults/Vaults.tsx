@@ -14,7 +14,7 @@ const Vaults: React.FC = () => {
   };
   return (
     <>
-      <PageHeading title={"Sink"} />
+      <PageHeading title={"Vaults"} />
       <EmptyState
         icon={<Icon as={MdOutlineVpnKey} boxSize={20} />}
         title="No vault available"

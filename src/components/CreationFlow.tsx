@@ -14,63 +14,24 @@ import ReactFlow, {
   Controls,
   MiniMap,
 } from "reactflow";
-import { AppThemeGreen } from "../utils/constants"
-import AddTransformationNode from "./AddTransformationNode"
+import { AppThemeGreen } from "../utils/constants";
+import AddTransformationNode from "./AddTransformationNode";
 import { FiDatabase } from "react-icons/fi";
-
-const initialNodes = [
-  {
-    id: "source",
-    data: { icon: FiDatabase, label: "Source" },
-    position: { x: 150, y: 150 },
-    type: "dataDefaultPoint",
-  },
-  {
-    id: "transformation_group",
-    data: { label: "Transformation" },
-    position: { x: 330, y: 120 },
-    className: "light",
-    style: {
-      backgroundColor: "rgba(198,246,213, 0.2)",
-      // backgroundColor: "rgba(240, 255, 244, 0.2)",
-            // backgroundColor: "rgba(226,232,240, 0.2)",
-      width: 200,
-      height: 150,
-    },
-    type: "group",
-  },
-  {
-    id: "add_transformation",
-    data: { label: "Transformation", sourcePosition: "right", targetPosition: "left"},
-    position: { x: 25, y: 35 },
-    targetPosition: "left",
-    type: "addTransformation",
-    parentId: "transformation_group",
-    extent: "parent",
-  },
-  {
-    id: "destination",
-    data: { icon: FiDatabase, label: "Destination" },
-    position: { x: 600, y: 150 },
-    type: "dataDefaultPoint",
-  },
-];
-
-const initialEdges = [
-  {
-    id: "source-add_transformation",
-    source: "source",
-    target: "add_transformation",
-    animated: true,
-    sourceHandle: "a",
-  },
-  {
-    id: "add_transformation-destination",
-    source: "add_transformation",
-    target: "destination",
-    animated: true,
-  },
-];
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Box,
+} from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
+import DestinationTable from "./DestinationTable";
+import { useNavigate } from "react-router-dom";
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -82,6 +43,100 @@ const nodeTypes = {
 const proOptions = { hideAttribution: true };
 
 function CreationFlow() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
+
+  const navigateTo = (navigateTo: string) => {
+    navigate(`/pipeline/create_pipeline/${navigateTo}`);
+  };
+
+  const initialNodes = [
+    {
+      id: "source",
+      data: {
+        icon: FiDatabase,
+        label: "Source",
+        type: "source",
+        action: (
+          <Button
+            variant="outline"
+            onClick={onOpen}
+            leftIcon={<AddIcon />}
+            size="xs"
+          >
+            Source
+          </Button>
+        ),
+      },
+      position: { x: 150, y: 150 },
+      type: "dataDefaultPoint",
+    },
+    {
+      id: "transformation_group",
+      data: { label: "Transformation" },
+      position: { x: 330, y: 120 },
+      // className: "light",
+      style: {
+        // backgroundColor: "rgba(198,246,213, 0.2)",
+        // backgroundColor: "rgba(240, 255, 244, 0.2)",
+        backgroundColor: "rgba(203,213,224, 0.2)",
+        width: 200,
+        height: 150,
+      },
+      type: "group",
+    },
+    {
+      id: "add_transformation",
+      data: {
+        label: "Transformation",
+        sourcePosition: "right",
+        targetPosition: "left",
+      },
+      position: { x: 25, y: 35 },
+      targetPosition: "left",
+      type: "addTransformation",
+      parentId: "transformation_group",
+      extent: "parent",
+    },
+    {
+      id: "destination",
+      data: {
+        icon: FiDatabase,
+        label: "Destination",
+        type: "destination",
+        action: (
+          <Button
+            variant="outline"
+            onClick={() => navigateTo("destination")}
+            leftIcon={<AddIcon />}
+            size="xs"
+          >
+            Destination
+          </Button>
+        ),
+      },
+      position: { x: 600, y: 150 },
+      type: "dataDefaultPoint",
+    },
+  ];
+
+  const initialEdges = [
+    {
+      id: "source-add_transformation",
+      source: "source",
+      target: "add_transformation",
+      animated: true,
+      sourceHandle: "a",
+    },
+    {
+      id: "add_transformation-destination",
+      source: "add_transformation",
+      target: "destination",
+      animated: true,
+    },
+  ];
+
   const [nodes, setNodes] = useState<any>(initialNodes);
   const [edges, setEdges] = useState<any>(initialEdges);
 
@@ -104,21 +159,39 @@ function CreationFlow() {
   );
 
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      nodeTypes={nodeTypes}
-      proOptions={proOptions}
-      fitView
-    >
-      <MiniMap />
-      {/* <Background style={{ background: "#FFFFFF" }} /> */}
-      <Background style={{ background: AppThemeGreen.Background }} />
-      <Controls />
-    </ReactFlow>
+    <>
+      <ReactFlow
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        nodeTypes={nodeTypes}
+        proOptions={proOptions}
+        fitView
+        maxZoom={1.5}
+      >
+        <MiniMap />
+        {/* <Background style={{ background: "#FFFFFF" }} /> */}
+        <Background style={{ background: AppThemeGreen.Background }} />
+        <Controls />
+      </ReactFlow>
+      <Modal onClose={onClose} size="xl" isOpen={isOpen}>
+        <ModalOverlay />
+        <ModalContent style={{ maxWidth: "80vw" }}>
+          <ModalHeader>Configure source</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Box>
+              <DestinationTable />
+            </Box>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Select</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
 

@@ -4,20 +4,15 @@ import {
   Box,
   Button,
   Flex,
-  FormControl,
-  FormLabel,
-  Icon,
   Spacer,
-  Switch,
   Text,
 } from "@chakra-ui/react";
-import { BsCodeSquare } from "react-icons/bs";
 import CreationFlow from "../../components/CreationFlow";
 
 const CreatePipeline: React.FC = () => {
   return (
     <>
-      <PageHeader title="Create Pipeline" isPadded={false} />
+      <PageHeader title="Configure Pipeline" isPadded={false} />
       <Box
         // mr="32" ml="32"
         bg="white"
@@ -33,7 +28,7 @@ const CreatePipeline: React.FC = () => {
             </Text>
           </Box>
           <Spacer />
-          <Box>
+          {/* <Box>
             <FormControl display="flex" alignItems="center">
               <FormLabel>
                 <Flex align="center">
@@ -43,7 +38,7 @@ const CreatePipeline: React.FC = () => {
               </FormLabel>
               <Switch id="smart-editor" />
             </FormControl>
-          </Box>
+          </Box> */}
         </Flex>
         <Box m="2" border="1px" borderColor="gray.500" height="600px">
           <CreationFlow />
@@ -55,7 +50,7 @@ const CreatePipeline: React.FC = () => {
           <Spacer />
           <Box>
             <Button variant="solid" isDisabled>
-              Create pipeline
+              Configure pipeline
             </Button>
           </Box>
         </Flex>

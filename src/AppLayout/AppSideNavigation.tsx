@@ -13,7 +13,7 @@ import {
 import React, { useState } from "react";
 import debeziumLogo from "./../assets/dbz.svg";
 import { routes } from "../routes";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { SunIcon } from "@chakra-ui/icons";
 import { AppThemeGreen } from "../utils/constants";
 
@@ -21,6 +21,11 @@ interface SideNavigationProps {}
 
 const SideNavigation: React.FC<SideNavigationProps> = () => {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const takeMeHome = () => {
+    navigate(`/`);
+  };
   return (
     <GridItem
       bg="white"
@@ -30,7 +35,7 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
       display="flex"
       flexDirection="column"
     >
-      <Center h="70px" mb="20px">
+      <Center h="70px" mb="20px" onClick={takeMeHome} cursor="pointer">
         <Image
           boxSize="35px"
           objectFit="cover"

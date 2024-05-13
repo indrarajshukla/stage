@@ -21,6 +21,10 @@ import DestinationCatalog from "./pages/destination/DestinationCatalog";
 import CreateDestination from "./pages/destination/CreateDestination";
 import CreatePipeline from "./pages/pipeline/CreatePipeline";
 import CreateVault from "./pages/vaults/CreateVault";
+import PipelineSource from "./pages/pipeline/PipelineSource";
+import PipelineDestination from "./pages/pipeline/PipelineDestination";
+import PipelineCreateDestination from "./pages/pipeline/PipelineCreateDestination";
+import ConfigurePipeline from "./pages/pipeline/ConfigurePipeline";
 
 export interface IAppRoute {
   label: string;
@@ -120,6 +124,38 @@ const routes: AppRouteConfig[] = [
     component: CreatePipeline,
     label: "Create Pipeline",
     path: "/pipeline/create_pipeline",
+    title: `${AppBranding} | Pipeline`,
+    isSubPath: true,
+    icon: MdSwapCalls,
+  },
+  {
+    component: ConfigurePipeline,
+    label: "Create Pipeline",
+    path: "/pipeline/create_pipeline/configure",
+    title: `${AppBranding} | Pipeline`,
+    isSubPath: true,
+    icon: MdSwapCalls,
+  },
+  {
+    component: PipelineSource,
+    label: "Pipeline source",
+    path: "/pipeline/create_pipeline/source",
+    title: `${AppBranding} | Pipeline`,
+    isSubPath: true,
+    icon: MdSwapCalls,
+  },
+  {
+    component: PipelineDestination,
+    label: "Pipeline destination",
+    path: "/pipeline/create_pipeline/destination",
+    title: `${AppBranding} | Pipeline`,
+    isSubPath: true,
+    icon: MdSwapCalls,
+  },
+  {
+    component: PipelineCreateDestination,
+    label: "Pipeline destination",
+    path: "/pipeline/create_pipeline/destination/new_destination/:destinationId",
     title: `${AppBranding} | Pipeline`,
     isSubPath: true,
     icon: MdSwapCalls,

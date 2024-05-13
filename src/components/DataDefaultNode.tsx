@@ -1,7 +1,6 @@
-import { AddIcon, Icon } from "@chakra-ui/icons";
+import { Icon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Center,
   ComponentWithAs,
   Flex,
@@ -10,13 +9,19 @@ import {
 import { Handle, Position } from "reactflow";
 
 interface DataDefaultNodeProps {
-  data: { icon: ComponentWithAs<"svg", IconProps>; label: string };
+  data: { icon: ComponentWithAs<"svg", IconProps>; label: string, type: string, action: React.ReactNode};
 }
 
 const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
+  // const navigate = useNavigate();
+
+  // const navigateTo = (navigateTo: string) => {
+  //   navigate(`/pipeline/create_pipeline/${navigateTo}`);
+  // };
+  
   return (
     <Box shadow="md" style={{ borderRadius: "25px" }}>
-      {data.label === "Source" && (
+      {data.type === "source" && (
         <Handle type="source" position={Position.Right} id="smt-input" />
       )}
 
@@ -26,13 +31,14 @@ const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
             <Icon as={data.icon} boxSize={12}  />
           </Center>
           <Box pr="2" pl="2" pt="2" pb="1">
-            <Button variant="outline" leftIcon={<AddIcon />} size="xs">
+            {/* <Button variant="outline" leftIcon={<AddIcon />} size="xs" onClick={() => navigateTo(data.type)}>
               {data.label}
-            </Button>
+            </Button> */}
+            {data.action}
           </Box>
         </Flex>
       </Center>
-      {data.label === "Destination" && (
+      {data.type === "destination" && (
         <Handle type="target" position={Position.Left} id="smt-output" />
       )}
     </Box>

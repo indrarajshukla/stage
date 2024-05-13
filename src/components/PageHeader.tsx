@@ -19,6 +19,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, isPadded }) => {
       >
         {title}
       </Heading>
+      {/* <Text>Select a already configured destination from the list provided below or create a new destination. </Text> */}
     </>
   );
 };
