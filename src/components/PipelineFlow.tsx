@@ -34,6 +34,7 @@ const initialNodes = [
     },
     position: { x: 250, y: 150 },
     type: "dataNode",
+    draggable: false,
   },
   {
     id: "transformation_group",
@@ -46,6 +47,7 @@ const initialNodes = [
       height: 250,
     },
     type: "group",
+    draggable: false,
   },
   {
     id: "transformation_1",
@@ -58,6 +60,7 @@ const initialNodes = [
     type: "transformationNode",
     parentId: "transformation_group",
     extent: "parent",
+    draggable: false,
   },
   {
     id: "add_transformation",
@@ -70,6 +73,7 @@ const initialNodes = [
     type: "addTransformation",
     parentId: "transformation_group",
     extent: "parent",
+    draggable: false,
   },
   {
     id: "destination",
@@ -85,6 +89,7 @@ const initialNodes = [
       ),
       label: "Apache pulsar",
       type: "destination",
+      draggable: false,
     },
     position: { x: 700, y: 150 },
     type: "dataNode",
@@ -159,8 +164,7 @@ function PipelineFlow() {
       fitView
       minZoom={1.5}
       panOnDrag={false}
-    >
-    </ReactFlow>
+    ></ReactFlow>
   );
 }
 

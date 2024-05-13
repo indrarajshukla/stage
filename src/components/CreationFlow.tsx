@@ -21,9 +21,9 @@ import {
   ModalCloseButton,
   ModalBody,
   ModalFooter,
-  Button,
   useDisclosure,
   Box,
+  Button,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import DestinationTable from "./DestinationTable";
@@ -96,6 +96,7 @@ function CreationFlow() {
       type: "addTransformation",
       parentId: "transformation_group",
       extent: "parent",
+      draggable: false,
     },
     {
       id: "destination",

@@ -17,9 +17,9 @@ const Vaults: React.FC = () => {
       <PageHeading title={"Vaults"} />
       <EmptyState
         icon={<Icon as={MdOutlineVpnKey} boxSize={20} />}
-        title="No vault available"
+        title="Coming soon!"
         message="No vault configured for this cluster, add a vault."
-        action={<Button leftIcon={<AddIcon />} onClick={navigateToCreate}>New vault</Button>}
+        action={<Button leftIcon={<AddIcon />} onClick={navigateToCreate} isDisabled>New vault</Button>}
       />
     </>
   );

@@ -9,10 +9,9 @@ import PageHeader from "../../components/PageHeader";
 import { useQuery } from "react-query";
 
 const fetchSources = async (): Promise<any[]> => {
-  const response = await fetch('http://localhost:8080/api/sources', {
-    mode: 'no-cors', // Not recommended for production
+  const response = await fetch("http://localhost:8080/api/sources", {
+    mode: "no-cors", // Not recommended for production
   });
-  // const response = await fetch(`http://localhost:8080/api/sources`);
   return response.json();
 };
 
@@ -22,14 +21,12 @@ const Source: React.FC = () => {
   const updateIsEmpty = () => {
     navigate("/source/catalog");
   };
-  // Access the client
-  // const queryClient = useQueryClient()
 
-  const { data, isLoading, error } = useQuery('sources', fetchSources);
+  const { data, isLoading, error } = useQuery("sources", fetchSources);
 
   const sources = data;
 
-  console.log("api call:",sources,isLoading,error);
+  console.log("api call:", sources, isLoading, error);
 
   return (
     <>
