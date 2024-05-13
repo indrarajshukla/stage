@@ -15,7 +15,7 @@ const DataNode: React.FC<DataNodeProps> = ({ data }) => {
       <Center
         bg="gray.100"
         p="2"
-        style={{ background: "white", borderRadius: "25px" }}
+        style={{ background: `white`, borderRadius: "25px" }}
       >
         <Flex direction="column">
           <Center>{data.image}</Center>

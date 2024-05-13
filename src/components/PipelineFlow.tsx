@@ -9,12 +9,8 @@ import ReactFlow, {
   EdgeChange,
   Edge,
   Connection,
-  Background,
-  Controls,
-  MiniMap,
 } from "reactflow";
 import { Image } from "@chakra-ui/react";
-import { AppThemeGreen } from "../utils/constants";
 import AddTransformationNode from "./AddTransformationNode";
 import DataNode from "./DataNode";
 import cassandra from "../assets/Cassandra.png";
@@ -45,7 +41,7 @@ const initialNodes = [
     position: { x: 400, y: 100 },
     className: "light",
     style: {
-      backgroundColor: "rgba(240, 255, 244, 0.2)",
+      backgroundColor: "rgba(203,213,224, 0.2)",
       width: 250,
       height: 250,
     },
@@ -161,10 +157,9 @@ function PipelineFlow() {
       proOptions={proOptions}
       maxZoom={1.5}
       fitView
+      minZoom={1.5}
+      panOnDrag={false}
     >
-      <MiniMap />
-      <Background style={{ background: AppThemeGreen.Background }} />
-      <Controls />
     </ReactFlow>
   );
 }

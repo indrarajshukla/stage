@@ -133,7 +133,7 @@ const ConfigurePipeline: React.FC = () => {
                   <GridItem>
                     <FormLabel>
                       <Flex align="center">
-                        mongodb.ssl.enabled
+                        Log level
                         <Center
                           ml="4"
                           bg="white"
@@ -212,7 +212,7 @@ const ConfigurePipeline: React.FC = () => {
 
         <Flex pt="4">
           <Box>
-            <Button variant="outline">Cancel</Button>
+            <Button variant="outline">Back</Button>
           </Box>
           <Spacer />
           <Box>

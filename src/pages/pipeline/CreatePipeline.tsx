@@ -12,7 +12,7 @@ import CreationFlow from "../../components/CreationFlow";
 const CreatePipeline: React.FC = () => {
   return (
     <>
-      <PageHeader title="Configure Pipeline" isPadded={false} />
+      <PageHeader title="Pipeline designer" isPadded={false} />
       <Box
         // mr="32" ml="32"
         bg="white"
@@ -40,7 +40,7 @@ const CreatePipeline: React.FC = () => {
             </FormControl>
           </Box> */}
         </Flex>
-        <Box m="2" border="1px" borderColor="gray.500" height="600px">
+        <Box m="2" height="600px">
           <CreationFlow />
         </Box>
         <Flex pt="4">

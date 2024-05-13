@@ -10,11 +10,7 @@ import ReactFlow, {
   EdgeChange,
   Edge,
   Connection,
-  Background,
-  Controls,
-  MiniMap,
 } from "reactflow";
-import { AppThemeGreen } from "../utils/constants";
 import AddTransformationNode from "./AddTransformationNode";
 import { FiDatabase } from "react-icons/fi";
 import {
@@ -71,6 +67,7 @@ function CreationFlow() {
       },
       position: { x: 150, y: 150 },
       type: "dataDefaultPoint",
+      draggable: false,
     },
     {
       id: "transformation_group",
@@ -85,6 +82,7 @@ function CreationFlow() {
         height: 150,
       },
       type: "group",
+      draggable: false,
     },
     {
       id: "add_transformation",
@@ -118,6 +116,7 @@ function CreationFlow() {
       },
       position: { x: 600, y: 150 },
       type: "dataDefaultPoint",
+      draggable: false,
     },
   ];
 
@@ -170,11 +169,13 @@ function CreationFlow() {
         proOptions={proOptions}
         fitView
         maxZoom={1.5}
+        minZoom={1.5}
+        panOnDrag={false}
       >
-        <MiniMap />
+        {/* <MiniMap /> */}
         {/* <Background style={{ background: "#FFFFFF" }} /> */}
-        <Background style={{ background: AppThemeGreen.Background }} />
-        <Controls />
+        {/* <Background style={{ background: AppThemeGreen.Background }} /> */}
+        {/* <Controls /> */}
       </ReactFlow>
       <Modal onClose={onClose} size="xl" isOpen={isOpen}>
         <ModalOverlay />

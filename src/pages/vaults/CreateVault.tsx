@@ -12,7 +12,7 @@ const CreateVault: React.FC = () => {
   };
   return (
     <>
-      <PageHeader title="Configure pipeline" isPadded={false} />
+      <PageHeader title="Pipeline designer" isPadded={false} />
       <Box
         // mr="32" ml="32"
         bg="white"
@@ -29,7 +29,7 @@ const CreateVault: React.FC = () => {
           </Box>
           <Spacer />
         </Flex>
-        <Box m="2" border="1px" borderColor="gray.500" height="600px">
+        <Box m="2" height="600px">
           <PipelineFlow />
         </Box>
         <Flex pt="4">

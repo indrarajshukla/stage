@@ -112,7 +112,7 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink href="#">Configure pipeline</BreadcrumbLink>
+              <BreadcrumbLink href="#">Pipeline designer</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
         );
@@ -128,7 +128,7 @@ const AppBreadcrumb: React.FC = () => {
               </BreadcrumbItem>
   
               <BreadcrumbItem>
-                <BreadcrumbLink href="#">Configure pipeline</BreadcrumbLink>
+                <BreadcrumbLink href="#">Pipeline designer</BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem >
                 <BreadcrumbLink href="#">Create pipeline</BreadcrumbLink>
@@ -147,7 +147,7 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-              <BreadcrumbLink href="/pipeline/create_pipeline">Configure pipeline</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/create_pipeline">Pipeline designer</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">Destination</BreadcrumbLink>
@@ -166,7 +166,7 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-              <BreadcrumbLink href="/pipeline/create_pipeline">Configure pipeline</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/create_pipeline">Pipeline designer</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem >
               <BreadcrumbLink href="/pipeline/create_pipeline/destination">Destination</BreadcrumbLink>

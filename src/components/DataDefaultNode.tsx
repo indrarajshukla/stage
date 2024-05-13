@@ -25,7 +25,7 @@ const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
         <Handle type="source" position={Position.Right} id="smt-input" />
       )}
 
-      <Center bg="gray.100" p="2" style={{ background: "white", borderRadius: "25px" }}>
+      <Center bg="gray.100" p="2" style={{ background: `white`, borderRadius: "25px" }}>
         <Flex direction="column">
           <Center>
             <Icon as={data.icon} boxSize={12}  />
