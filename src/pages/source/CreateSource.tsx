@@ -19,23 +19,83 @@ import {
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
 import { AppThemeGreen } from "../../utils/constants";
-import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 import CustomFlow from "../../components/CreationFlow";
 import CatalogImage from "../../components/CatalogImage";
 import { useNavigate, useParams } from "react-router-dom";
+import { convertMapToObject } from "../../utils/helpers";
+import { createSource } from "../../utils/apis";
 
 const CreateSource: React.FC = () => {
   const { sourceId } = useParams<{ sourceId: string }>();
   const navigate = useNavigate();
 
+  const [isSmartEditor, setIsSmartEditor] = useState(false);
+
   const [sourceName, setSourceName] = useState<string>("");
   const [detail, setDetail] = useState<string>("");
   const [sourceNameError, setSourceNameError] = useState<string>("");
-  const [isSmartEditor, setIsSmartEditor] = useState(false);
+
+  const [properties, setProperties] = useState<
+    Map<string, { key: string; value: string }>
+  >(new Map([["key0", { key: "", value: "" }]]));
+  const [keyCount, setKeyCount] = useState<number>(1);
+
+  const handleAddProperty = () => {
+    const newKey = `key${keyCount}`;
+    setProperties(
+      (prevProperties) =>
+        new Map(prevProperties.set(newKey, { key: "", value: "" }))
+    );
+    setKeyCount((prevCount) => prevCount + 1);
+  };
+
+  const handleDeleteProperty = (key: string) => {
+    setProperties((prevProperties) => {
+      const newProperties = new Map(prevProperties);
+      newProperties.delete(key);
+      return newProperties;
+    });
+  };
+
+  const handlePropertyChange = (
+    key: string,
+    type: "key" | "value",
+    newValue: string
+  ) => {
+    setProperties((prevProperties) => {
+      const newProperties = new Map(prevProperties);
+      const property = newProperties.get(key);
+      if (property) {
+        if (type === "key") property.key = newValue;
+        else if (type === "value") property.value = newValue;
+        newProperties.set(key, property);
+      }
+      return newProperties;
+    });
+  };
 
   const navigateTo = (url: string) => {
     navigate(url);
+  };
+
+  const createNewSource = async () => {
+    const payload = {
+      type: sourceId,
+      schema: "schema321",
+      vaults: [],
+      config: convertMapToObject(properties),
+      name: sourceName,
+    };
+
+    const response = await createSource(payload);
+
+    if (response.error) {
+      console.error("Failed to create source:", response.error);
+    } else {
+      console.log("Source created successfully:", response.data);
+    }
   };
 
   const handleCreateSource = () => {
@@ -48,6 +108,7 @@ const CreateSource: React.FC = () => {
     console.log("Detail:", detail);
 
     setSourceNameError("");
+    createNewSource();
     navigateTo("/source");
   };
 
@@ -135,7 +196,7 @@ const CreateSource: React.FC = () => {
                 pt="2"
                 borderRadius="lg"
               >
-                <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
+                {/* <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
                   <GridItem>
                     <FormLabel>
                       <Flex align="center">
@@ -175,35 +236,60 @@ const CreateSource: React.FC = () => {
                       </Tooltip>
                     </Center>
                   </GridItem>
-                </Grid>
-                <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
-                  <GridItem>
-                    <Input type="text" bg="white" placeholder="Property key" />
-                  </GridItem>
-                  <GridItem>
-                    <Input
-                      type="text"
-                      bg="white"
-                      placeholder="Property value"
-                    />
-                  </GridItem>
-                  <GridItem>
-                    <Center height="100%">
-                      <Tooltip label="Delete property" aria-label="A tooltip">
-                        <Center
-                          bg="white"
-                          height="100%"
-                          width="50px"
-                          borderRadius="md"
-                          cursor="pointer"
-                        >
-                          <DeleteIcon />
-                        </Center>
-                      </Tooltip>
-                    </Center>
-                  </GridItem>
-                </Grid>
-                <Button leftIcon={<AddIcon />} variant="outline" mb="4">
+                </Grid> */}
+                {Array.from(properties.keys()).map((key) => (
+                  <Grid
+                    key={key}
+                    gap={6}
+                    templateColumns="5.5fr 5.5fr 1fr"
+                    pb="4"
+                  >
+                    <GridItem>
+                      <Input
+                        type="text"
+                        bg="white"
+                        placeholder="Property key"
+                        value={properties.get(key)?.key || ""}
+                        onChange={(e) =>
+                          handlePropertyChange(key, "key", e.target.value)
+                        }
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <Input
+                        type="text"
+                        bg="white"
+                        placeholder="Property value"
+                        value={properties.get(key)?.value || ""}
+                        onChange={(e) =>
+                          handlePropertyChange(key, "value", e.target.value)
+                        }
+                      />
+                    </GridItem>
+                    <GridItem>
+                      <Center height="100%">
+                        <Tooltip label="Delete property" aria-label="A tooltip">
+                          <Center
+                            bg="white"
+                            height="100%"
+                            width="50px"
+                            borderRadius="md"
+                            cursor="pointer"
+                            onClick={() => handleDeleteProperty(key)}
+                          >
+                            <DeleteIcon />
+                          </Center>
+                        </Tooltip>
+                      </Center>
+                    </GridItem>
+                  </Grid>
+                ))}
+                <Button
+                  leftIcon={<AddIcon />}
+                  variant="outline"
+                  mb="4"
+                  onClick={handleAddProperty}
+                >
                   Add property
                 </Button>
               </Box>
