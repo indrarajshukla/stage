@@ -2,7 +2,7 @@
 import React from "react";
 import Home from "./pages/home/Home";
 import { AppBranding } from "./utils/constants";
-import Source from "./pages/source/Source";
+import Sources from "./pages/source/Sources";
 import Destination from "./pages/destination/Destination";
 import Pipeline from "./pages/pipeline/Pipeline";
 import Setting from "./pages/setting/Setting";
@@ -49,7 +49,7 @@ const routes: AppRouteConfig[] = [
   },
 
   {
-    component: Source,
+    component: Sources,
     label: "Source",
     path: "/source",
     title: `${AppBranding} | Source`,

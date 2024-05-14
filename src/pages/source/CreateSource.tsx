@@ -8,7 +8,6 @@ import {
   FormLabel,
   Switch,
   Icon,
-  Image,
   Input,
   FormHelperText,
   Grid,
@@ -20,18 +19,43 @@ import {
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
 import { AppThemeGreen } from "../../utils/constants";
-import postgreSql from "../../assets/PostgreSQL.png";
 import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 import CustomFlow from "../../components/CreationFlow";
+import CatalogImage from "../../components/CatalogImage";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CreateSource: React.FC = () => {
+  const { sourceId } = useParams<{ sourceId: string }>();
+  const navigate = useNavigate();
+
+  const [sourceName, setSourceName] = useState<string>("");
+  const [detail, setDetail] = useState<string>("");
+  const [sourceNameError, setSourceNameError] = useState<string>("");
   const [isSmartEditor, setIsSmartEditor] = useState(false);
+
+  const navigateTo = (url: string) => {
+    navigate(url);
+  };
+
+  const handleCreateSource = () => {
+    if (!sourceName.trim()) {
+      setSourceNameError("Source name cannot be empty");
+      return;
+    }
+
+    console.log("Source Name:", sourceName);
+    console.log("Detail:", detail);
+
+    setSourceNameError("");
+    navigateTo("/source");
+  };
+
   return (
     <>
       <PageHeader title="Create source" isPadded />
       <Box mr="32" ml="32" bg="white" borderRadius="lg" p="4" shadow="md">
-        <Flex borderBottom="1px solid" pb="1" >
+        <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
               Fill the form below or use the smart editor to setup a new source
@@ -68,29 +92,31 @@ const CreateSource: React.FC = () => {
                 pt="2"
                 borderRadius="lg"
               >
-                <FormControl isRequired>
+                <FormControl isRequired pb="1">
                   <FormLabel>Source type</FormLabel>
-                  <Box
-                    width="50px"
-                    // pl="4"
-                    // display="flex"
-                    // alignItems="center"
-                    // justifyContent="center"
-                  >
-                    <Image
-                      objectFit="fill"
-                      src={postgreSql}
-                      alt="postgre Sql"
-                    />
+                  <Box width="50px">
+                    <CatalogImage type={sourceId || ""} />
                   </Box>
                 </FormControl>
-                <FormControl isRequired>
+                <FormControl isRequired pb="1">
                   <FormLabel>Source name</FormLabel>
-                  <Input type="text" bg="white" />
+                  <Input
+                    type="text"
+                    bg="white"
+                    isInvalid={!!sourceNameError}
+                    errorBorderColor="crimson"
+                    value={sourceName}
+                    onChange={(e) => setSourceName(e.target.value)}
+                  />
                 </FormControl>
-                <FormControl>
+                <FormControl pb="1">
                   <FormLabel>Detail</FormLabel>
-                  <Input type="text" bg="white" />
+                  <Input
+                    type="text"
+                    bg="white"
+                    value={detail}
+                    onChange={(e) => setDetail(e.target.value)}
+                  />
                   <FormHelperText>
                     Add a one liner to describe your source or what you plan to
                     capture.
@@ -178,7 +204,6 @@ const CreateSource: React.FC = () => {
                   </GridItem>
                 </Grid>
                 <Button leftIcon={<AddIcon />} variant="outline" mb="4">
-                  {" "}
                   Add property
                 </Button>
               </Box>
@@ -192,11 +217,18 @@ const CreateSource: React.FC = () => {
 
         <Flex pt="4">
           <Box>
-            <Button variant="outline">Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => navigateTo("/source/catalog")}
+            >
+              Cancel
+            </Button>
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid">Create source</Button>
+            <Button variant="solid" onClick={handleCreateSource}>
+              Create source
+            </Button>
           </Box>
         </Flex>
       </Box>

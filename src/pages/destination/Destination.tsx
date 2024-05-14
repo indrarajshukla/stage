@@ -5,9 +5,15 @@ import PageHeading from "../../components/PageHeading";
 import DestinationTable from "../../components/DestinationTable";
 import Toolbar from "../../components/Toolbar";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { fetchDestination } from "../../utils/apis";
 
 const Destination: React.FC = () => {
   const navigate = useNavigate();
+
+  const { data, isLoading, error } = useQuery("sources", fetchDestination);
+
+  console.log("api call:", data, isLoading, error);
 
   const updateIsEmpty = () => {
     navigate("/destination/catalog");
