@@ -100,7 +100,7 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
           </Breadcrumb>
         );
-      case route === "/pipeline/create_pipeline":
+      case route === "/pipeline/pipeline_designer":
         return (
           <Breadcrumb
             spacing="8px"
@@ -116,7 +116,7 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
           </Breadcrumb>
         );
-        case route === "/pipeline/create_pipeline/configure":
+        case route === "/pipeline/pipeline_designer/configure":
           return (
             <Breadcrumb
               spacing="8px"
@@ -135,7 +135,7 @@ const AppBreadcrumb: React.FC = () => {
               </BreadcrumbItem>
             </Breadcrumb>
           );
-      case route === "/pipeline/create_pipeline/destination":
+      case route === "/pipeline/pipeline_designer/destination":
         return (
           <Breadcrumb
             spacing="8px"
@@ -147,14 +147,14 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-              <BreadcrumbLink href="/pipeline/create_pipeline">Pipeline designer</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/pipeline_designer">Pipeline designer</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">Destination</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
         );
-        case route.includes("/pipeline/create_pipeline/destination/new_destination"):
+        case route.includes("/pipeline/pipeline_designer/destination/new_destination"):
         return (
           <Breadcrumb
             spacing="8px"
@@ -166,10 +166,10 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-              <BreadcrumbLink href="/pipeline/create_pipeline">Pipeline designer</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/pipeline_designer">Pipeline designer</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem >
-              <BreadcrumbLink href="/pipeline/create_pipeline/destination">Destination</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/pipeline_designer/destination">Destination</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">Create destination</BreadcrumbLink>

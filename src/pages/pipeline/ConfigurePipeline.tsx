@@ -8,35 +8,118 @@ import {
   FormLabel,
   Switch,
   Icon,
-  Image,
   Input,
   FormHelperText,
   Grid,
   GridItem,
   Button,
-  Center,
-  Tooltip,
   HStack,
+  Select,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
 import { AppThemeGreen } from "../../utils/constants";
-import postgreSql from "../../assets/my-sql.png";
-import eventHub from "../../assets/kafka.png";
-import { AddIcon, ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
-import CustomFlow from "../../components/CreationFlow";
+import { useData } from "../DataContext";
+import ConnectorTypeImage from "../../components/ConnectorTypeImage";
+import { useNavigate } from "react-router-dom";
+import { createPost } from "../../utils/apis";
 
 const ConfigurePipeline: React.FC = () => {
+  const navigate = useNavigate();
+
   const [isSmartEditor, setIsSmartEditor] = useState(false);
+
+  const [pipelineName, setPipelineName] = useState<string>("");
+  const [detail, setDetail] = useState<string>("");
+  const [pipelineNameError, setPipelineNameError] = useState<string>("");
+
+  const [logLevel, setLogLevel] = useState<string>("");
+  const [logLevelError, setLogLevelError] = useState<string>("");
+
+  const { source, destination } = useData();
+
+  const navigateTo = (url: string) => {
+    navigate(url);
+  };
+
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.target.value.trim() !== "" && setPipelineNameError("");
+    setPipelineName(event.target.value);
+  };
+
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.target.value.trim() !== "" && setLogLevelError("");
+    setLogLevel(event.target.value);
+  };
+
+  const createNewPipeline = async () => {
+    const payload = {
+      name: pipelineName,
+      source: {
+        name: source?.name,
+        id: source?.id,
+      },
+      destination: {
+        name: destination?.name,
+        id: destination?.id,
+      },
+      transforms: [],
+      logLevel: logLevel,
+    };
+
+    const response = await createPost(payload);
+
+    if (response.error) {
+      console.error("Failed to create source:", response.error);
+    } else {
+      console.log("Source created successfully:", response.data);
+    }
+  };
+
+  const handleCreatePipeline = () => {
+    if (!pipelineName.trim()) {
+      setPipelineNameError("Source name cannot be empty");
+      return;
+    }
+    if (!logLevel.trim()) {
+      setLogLevelError("logLevel cannot be empty");
+      return;
+    }
+
+    const payload = {
+      name: pipelineName,
+      source: {
+        name: source?.name,
+        id: source?.id,
+      },
+      destination: {
+        name: destination?.name,
+        id: destination?.id,
+      },
+      transforms: [],
+      logLevel: logLevel,
+    };
+
+    console.log("Payload:", payload);
+
+
+
+    setPipelineNameError("");
+    setLogLevelError("");
+    createNewPipeline();
+    // navigateTo("/pipeline");
+  };
   return (
     <>
       <PageHeader title="Create pipeline" isPadded />
       <Box mr="32" ml="32" bg="white" borderRadius="lg" p="4" shadow="md">
-        <Flex borderBottom="1px solid" pb="1" >
+        <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
-              Fill the form below or use the smart editor to setup a new pipeline.
+              Fill the form below or use the smart editor to setup a new
+              pipeline.
             </Text>
           </Box>
           <Spacer />
@@ -72,48 +155,39 @@ const ConfigurePipeline: React.FC = () => {
                 <FormControl isRequired>
                   <FormLabel>Pipeline</FormLabel>
                   <HStack>
-                  <Box
-                    width="35px"
-                    // pl="4"
-                    // display="flex"
-                    // alignItems="center"
-                    // justifyContent="center"
-                  >
-                    
-                    <Image
-                      objectFit="fill"
-                      src={postgreSql}
-                      alt="postgre Sql"
-                    />
-                  </Box>
-                  <Icon boxSize="6" as={ArrowForwardIcon} />
-                  <Box
-                    width="35px"
-                    // pl="4"
-                    // display="flex"
-                    // alignItems="center"
-                    // justifyContent="center"
-                  >
-                    
-                    <Image
-                      objectFit="fill"
-                      src={eventHub}
-                      alt="postgre Sql"
-                    />
-                  </Box>
+                    <Box width="35px">
+                      <ConnectorTypeImage type={source ? source.type : ""} />
+                    </Box>
+                    <Icon boxSize="6" as={ArrowForwardIcon} />
+                    <Box width="35px">
+                      <ConnectorTypeImage
+                        type={destination ? destination.type : ""}
+                      />
+                    </Box>
                   </HStack>
-                  
                 </FormControl>
                 <FormControl isRequired>
                   <FormLabel>Pipeline name</FormLabel>
-                  <Input type="text" bg="white" />
+                  <Input
+                    type="text"
+                    bg="white"
+                    isInvalid={!!pipelineNameError}
+                    errorBorderColor="crimson"
+                    value={pipelineName}
+                    onChange={handleNameChange}
+                  />
                 </FormControl>
                 <FormControl>
                   <FormLabel>Detail</FormLabel>
-                  <Input type="text" bg="white" />
+                  <Input
+                    type="text"
+                    bg="white"
+                    value={detail}
+                    onChange={(e) => setDetail(e.target.value)}
+                  />
                   <FormHelperText>
-                    Add a one liner to describe your pipeline or what you plan to
-                    capture.
+                    Add a one liner to describe your pipeline or what you plan
+                    to capture.
                   </FormHelperText>
                 </FormControl>
               </Box>
@@ -129,94 +203,49 @@ const ConfigurePipeline: React.FC = () => {
                 pt="2"
                 borderRadius="lg"
               >
-                <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
-                  <GridItem>
-                    <FormLabel>
-                      <Flex align="center">
-                        Log level
-                        <Center
-                          ml="4"
-                          bg="white"
-                          w={8}
-                          h={8}
-                          borderRadius="md"
-                          cursor="pointer"
-                        >
-                          <Icon as={EditIcon} w={5} h={5} />
-                        </Center>
-                      </Flex>
-                    </FormLabel>
-                  </GridItem>
-                  <GridItem>
-                    <Input
-                      type="text"
-                      bg="white"
-                      placeholder="Property value"
-                    />
-                  </GridItem>
-                  <GridItem>
-                    <Center height="100%">
-                      <Tooltip label="Delete property" aria-label="A tooltip">
-                        <Center
-                          bg="white"
-                          height="100%"
-                          width="50px"
-                          borderRadius="md"
-                          cursor="pointer"
-                        >
-                          <DeleteIcon />
-                        </Center>
-                      </Tooltip>
-                    </Center>
-                  </GridItem>
-                </Grid>
-                <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
-                  <GridItem>
-                    <Input type="text" bg="white" placeholder="Property key" />
-                  </GridItem>
-                  <GridItem>
-                    <Input
-                      type="text"
-                      bg="white"
-                      placeholder="Property value"
-                    />
-                  </GridItem>
-                  <GridItem>
-                    <Center height="100%">
-                      <Tooltip label="Delete property" aria-label="A tooltip">
-                        <Center
-                          bg="white"
-                          height="100%"
-                          width="50px"
-                          borderRadius="md"
-                          cursor="pointer"
-                        >
-                          <DeleteIcon />
-                        </Center>
-                      </Tooltip>
-                    </Center>
-                  </GridItem>
-                </Grid>
-                <Button leftIcon={<AddIcon />} variant="outline" mb="4">
-                  {" "}
-                  Add property
-                </Button>
+                <FormControl isRequired>
+                  <FormLabel>Log level</FormLabel>
+                  <Select
+                    bg="white"
+                    defaultValue="placeholder"
+                    isInvalid={!!logLevelError}
+                    errorBorderColor="crimson"
+                    onChange={handleSelectChange}
+                  >
+                    <option value="placeholder" disabled>
+                      Select option
+                    </option>
+                    <option value="OFF">OFF</option>
+                    <option value="FATAL">FATAL</option>
+                    <option value="ERROR">ERROR</option>
+                    <option value="WARN">WARN</option>
+                    <option value="INFO">INFO</option>
+                    <option value="DEBUG">DEBUG</option>
+                    <option value="TRACE">TRACE</option>
+                    <option value="ALL">ALL</option>
+                  </Select>
+                </FormControl>
               </Box>
             </Box>
           </>
         ) : (
-          <Box m="2" border="1px" borderColor="gray.500" height="600px">
-            <CustomFlow />
-          </Box>
+          <Box m="2" border="1px" borderColor="gray.500" height="600px"></Box>
         )}
 
         <Flex pt="4">
           <Box>
-            <Button variant="outline">Back</Button>
+            <Button
+              variant="outline"
+              onClick={() => navigateTo("/pipeline/pipeline_designer")}
+            >
+              Back
+            </Button>
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid">Create Pipeline</Button>
+            <Button variant="solid" onClick={handleCreatePipeline}>
+              Create Pipeline
+            </Button>
           </Box>
         </Flex>
       </Box>

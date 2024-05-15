@@ -8,7 +8,7 @@ const CreateVault: React.FC = () => {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-    navigate(`/pipeline/create_pipeline/configure`);
+    navigate(`/pipeline/pipeline_designer/configure`);
   };
   return (
     <>

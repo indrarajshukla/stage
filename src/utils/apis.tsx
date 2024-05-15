@@ -141,3 +141,31 @@ export const createSource = async <T,>(
     return { error: "An error occurred while creating source" };
   }
 };
+
+export const createPost = async <T,>(
+  payload: any
+): Promise<ApiResponse<T>> => {
+  try {
+    const response = await fetch("/api/pipelines", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const errorMsg = `Failed to create source: ${response.statusText}`;
+      return { error: errorMsg };
+    }
+
+    const data = await response.json();
+    // Refresh data after source is created
+    queryClient.invalidateQueries("sources");
+
+    return { data };
+  } catch (error) {
+    console.error("Error creating source:", error);
+    return { error: "An error occurred while creating source" };
+  }
+};

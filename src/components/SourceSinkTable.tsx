@@ -20,6 +20,7 @@ import { CustomTd } from "../utils/chakraUtils";
 import { Source, SourceApiResponse } from "../utils/apis";
 import { BsTags } from "react-icons/bs";
 import ConnectorImage from "./ConnectorImage";
+import { getConnectorTypeName } from "../utils/helpers";
 
 interface SourceSinkTableProps {
   tableType: "source" | "destination";
@@ -65,7 +66,7 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
               <CustomTd>
                 <Stack direction="row" align="center" spacing={2}>
                   <ConnectorImage connectorType={source.type} />
-                  <Text fontSize="md">MongoDB</Text>
+                  <Text fontSize="md">{getConnectorTypeName(source.type)}</Text>
                 </Stack>
               </CustomTd>
               <Td>

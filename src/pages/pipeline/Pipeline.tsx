@@ -10,7 +10,7 @@ const Pipeline: React.FC = () => {
   const navigate = useNavigate();
 
   const navigateToCreate = () => {
-    navigate("/pipeline/create_pipeline");
+    navigate("/pipeline/pipeline_designer");
   };
 
   return (

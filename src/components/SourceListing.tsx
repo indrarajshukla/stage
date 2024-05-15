@@ -18,29 +18,27 @@ import { MdArrowDownward } from "react-icons/md";
 import { CustomTd } from "../utils/chakraUtils";
 import { BsTags } from "react-icons/bs";
 import { AppThemeGreen } from "../utils/constants";
-import { Destination, fetchData } from "../utils/apis";
+import { Source, fetchData } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
 
-interface DestinationListingProps {
-  onDestinationSelection: (destination: Destination) => void;
+interface SourceListingProps {
+  onSourceSelection: (source: Source) => void;
 }
 
-const DestinationListing: React.FC<DestinationListingProps> = ({
-  onDestinationSelection,
-}) => {
-  const [destinations, setDestinations] = useState<Destination[]>([]);
+const SourceListing: React.FC<SourceListingProps> = ({ onSourceSelection }) => {
+  const [sources, setSources] = useState<Source[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchSources = async () => {
       setIsLoading(true);
-      const response = await fetchData<Destination[]>("/api/destinations");
+      const response = await fetchData<Source[]>("/api/sources");
 
       if (response.error) {
         setError(response.error);
       } else {
-        setDestinations(response.data || []);
+        setSources(response.data || []);
       }
 
       setIsLoading(false);
@@ -86,17 +84,17 @@ const DestinationListing: React.FC<DestinationListingProps> = ({
           </Tr>
         </Thead>
         <Tbody>
-          {destinations.map((destination: Destination) => (
+          {sources.map((source: Source) => (
             <Tr
-              key={destination.id}
+              key={source.id}
               _hover={{ bg: `${AppThemeGreen.Theme}.50`, shadow: "lg" }}
               cursor="pointer"
-              onClick={() => onDestinationSelection(destination)}
+              onClick={() => onSourceSelection(source)}
             >
-              <Td>{destination.name}</Td>
+              <Td>{source.name}</Td>
               <CustomTd>
                 <Stack direction="row" align="center" spacing={2}>
-                  <ConnectorImage connectorType={destination.type} />
+                  <ConnectorImage connectorType={source.type} />
                   <Text fontSize="md">NATS Stream</Text>
                 </Stack>
               </CustomTd>
@@ -123,4 +121,4 @@ const DestinationListing: React.FC<DestinationListingProps> = ({
   );
 };
 
-export default DestinationListing;
+export default SourceListing;

@@ -17,15 +17,11 @@ import infinispan from "../assets/infinispan.png";
 import pubsubLite from "../assets/pub-sub-lite.png";
 import pravega from "../assets/pravega.webp";
 
-interface ConnectorImageProps {
+interface DataNodeImageProps {
   connectorType: string;
-  size?: number;
 }
 
-const ConnectorImage: React.FC<ConnectorImageProps> = ({
-  connectorType,
-  size = 8,
-}) => {
+const DataNodeImage: React.FC<DataNodeImageProps> = ({ connectorType }) => {
   let src = "";
 
   switch (true) {
@@ -79,9 +75,7 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
       break;
   }
 
-  return (
-    <Image boxSize={size} objectFit="fill" src={src} alt={connectorType} />
-  );
+  return <Image boxSize={14} objectFit="fill" src={src} alt={connectorType} />;
 };
 
-export default ConnectorImage;
+export default DataNodeImage;

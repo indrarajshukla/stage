@@ -14,7 +14,7 @@ const AddTransformationNode: React.FC<AddTransformationNodeProps> = ({
     const navigate = useNavigate();
 
   const navigateTo = (navigateTo: string) => {
-    navigate(`/pipeline/create_pipeline/${navigateTo}`);
+    navigate(`/pipeline/pipeline_designer/${navigateTo}`);
   };
   return (
     <Box shadow="md" style={{ borderRadius: "5px" }}>
@@ -25,7 +25,7 @@ const AddTransformationNode: React.FC<AddTransformationNodeProps> = ({
             <Icon as={MdOutlineAutoFixHigh} boxSize={8} />
           </Center>
           <Box pr="2" pl="2" pt="2" pb="1">
-            <Button variant="outline" leftIcon={<AddIcon />} size="xs" onClick={()=>navigateTo("destination")}>
+            <Button variant="outline" leftIcon={<AddIcon />} size="xs" onClick={()=>navigateTo("destination")} isDisabled>
               {data.label}
             </Button>
           </Box>

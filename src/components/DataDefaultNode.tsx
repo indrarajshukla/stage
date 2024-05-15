@@ -16,7 +16,7 @@ const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
   // const navigate = useNavigate();
 
   // const navigateTo = (navigateTo: string) => {
-  //   navigate(`/pipeline/create_pipeline/${navigateTo}`);
+  //   navigate(`/pipeline/pipeline_designer/${navigateTo}`);
   // };
   
   return (

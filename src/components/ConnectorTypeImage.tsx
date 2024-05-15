@@ -17,61 +17,57 @@ import infinispan from "../assets/infinispan.png";
 import pubsubLite from "../assets/pub-sub-lite.png";
 import pravega from "../assets/pravega.webp";
 
-interface ConnectorImageProps {
-  connectorType: string;
-  size?: number;
+interface ConnectorTypeImageProps {
+  type: string;
 }
 
-const ConnectorImage: React.FC<ConnectorImageProps> = ({
-  connectorType,
-  size = 8,
-}) => {
+const ConnectorTypeImage: React.FC<ConnectorTypeImageProps> = ({ type }) => {
   let src = "";
 
   switch (true) {
-    case connectorType.includes("mongo"):
+    case type.includes("mongo"):
       src = mongoDB;
       break;
-    case connectorType.includes("postgre"):
+    case type.includes("postgre"):
       src = postgreSql;
       break;
-    case connectorType.includes("cassandra"):
+    case type.includes("cassandra"):
       src = cassandra;
       break;
-    case connectorType.includes("mysql"):
+    case type.includes("mysql"):
       src = mySql;
       break;
-    case connectorType.includes("sqlserver"):
+    case type.includes("sqlserver"):
       src = sqlServer;
       break;
-    case connectorType.includes("apachepulsar"):
+    case type.includes("apachepulsar"):
       src = apachePulsar;
       break;
-    case connectorType.includes("rocketmq"):
+    case type.includes("rocketmq"):
       src = rocketMq;
       break;
-    case connectorType.includes("eventhub"):
+    case type.includes("eventhub"):
       src = eventHub;
       break;
-    case connectorType.includes("pubsub"):
+    case type.includes("pubsub"):
       src = pubsub;
       break;
-    case connectorType.includes("raabbitmq"):
+    case type.includes("raabbitmq"):
       src = rabbitMq;
       break;
-    case connectorType.includes("natsstreaming"):
+    case type.includes("natsstreaming"):
       src = natsStreaming;
       break;
-    case connectorType.includes("kafka"):
+    case type.includes("kafka"):
       src = kafka;
       break;
-    case connectorType.includes("infinispan"):
+    case type.includes("infinispan"):
       src = infinispan;
       break;
-    case connectorType.includes("pubsublite"):
+    case type.includes("pubsublite"):
       src = pubsubLite;
       break;
-    case connectorType.includes("pravega"):
+    case type.includes("pravega"):
       src = pravega;
       break;
     default:
@@ -79,9 +75,7 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
       break;
   }
 
-  return (
-    <Image boxSize={size} objectFit="fill" src={src} alt={connectorType} />
-  );
+  return <Image objectFit="fill" src={src} alt={type} />;
 };
 
-export default ConnectorImage;
+export default ConnectorTypeImage;

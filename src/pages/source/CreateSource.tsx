@@ -22,7 +22,7 @@ import { AppThemeGreen } from "../../utils/constants";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 import CustomFlow from "../../components/CreationFlow";
-import CatalogImage from "../../components/CatalogImage";
+import ConnectorTypeImage from "../../components/ConnectorTypeImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { convertMapToObject } from "../../utils/helpers";
 import { createSource } from "../../utils/apis";
@@ -156,7 +156,7 @@ const CreateSource: React.FC = () => {
                 <FormControl isRequired pb="1">
                   <FormLabel>Source type</FormLabel>
                   <Box width="50px">
-                    <CatalogImage type={sourceId || ""} />
+                    <ConnectorTypeImage type={sourceId || ""} />
                   </Box>
                 </FormControl>
                 <FormControl isRequired pb="1">
@@ -297,7 +297,7 @@ const CreateSource: React.FC = () => {
           </>
         ) : (
           <Box m="2" border="1px" borderColor="gray.500" height="600px">
-            <CustomFlow />
+            {/* <CustomFlow /> */}
           </Box>
         )}
 

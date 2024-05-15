@@ -35,7 +35,7 @@ const PipelineDestinationCatalog: React.FC = () => {
   const navigate = useNavigate();
 
   const onCardClick = (destinationId: string) => {
-    navigate(`/pipeline/create_pipeline/destination/new_destination/${destinationId}`);
+    navigate(`/pipeline/pipeline_designer/destination/new_destination/${destinationId}`);
   };
   return (
     <>

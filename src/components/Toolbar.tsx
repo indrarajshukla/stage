@@ -36,7 +36,7 @@ const Toolbar: React.FC<ToolbarProps> = (
       <Spacer />
       <Box>
         <Stack direction="row" spacing={4}>
-          <Button leftIcon={<MdFilterList />} variant="outline">
+          <Button leftIcon={<MdFilterList />} variant="outline" isDisabled>
             Filter
           </Button>
           {primaryAction}

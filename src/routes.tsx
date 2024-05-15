@@ -19,7 +19,7 @@ import SourceCatalog from "./pages/source/SourceCatalog";
 import CreateSource from "./pages/source/CreateSource";
 import DestinationCatalog from "./pages/destination/DestinationCatalog";
 import CreateDestination from "./pages/destination/CreateDestination";
-import CreatePipeline from "./pages/pipeline/CreatePipeline";
+import PipelineDesigner from "./pages/pipeline/PipelineDesigner";
 import CreateVault from "./pages/vaults/CreateVault";
 import PipelineSource from "./pages/pipeline/PipelineSource";
 import PipelineDestination from "./pages/pipeline/PipelineDestination";
@@ -121,9 +121,9 @@ const routes: AppRouteConfig[] = [
     icon: MdSwapCalls,
   },
   {
-    component: CreatePipeline,
-    label: "Create Pipeline",
-    path: "/pipeline/create_pipeline",
+    component: PipelineDesigner,
+    label: "Pipeline designer",
+    path: "/pipeline/pipeline_designer",
     title: `${AppBranding} | Pipeline`,
     isSubPath: true,
     icon: MdSwapCalls,
@@ -131,7 +131,7 @@ const routes: AppRouteConfig[] = [
   {
     component: ConfigurePipeline,
     label: "Create Pipeline",
-    path: "/pipeline/create_pipeline/configure",
+    path: "/pipeline/pipeline_designer/configure",
     title: `${AppBranding} | Pipeline`,
     isSubPath: true,
     icon: MdSwapCalls,
@@ -139,7 +139,7 @@ const routes: AppRouteConfig[] = [
   {
     component: PipelineSource,
     label: "Pipeline source",
-    path: "/pipeline/create_pipeline/source",
+    path: "/pipeline/pipeline_designer/source",
     title: `${AppBranding} | Pipeline`,
     isSubPath: true,
     icon: MdSwapCalls,
@@ -147,7 +147,7 @@ const routes: AppRouteConfig[] = [
   {
     component: PipelineDestination,
     label: "Pipeline destination",
-    path: "/pipeline/create_pipeline/destination",
+    path: "/pipeline/pipeline_designer/destination",
     title: `${AppBranding} | Pipeline`,
     isSubPath: true,
     icon: MdSwapCalls,
@@ -155,7 +155,7 @@ const routes: AppRouteConfig[] = [
   {
     component: PipelineCreateDestination,
     label: "Pipeline destination",
-    path: "/pipeline/create_pipeline/destination/new_destination/:destinationId",
+    path: "/pipeline/pipeline_designer/destination/new_destination/:destinationId",
     title: `${AppBranding} | Pipeline`,
     isSubPath: true,
     icon: MdSwapCalls,
