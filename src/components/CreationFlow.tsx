@@ -30,6 +30,7 @@ import SourceListing from "./SourceListing";
 import DataNode from "./DataNode";
 import { Destination, Source } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
+import { getConnectorTypeName } from "../utils/helpers";
 // import { isEmpty } from "../utils/helpers";
 
 // we define the nodeTypes outside of the component to prevent re-renderings
@@ -204,7 +205,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
         id: "source",
         data: {
           image: <ConnectorImage connectorType={source.type} />,
-          label: "Cassandra",
+          label: getConnectorTypeName(source.type),
           type: "source",
           draggable: false,
         },
@@ -247,7 +248,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
         id: "destination",
         data: {
           image: <ConnectorImage connectorType={destination.type} />,
-          label: "Apache pulsar",
+          label: getConnectorTypeName(destination.type),
           type: "destination",
           draggable: false,
         },

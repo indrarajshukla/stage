@@ -1,8 +1,4 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import React from "react";
 import { MdOutlineChevronRight } from "react-icons/md";
 import { useLocation } from "react-router-dom";
@@ -12,22 +8,6 @@ const AppBreadcrumb: React.FC = () => {
 
   const appBreadcrumb = (route: string) => {
     switch (true) {
-      case route === "/":
-        return (
-          <Breadcrumb
-            spacing="8px"
-            fontSize="sm"
-            separator={<MdOutlineChevronRight color="gray.500" />}
-          >
-            <BreadcrumbItem>
-              <BreadcrumbLink href="#">Source</BreadcrumbLink>
-            </BreadcrumbItem>
-
-            <BreadcrumbItem isCurrentPage>
-              <BreadcrumbLink href="#">Current source</BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-        );
       case route === "/source/catalog":
         return (
           <Breadcrumb
@@ -116,25 +96,25 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
           </Breadcrumb>
         );
-        case route === "/pipeline/pipeline_designer/configure":
-          return (
-            <Breadcrumb
-              spacing="8px"
-              fontSize="sm"
-              separator={<MdOutlineChevronRight color="gray.500" />}
-            >
-              <BreadcrumbItem>
-                <BreadcrumbLink href="/pipeline">Pipeline</BreadcrumbLink>
-              </BreadcrumbItem>
-  
-              <BreadcrumbItem>
-                <BreadcrumbLink href="#">Pipeline designer</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbItem >
-                <BreadcrumbLink href="#">Create pipeline</BreadcrumbLink>
-              </BreadcrumbItem>
-            </Breadcrumb>
-          );
+      case route === "/pipeline/pipeline_designer/configure":
+        return (
+          <Breadcrumb
+            spacing="8px"
+            fontSize="sm"
+            separator={<MdOutlineChevronRight color="gray.500" />}
+          >
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/pipeline">Pipeline</BreadcrumbLink>
+            </BreadcrumbItem>
+
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">Pipeline designer</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="#">Create pipeline</BreadcrumbLink>
+            </BreadcrumbItem>
+          </Breadcrumb>
+        );
       case route === "/pipeline/pipeline_designer/destination":
         return (
           <Breadcrumb
@@ -147,14 +127,18 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-              <BreadcrumbLink href="/pipeline/pipeline_designer">Pipeline designer</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/pipeline_designer">
+                Pipeline designer
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">Destination</BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
         );
-        case route.includes("/pipeline/pipeline_designer/destination/new_destination"):
+      case route.includes(
+        "/pipeline/pipeline_designer/destination/new_destination"
+      ):
         return (
           <Breadcrumb
             spacing="8px"
@@ -166,10 +150,14 @@ const AppBreadcrumb: React.FC = () => {
             </BreadcrumbItem>
 
             <BreadcrumbItem>
-              <BreadcrumbLink href="/pipeline/pipeline_designer">Pipeline designer</BreadcrumbLink>
+              <BreadcrumbLink href="/pipeline/pipeline_designer">
+                Pipeline designer
+              </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbItem >
-              <BreadcrumbLink href="/pipeline/pipeline_designer/destination">Destination</BreadcrumbLink>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/pipeline/pipeline_designer/destination">
+                Destination
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem isCurrentPage>
               <BreadcrumbLink href="#">Create destination</BreadcrumbLink>

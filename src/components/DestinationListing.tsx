@@ -20,6 +20,7 @@ import { BsTags } from "react-icons/bs";
 import { AppThemeGreen } from "../utils/constants";
 import { Destination, fetchData } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
+import { getConnectorTypeName } from "../utils/helpers";
 
 interface DestinationListingProps {
   onDestinationSelection: (destination: Destination) => void;
@@ -97,7 +98,9 @@ const DestinationListing: React.FC<DestinationListingProps> = ({
               <CustomTd>
                 <Stack direction="row" align="center" spacing={2}>
                   <ConnectorImage connectorType={destination.type} />
-                  <Text fontSize="md">NATS Stream</Text>
+                  <Text fontSize="md">
+                    {getConnectorTypeName(destination.type)}
+                  </Text>
                 </Stack>
               </CustomTd>
               <Td>

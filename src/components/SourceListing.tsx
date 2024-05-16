@@ -20,6 +20,7 @@ import { BsTags } from "react-icons/bs";
 import { AppThemeGreen } from "../utils/constants";
 import { Source, fetchData } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
+import { getConnectorTypeName } from "../utils/helpers";
 
 interface SourceListingProps {
   onSourceSelection: (source: Source) => void;
@@ -95,7 +96,7 @@ const SourceListing: React.FC<SourceListingProps> = ({ onSourceSelection }) => {
               <CustomTd>
                 <Stack direction="row" align="center" spacing={2}>
                   <ConnectorImage connectorType={source.type} />
-                  <Text fontSize="md">NATS Stream</Text>
+                  <Text fontSize="md">{getConnectorTypeName(source.type)}</Text>
                 </Stack>
               </CustomTd>
               <Td>

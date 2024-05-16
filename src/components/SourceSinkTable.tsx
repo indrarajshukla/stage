@@ -13,24 +13,49 @@ import {
   Badge,
   Text,
   Tooltip,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  MenuDivider,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
 import { CustomTd } from "../utils/chakraUtils";
-import { Source, SourceApiResponse } from "../utils/apis";
+import {
+  DestinationApiResponse,
+  Source,
+  SourceApiResponse,
+  deleteResource,
+} from "../utils/apis";
 import { BsTags } from "react-icons/bs";
 import ConnectorImage from "./ConnectorImage";
 import { getConnectorTypeName } from "../utils/helpers";
 
 interface SourceSinkTableProps {
   tableType: "source" | "destination";
-  data: SourceApiResponse;
+  data: SourceApiResponse | DestinationApiResponse;
 }
 
 const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
   data,
   tableType,
 }) => {
+  const handleDelete = async (id: number, type: string) => {
+    const resourceType = type === "source" ? "sources" : "destinations";
+    const url = `/api/${resourceType}/${id}`;
+    const result = await deleteResource(url);
+
+    if (result.error) {
+      console.error(result.error);
+    } else {
+      console.log("Resource deleted successfully", result.data);
+    }
+  };
+
+  const onDeleteHandler = (id: number) => {
+    handleDelete(id, tableType);
+  };
   return (
     <TableContainer
       bg="white"
@@ -60,13 +85,15 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
           </Tr>
         </Thead>
         <Tbody>
-          {data.map((source: Source) => (
-            <Tr key={source.id}>
-              <Td>{source.name}</Td>
+          {data.map((instance: Source) => (
+            <Tr key={instance.id}>
+              <Td>{instance.name}</Td>
               <CustomTd>
                 <Stack direction="row" align="center" spacing={2}>
-                  <ConnectorImage connectorType={source.type} />
-                  <Text fontSize="md">{getConnectorTypeName(source.type)}</Text>
+                  <ConnectorImage connectorType={instance.type} />
+                  <Text fontSize="md">
+                    {getConnectorTypeName(instance.type)}
+                  </Text>
                 </Stack>
               </CustomTd>
               <Td>
@@ -87,7 +114,19 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
                 </Tooltip>
               </Td>
               <Td isNumeric>
-                <Icon boxSize="5" as={MdOutlineMoreVert} />
+                <Menu>
+                  <MenuButton>
+                    <MdOutlineMoreVert />
+                  </MenuButton>
+                  <MenuList>
+                    <MenuItem isDisabled>Overview</MenuItem>
+                    <MenuItem isDisabled>Edit</MenuItem>
+                    <MenuDivider />
+                    <MenuItem onClick={() => onDeleteHandler(instance.id)}>
+                      Delete
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
               </Td>
             </Tr>
           ))}

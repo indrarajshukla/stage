@@ -1,30 +1,29 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AddIcon } from "@chakra-ui/icons";
-import { Box, Button, Icon } from "@chakra-ui/react";
+import { Icon, Button, Box } from "@chakra-ui/react";
 import React from "react";
-import { MdLogout } from "react-icons/md";
+import { MdLogin } from "react-icons/md";
 import EmptyState from "../../components/EmptyState";
-import PageHeader from "../../components/PageHeader";
-import { Source, fetchData1 } from "../../utils/apis";
-import SourceSinkTable from "../../components/SourceSinkTable";
-import Toolbar from "../../components/Toolbar";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../components/PageHeader";
+import PipelineTable from "../../components/PipelineTable";
+import Toolbar from "../../components/Toolbar";
+import { Pipeline, fetchData1 } from "../../utils/apis";
 import { useQuery } from "react-query";
 
-const Sources: React.FC = () => {
+const Pipelines: React.FC = () => {
   const navigate = useNavigate();
 
   const navigateTo = () => {
-    navigate("/source/catalog");
+    navigate("/pipeline/pipeline_designer");
   };
 
   const {
-    data: sources = [],
+    data: pipelines = [],
     error,
     isLoading,
-  } = useQuery<Source[], Error>(
-    "sources",
-    () => fetchData1<Source[]>("/api/sources"),
+  } = useQuery<Pipeline[], Error>(
+    "pipelines",
+    () => fetchData1<Pipeline[]>("/api/pipelines"),
     {
       refetchInterval: 15000, // Polling every 15 seconds
     }
@@ -37,28 +36,29 @@ const Sources: React.FC = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
   return (
     <>
-      <PageHeader title="Source" isPadded={false} />
-      {sources.length > 0 ? (
+      <PageHeader title="Pipeline" isPadded={false} />
+      {pipelines.length > 0 ? (
         <Box>
           <Toolbar
             primaryAction={
               <Button leftIcon={<AddIcon />} onClick={navigateTo}>
-                New source
+                New pipeline
               </Button>
             }
           />
-          <SourceSinkTable data={sources} tableType="source" />
+          <PipelineTable data={pipelines} />
         </Box>
       ) : (
         <EmptyState
-          icon={<Icon as={MdLogout} boxSize={20} />}
+          icon={<Icon as={MdLogin} boxSize={20} />}
           title="No source available"
           message="No source configured for this cluster, setup a source to get started."
           action={
             <Button leftIcon={<AddIcon />} onClick={navigateTo}>
-              New source
+              New pipeline
             </Button>
           }
         />
@@ -67,4 +67,4 @@ const Sources: React.FC = () => {
   );
 };
 
-export default Sources;
+export default Pipelines;

@@ -3,7 +3,6 @@ import { Button, Box } from "@chakra-ui/react";
 import React from "react";
 import Toolbar from "../../components/Toolbar";
 import PageHeader from "../../components/PageHeader";
-import DestinationListing from "../../components/DestinationListing";
 import PipelineDestinationCatalog from "./PipelineDestinationCatalog";
 
 const PipelineDestination: React.FC = () => {
@@ -25,7 +24,7 @@ const PipelineDestination: React.FC = () => {
                 </Button>
               }
             />
-            <DestinationListing />
+            {/* <DestinationListing /> */}
           </Box>
         </>
       )}

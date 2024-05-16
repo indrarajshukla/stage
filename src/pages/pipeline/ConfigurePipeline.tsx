@@ -69,7 +69,7 @@ const ConfigurePipeline: React.FC = () => {
       logLevel: logLevel,
     };
 
-    const response = await createPost(payload);
+    const response = await createPost("/api/pipelines", payload);
 
     if (response.error) {
       console.error("Failed to create source:", response.error);
@@ -103,8 +103,6 @@ const ConfigurePipeline: React.FC = () => {
     };
 
     console.log("Payload:", payload);
-
-
 
     setPipelineNameError("");
     setLogLevelError("");

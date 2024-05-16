@@ -7,7 +7,6 @@ import {
   FormLabel,
   Switch,
   Icon,
-  Image,
   Input,
   FormHelperText,
   Grid,
@@ -16,14 +15,99 @@ import {
   Center,
   Tooltip,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
 import { AppThemeGreen } from "../../utils/constants";
-import postgreSql from "../../assets/PostgreSQL.png";
-import { AddIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
+import { useNavigate, useParams } from "react-router-dom";
+import { convertMapToObject } from "../../utils/helpers";
+import { createPost } from "../../utils/apis";
+import ConnectorTypeImage from "../../components/ConnectorTypeImage";
 
 const CreateDestination: React.FC = () => {
+  const { destinationId } = useParams<{ destinationId: string }>();
+  const navigate = useNavigate();
+
+  const [destinationName, setDestinationName] = useState<string>("");
+  const [detail, setDetail] = useState<string>("");
+  const [destinationNameError, setDestinationNameError] = useState<string>("");
+
+  const [properties, setProperties] = useState<
+    Map<string, { key: string; value: string }>
+  >(new Map([["key0", { key: "", value: "" }]]));
+  const [keyCount, setKeyCount] = useState<number>(1);
+
+  const handleAddProperty = () => {
+    const newKey = `key${keyCount}`;
+    setProperties(
+      (prevProperties) =>
+        new Map(prevProperties.set(newKey, { key: "", value: "" }))
+    );
+    setKeyCount((prevCount) => prevCount + 1);
+  };
+
+  const handleDeleteProperty = (key: string) => {
+    setProperties((prevProperties) => {
+      const newProperties = new Map(prevProperties);
+      newProperties.delete(key);
+      return newProperties;
+    });
+  };
+
+  const handlePropertyChange = (
+    key: string,
+    type: "key" | "value",
+    newValue: string
+  ) => {
+    setProperties((prevProperties) => {
+      const newProperties = new Map(prevProperties);
+      const property = newProperties.get(key);
+      if (property) {
+        if (type === "key") property.key = newValue;
+        else if (type === "value") property.value = newValue;
+        newProperties.set(key, property);
+      }
+      return newProperties;
+    });
+  };
+
+  const navigateTo = (url: string) => {
+    navigate(url);
+  };
+
+  const createNewDestination = async () => {
+    const payload = {
+      type: destinationId,
+      schema: "schema321",
+      vaults: [],
+      config: convertMapToObject(properties),
+      name: destinationName,
+    };
+
+    const response = await createPost("/api/destinations", payload);
+
+    if (response.error) {
+      console.error("Failed to create source:", response.error);
+    } else {
+      console.log("Source created successfully:", response.data);
+    }
+  };
+
+  const handleCreateDestination = () => {
+    if (!destinationName.trim()) {
+      setDestinationNameError("Source name cannot be empty");
+      return;
+    }
+
+    console.log("Source Name:", destinationName);
+    console.log("Detail:", detail);
+
+    setDestinationNameError("");
+    createNewDestination();
+    navigateTo("/destination");
+  };
+
   return (
     <>
       <PageHeader title="Create destination" isPadded />
@@ -31,8 +115,8 @@ const CreateDestination: React.FC = () => {
         <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
-              Fill the form below or use the smart editor to setup a new destination
-              connector.
+              Fill the form below or use the smart editor to setup a new
+              destination connector.
             </Text>
           </Box>
           <Spacer />
@@ -61,26 +145,32 @@ const CreateDestination: React.FC = () => {
           >
             <FormControl isRequired>
               <FormLabel>Destination type</FormLabel>
-              <Box
-                width="50px"
-                // pl="4"
-                // display="flex"
-                // alignItems="center"
-                // justifyContent="center"
-              >
-                <Image objectFit="fill" src={postgreSql} alt="postgre Sql" />
+              <Box width="50px">
+                <ConnectorTypeImage type={destinationId || ""} />
               </Box>
             </FormControl>
             <FormControl isRequired>
               <FormLabel>Destination name</FormLabel>
-              <Input type="text" bg="white" />
+              <Input
+                type="text"
+                bg="white"
+                isInvalid={!!destinationNameError}
+                errorBorderColor="crimson"
+                value={destinationName}
+                onChange={(e) => setDestinationName(e.target.value)}
+              />
             </FormControl>
             <FormControl>
               <FormLabel>Detail</FormLabel>
-              <Input type="text" bg="white" />
+              <Input
+                type="text"
+                bg="white"
+                value={detail}
+                onChange={(e) => setDetail(e.target.value)}
+              />
               <FormHelperText>
-                Add a one liner to describe your destination or where you plan to
-                capture.
+                Add a one liner to describe your destination or where you plan
+                to capture.
               </FormHelperText>
             </FormControl>
           </Box>
@@ -96,79 +186,73 @@ const CreateDestination: React.FC = () => {
             pt="2"
             borderRadius="lg"
           >
-            <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
-              <GridItem>
-                <FormLabel>
-                  <Flex align="center">
-                    mongodb.ssl.enabled
-                    <Center
-                      ml="4"
-                      bg="white"
-                      w={8}
-                      h={8}
-                      borderRadius="md"
-                      cursor="pointer"
-                    >
-                      <Icon as={EditIcon} w={5} h={5} />
-                    </Center>
-                  </Flex>
-                </FormLabel>
-              </GridItem>
-              <GridItem>
-                <Input type="text" bg="white" placeholder="Property value" />
-              </GridItem>
-              <GridItem>
-                <Center height="100%">
-                  <Tooltip label="Delete property" aria-label="A tooltip">
-                    <Center
-                      bg="white"
-                      height="100%"
-                      width="50px"
-                      borderRadius="md"
-                      cursor="pointer"
-                    >
-                      <DeleteIcon />
-                    </Center>
-                  </Tooltip>
-                </Center>
-              </GridItem>
-            </Grid>
-            <Grid gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
-              <GridItem>
-                <Input type="text" bg="white" placeholder="Property key" />
-              </GridItem>
-              <GridItem>
-                <Input type="text" bg="white" placeholder="Property value" />
-              </GridItem>
-              <GridItem>
-                <Center height="100%">
-                  <Tooltip label="Delete property" aria-label="A tooltip">
-                    <Center
-                      bg="white"
-                      height="100%"
-                      width="50px"
-                      borderRadius="md"
-                      cursor="pointer"
-                    >
-                      <DeleteIcon />
-                    </Center>
-                  </Tooltip>
-                </Center>
-              </GridItem>
-            </Grid>
-            <Button leftIcon={<AddIcon />} variant="outline" mb="4">
-              {" "}
+            {Array.from(properties.keys()).map((key) => (
+              <Grid key={key} gap={6} templateColumns="5.5fr 5.5fr 1fr" pb="4">
+                <GridItem>
+                  <Input
+                    type="text"
+                    bg="white"
+                    placeholder="Property key"
+                    value={properties.get(key)?.key || ""}
+                    onChange={(e) =>
+                      handlePropertyChange(key, "key", e.target.value)
+                    }
+                  />
+                </GridItem>
+                <GridItem>
+                  <Input
+                    type="text"
+                    bg="white"
+                    placeholder="Property value"
+                    value={properties.get(key)?.value || ""}
+                    onChange={(e) =>
+                      handlePropertyChange(key, "value", e.target.value)
+                    }
+                  />
+                </GridItem>
+                <GridItem>
+                  <Center height="100%">
+                    <Tooltip label="Delete property" aria-label="A tooltip">
+                      <Center
+                        bg="white"
+                        height="100%"
+                        width="50px"
+                        borderRadius="md"
+                        cursor="pointer"
+                        onClick={() => handleDeleteProperty(key)}
+                      >
+                        <DeleteIcon />
+                      </Center>
+                    </Tooltip>
+                  </Center>
+                </GridItem>
+              </Grid>
+            ))}
+
+            <Button
+              leftIcon={<AddIcon />}
+              variant="outline"
+              mb="4"
+              onClick={handleAddProperty}
+            >
               Add property
             </Button>
           </Box>
         </Box>
         <Flex pt="4">
           <Box>
-            <Button variant="outline">Cancel</Button>
+            <Button
+              variant="outline"
+              onClick={() => navigateTo("/destination/catalog")}
+            >
+              Back
+            </Button>
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid">Create destination</Button>
+            <Button variant="solid" onClick={handleCreateDestination}>
+              Create destination
+            </Button>
           </Box>
         </Flex>
       </Box>

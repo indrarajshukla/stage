@@ -21,11 +21,10 @@ import { BsCodeSquare } from "react-icons/bs";
 import { AppThemeGreen } from "../../utils/constants";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
-import CustomFlow from "../../components/CreationFlow";
 import ConnectorTypeImage from "../../components/ConnectorTypeImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { convertMapToObject } from "../../utils/helpers";
-import { createSource } from "../../utils/apis";
+import { createPost } from "../../utils/apis";
 
 const CreateSource: React.FC = () => {
   const { sourceId } = useParams<{ sourceId: string }>();
@@ -89,7 +88,7 @@ const CreateSource: React.FC = () => {
       name: sourceName,
     };
 
-    const response = await createSource(payload);
+    const response = await createPost("/api/sources", payload);
 
     if (response.error) {
       console.error("Failed to create source:", response.error);
@@ -307,7 +306,7 @@ const CreateSource: React.FC = () => {
               variant="outline"
               onClick={() => navigateTo("/source/catalog")}
             >
-              Cancel
+              Back
             </Button>
           </Box>
           <Spacer />

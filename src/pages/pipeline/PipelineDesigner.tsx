@@ -51,8 +51,8 @@ const PipelineDesigner: React.FC = () => {
         <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
-              Configure the pipeline by adding source, destination and any
-              number of transformation if needed.
+              Configure the pipeline by adding source, destination and optionally any
+              number of transformation as needed.
             </Text>
           </Box>
           <Spacer />
@@ -70,7 +70,7 @@ const PipelineDesigner: React.FC = () => {
         <Flex pt="4">
           <Box>
             <Button variant="outline" onClick={() => navigateTo("/pipeline")}>
-              Cancel
+              Back
             </Button>
           </Box>
           <Spacer />

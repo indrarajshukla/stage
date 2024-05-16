@@ -6,15 +6,26 @@ import cassandra from "../assets/Cassandra.png";
 import mySql from "../assets/my-sql.png";
 import postgreSql from "../assets/PostgreSQL.png";
 import sqlServer from "../assets/sql-server.png";
-import apachePulsar from "../assets/MongoDB.png";
-import rocketMq from "../assets/apachePulsar.png";
-import eventHub from "../assets/Azure-event-hub.png";
-import pubsub from "../assets/G_pubsub.png";
+// import apachePulsar from "../assets/MongoDB.png";
+// import rocketMq from "../assets/apachePulsar.png";
+// import eventHub from "../assets/Azure-event-hub.png";
+// import pubsub from "../assets/G_pubsub.png";
+// import rabbitMq from "../assets/RabbitMQ.png";
+// import natsStreaming from "../assets/NATS_stream.png";
+// import kafka from "../assets/Apache_kafka.png";
+// import infinispan from "../assets/infinispan.png";
+// import pubsubLite from "../assets/pub-sub-lite.png";
+// import pravega from "../assets/pravega.webp";
+
 import rabbitMq from "../assets/RabbitMQ.png";
+import pubsub from "../assets/G_pubsub.png";
 import natsStreaming from "../assets/NATS_stream.png";
-import kafka from "../assets/Apache_kafka.png";
 import infinispan from "../assets/infinispan.png";
+import rocketMq from "../assets/Apache_RocketMQ.png";
+import apachePulsar from "../assets/apachePulsar.png";
 import pubsubLite from "../assets/pub-sub-lite.png";
+import kafka from "../assets/kafka.png";
+import eventHub from "../assets/Azure-event-hub.png";
 import pravega from "../assets/pravega.webp";
 
 interface ConnectorTypeImageProps {
@@ -52,7 +63,7 @@ const ConnectorTypeImage: React.FC<ConnectorTypeImageProps> = ({ type }) => {
     case type.includes("pubsub"):
       src = pubsub;
       break;
-    case type.includes("raabbitmq"):
+    case type.includes("rabbitmq"):
       src = rabbitMq;
       break;
     case type.includes("natsstreaming"):

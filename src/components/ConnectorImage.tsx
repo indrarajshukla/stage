@@ -12,7 +12,7 @@ import eventHub from "../assets/Azure-event-hub.png";
 import pubsub from "../assets/G_pubsub.png";
 import rabbitMq from "../assets/RabbitMQ.png";
 import natsStreaming from "../assets/NATS_stream.png";
-import kafka from "../assets/Apache_kafka.png";
+import kafka from "../assets/kafka.png";
 import infinispan from "../assets/infinispan.png";
 import pubsubLite from "../assets/pub-sub-lite.png";
 import pravega from "../assets/pravega.webp";

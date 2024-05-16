@@ -1,7 +1,6 @@
-import { AddIcon } from "@chakra-ui/icons";
-import { Icon, Button } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import React from "react";
-import { MdStorage } from "react-icons/md";
+import { MdOutlineSettings } from "react-icons/md";
 import EmptyState from "../../components/EmptyState";
 import PageHeading from "../../components/PageHeading";
 
@@ -10,11 +9,10 @@ const Setting: React.FC = () => {
     <>
       <PageHeading title={"Setting"} />
       <EmptyState
-        icon={<Icon as={MdStorage} boxSize={20} />}
-        title="No Setting available"
-        message="No Setting configured for this cluster, add a Setting to start
-        collection change data event from."
-        action={<Button leftIcon={<AddIcon />}>New Setting</Button>}
+        icon={<Icon as={MdOutlineSettings} boxSize={20} />}
+        title="Coming Soon!"
+        message="We are working on this feature. Please check back later."
+        // action={<Button leftIcon={<AddIcon />}>New Setting</Button>}
       />
     </>
   );

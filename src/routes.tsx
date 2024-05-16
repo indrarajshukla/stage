@@ -3,8 +3,8 @@ import React from "react";
 import Home from "./pages/home/Home";
 import { AppBranding } from "./utils/constants";
 import Sources from "./pages/source/Sources";
-import Destination from "./pages/destination/Destination";
-import Pipeline from "./pages/pipeline/Pipeline";
+import Destinations from "./pages/destination/Destinations";
+import Pipelines from "./pages/pipeline/Pipelines";
 import Setting from "./pages/setting/Setting";
 import {
   MdLogin,
@@ -73,7 +73,7 @@ const routes: AppRouteConfig[] = [
     icon: MdLogout,
   },
   {
-    component: Destination,
+    component: Destinations,
     label: "Destination",
     path: "/destination",
     title: `${AppBranding} | Destination`,
@@ -113,7 +113,7 @@ const routes: AppRouteConfig[] = [
     icon: MdOutlineVpnKey,
   },
   {
-    component: Pipeline,
+    component: Pipelines,
     label: "Pipeline",
     path: "/pipeline",
     title: `${AppBranding} | Pipeline`,

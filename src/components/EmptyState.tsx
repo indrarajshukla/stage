@@ -11,7 +11,7 @@ interface EmptyStateProps {
   icon: React.ReactNode
   title: string
   message: string
-  action: React.ReactNode
+  action?: React.ReactNode
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({icon ,title,message,action}) => {
