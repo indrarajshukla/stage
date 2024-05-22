@@ -57,6 +57,7 @@ const ConfigurePipeline: React.FC = () => {
 
   const createNewPipeline = async () => {
     const payload = {
+      description: detail,
       name: pipelineName,
       source: {
         name: source?.name,

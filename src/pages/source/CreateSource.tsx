@@ -25,6 +25,8 @@ import ConnectorTypeImage from "../../components/ConnectorTypeImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { convertMapToObject } from "../../utils/helpers";
 import { createPost } from "../../utils/apis";
+import sourceCatalog from "../../mockData/SourceCatalog.json";
+import _ from "lodash";
 
 const CreateSource: React.FC = () => {
   const { sourceId } = useParams<{ sourceId: string }>();
@@ -82,7 +84,8 @@ const CreateSource: React.FC = () => {
 
   const createNewSource = async () => {
     const payload = {
-      type: sourceId,
+      description: detail,
+      type: _.find(sourceCatalog, { 'id': sourceId })?.type || "",
       schema: "schema321",
       vaults: [],
       config: convertMapToObject(properties),

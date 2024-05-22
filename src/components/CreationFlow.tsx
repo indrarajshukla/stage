@@ -92,7 +92,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           </Button>
         ),
       },
-      position: { x: 150, y: 150 },
+      position: { x: 100, y: 150 },
       type: "dataDefaultPoint",
       draggable: false,
     };
@@ -150,7 +150,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           </Button>
         ),
       },
-      position: { x: 600, y: 150 },
+      position: { x: 650, y: 150 },
       type: "dataDefaultPoint",
       draggable: false,
     };
@@ -209,8 +209,9 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           type: "source",
           draggable: false,
         },
-        position: { x: 150, y: 160 },
+        position: { x: 100, y: 160 },
         type: "dataNode",
+        draggable: false,
       };
       updateIfSourceConfigured(true);
       setUpdatedSourceNodes(selectedSourceNode);
@@ -252,8 +253,9 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           type: "destination",
           draggable: false,
         },
-        position: { x: 600, y: 160 },
+        position: { x: 650, y: 160 },
         type: "dataNode",
+        draggable: false,
       };
 
       updateIfDestinationConfigured(true);

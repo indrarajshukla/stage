@@ -79,6 +79,7 @@ const CreateDestination: React.FC = () => {
 
   const createNewDestination = async () => {
     const payload = {
+      description: detail,
       type: destinationId,
       schema: "schema321",
       vaults: [],
