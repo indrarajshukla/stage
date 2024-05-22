@@ -5,7 +5,7 @@ import React from "react";
 import { MdLogout } from "react-icons/md";
 import EmptyState from "../../components/EmptyState";
 import PageHeader from "../../components/PageHeader";
-import { Source, fetchData1 } from "../../utils/apis";
+import { Source, fetchData } from "../../utils/apis";
 import SourceSinkTable from "../../components/SourceSinkTable";
 import Toolbar from "../../components/Toolbar";
 import { useNavigate } from "react-router-dom";
@@ -24,9 +24,9 @@ const Sources: React.FC = () => {
     isLoading,
   } = useQuery<Source[], Error>(
     "sources",
-    () => fetchData1<Source[]>("/api/sources"),
+    () => fetchData<Source[]>("/api/sources"),
     {
-      refetchInterval: 15000, // Polling every 15 seconds
+      refetchInterval: 7000, // Polling every 15 seconds
     }
   );
 

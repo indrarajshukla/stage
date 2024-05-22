@@ -1,4 +1,4 @@
-import { QueryClient } from "react-query";
+import { QueryClient, useMutation, useQueryClient } from "react-query";
 const queryClient = new QueryClient();
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -75,25 +75,6 @@ export type SourceApiResponse = Source[];
 
 export type PipelineApiResponse = Pipeline[];
 
-export const fetchData = async <T,>(url: string): Promise<ApiResponse<T>> => {
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      const errorMsg = `Failed to fetch data: ${response.statusText}`;
-      return { error: errorMsg };
-    }
-
-    const data = await response.json();
-    return { data };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return { error: "An error occurred while fetching data" };
-  }
-};
-
-
-
 export const createPost = async <T,>(
   url: string,
   payload: any
@@ -150,15 +131,15 @@ export const deleteResource = async <T,>(
   }
 };
 
-export const fetchSources = async <T,>(): Promise<T> => {
-  const response = await fetch("/api/sources");
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data: ${response.statusText}`);
-  }
-  return response.json();
-};
+// export const fetchSources = async <T,>(): Promise<T> => {
+//   const response = await fetch("/api/sources");
+//   if (!response.ok) {
+//     throw new Error(`Failed to fetch data: ${response.statusText}`);
+//   }
+//   return response.json();
+// };
 
-export const fetchData1 = async <T,>(url: string): Promise<T> => {
+export const fetchData = async <T,>(url: string): Promise<T> => {
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`Failed to fetch data: ${response.statusText}`);
@@ -166,13 +147,52 @@ export const fetchData1 = async <T,>(url: string): Promise<T> => {
   return response.json();
 };
 
+export const deleteData = async (url: string): Promise<void> => {
+  const response = await fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      // Add any additional headers if needed
+    },
+  });
 
+  if (!response.ok) {
+    throw new Error(`Failed to delete data: ${response.statusText}`);
+  }
+};
 
+export const useDeleteData = () => {
+  const queryClient = useQueryClient();
 
+  return useMutation<void, Error, string>(
+    (id: string) => deleteData(`/api/pipelines/${id}`),
+    {
+      onSuccess: () => {
+        // Invalidate and refetch the data after deletion
+        queryClient.invalidateQueries("pipelinesDelete");
+      },
+    }
+  );
+};
 
+export const fetchDataTypeTwo = async <T,>(
+  url: string
+): Promise<ApiResponse<T>> => {
+  try {
+    const response = await fetch(url);
 
+    if (!response.ok) {
+      const errorMsg = `Failed to fetch data: ${response.statusText}`;
+      return { error: errorMsg };
+    }
 
-
+    const data = await response.json();
+    return { data };
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return { error: "An error occurred while fetching data" };
+  }
+};
 
 export const fetchDataWithPolling = async <T,>(
   url: string,

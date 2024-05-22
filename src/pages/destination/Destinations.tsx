@@ -3,7 +3,7 @@ import { Button, Box, Icon } from "@chakra-ui/react";
 import React from "react";
 import Toolbar from "../../components/Toolbar";
 import { useNavigate } from "react-router-dom";
-import { Destination, fetchData1 } from "../../utils/apis";
+import { Destination, fetchData } from "../../utils/apis";
 import PageHeader from "../../components/PageHeader";
 import EmptyState from "../../components/EmptyState";
 import { MdLogin } from "react-icons/md";
@@ -23,9 +23,9 @@ const Destinations: React.FC = () => {
     isLoading,
   } = useQuery<Destination[], Error>(
     "destinations",
-    () => fetchData1<Destination[]>("/api/destinations"),
+    () => fetchData<Destination[]>("/api/destinations"),
     {
-      refetchInterval: 15000, // Polling every 15 seconds
+      refetchInterval: 7000, // Polling every 15 seconds
     }
   );
 

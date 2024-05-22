@@ -1,6 +1,6 @@
-import { Stack, Text } from "@chakra-ui/react";
+import { Stack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { PipelineSource, Source, fetchData } from "../utils/apis";
+import { PipelineSource, Source, fetchDataTypeTwo } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
 import { CustomTd } from "../utils/chakraUtils";
 
@@ -16,7 +16,7 @@ const SourceField: React.FC<SourceFieldProps> = ({ pipelineSource }) => {
   useEffect(() => {
     const fetchSources = async () => {
       setIsLoading(true);
-      const response = await fetchData<Source>(
+      const response = await fetchDataTypeTwo<Source>(
         `/api/sources/${pipelineSource.id}`
       );
 
@@ -43,8 +43,9 @@ const SourceField: React.FC<SourceFieldProps> = ({ pipelineSource }) => {
   return (
     <CustomTd>
       <Stack direction="row" align="center" spacing={2}>
-        {source && <ConnectorImage connectorType={source.type} />}
-        <Text fontSize="md">{pipelineSource.name}</Text>
+        {source && <ConnectorImage connectorType={(source as Source).type} />}
+
+        <td>{pipelineSource.name}</td>
       </Stack>
     </CustomTd>
   );

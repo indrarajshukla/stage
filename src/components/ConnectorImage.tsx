@@ -23,7 +23,7 @@ interface ConnectorImageProps {
 }
 
 const ConnectorImage: React.FC<ConnectorImageProps> = ({
-  connectorType,
+  connectorType = "",
   size = 8,
 }) => {
   let src = "";
@@ -56,7 +56,7 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
     case connectorType.includes("pubsub"):
       src = pubsub;
       break;
-    case connectorType.includes("raabbitmq"):
+    case connectorType.includes("rabbitmq"):
       src = rabbitMq;
       break;
     case connectorType.includes("natsstreaming"):

@@ -34,6 +34,7 @@ const ConfigurePipeline: React.FC = () => {
   const [pipelineName, setPipelineName] = useState<string>("");
   const [detail, setDetail] = useState<string>("");
   const [pipelineNameError, setPipelineNameError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [logLevel, setLogLevel] = useState<string>("");
   const [logLevelError, setLogLevelError] = useState<string>("");
@@ -102,12 +103,14 @@ const ConfigurePipeline: React.FC = () => {
       logLevel: logLevel,
     };
 
-    console.log("Payload:", payload);
+    setIsLoading(true);
 
-    setPipelineNameError("");
-    setLogLevelError("");
-    createNewPipeline();
-    // navigateTo("/pipeline");
+    // Add a 2-second delay
+    setTimeout(async () => {
+      await createNewPipeline();
+      setIsLoading(false);
+      navigate("/pipeline");
+    }, 2000);
   };
   return (
     <>
@@ -241,8 +244,13 @@ const ConfigurePipeline: React.FC = () => {
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid" onClick={handleCreatePipeline}>
-              Create Pipeline
+            <Button
+              variant="solid"
+              onClick={handleCreatePipeline}
+              isLoading={isLoading}
+              loadingText="Create pipeline"
+            >
+              Create pipeline
             </Button>
           </Box>
         </Flex>

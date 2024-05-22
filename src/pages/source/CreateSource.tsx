@@ -35,6 +35,7 @@ const CreateSource: React.FC = () => {
   const [sourceName, setSourceName] = useState<string>("");
   const [detail, setDetail] = useState<string>("");
   const [sourceNameError, setSourceNameError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [properties, setProperties] = useState<
     Map<string, { key: string; value: string }>
@@ -103,12 +104,14 @@ const CreateSource: React.FC = () => {
       return;
     }
 
-    console.log("Source Name:", sourceName);
-    console.log("Detail:", detail);
+    setIsLoading(true);
 
-    setSourceNameError("");
-    createNewSource();
-    navigateTo("/source");
+    // Add a 2-second delay
+    setTimeout(async () => {
+      await createNewSource();
+      setIsLoading(false);
+      navigate("/source");
+    }, 2000);
   };
 
   return (
@@ -311,7 +314,12 @@ const CreateSource: React.FC = () => {
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid" onClick={handleCreateSource}>
+            <Button
+              variant="solid"
+              onClick={handleCreateSource}
+              isLoading={isLoading}
+              loadingText="Create source"
+            >
               Create source
             </Button>
           </Box>

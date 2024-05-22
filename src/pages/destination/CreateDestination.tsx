@@ -32,6 +32,7 @@ const CreateDestination: React.FC = () => {
   const [destinationName, setDestinationName] = useState<string>("");
   const [detail, setDetail] = useState<string>("");
   const [destinationNameError, setDestinationNameError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const [properties, setProperties] = useState<
     Map<string, { key: string; value: string }>
@@ -94,18 +95,21 @@ const CreateDestination: React.FC = () => {
     }
   };
 
-  const handleCreateDestination = () => {
+  const handleCreateDestination = async () => {
     if (!destinationName.trim()) {
       setDestinationNameError("Source name cannot be empty");
       return;
     }
 
-    console.log("Source Name:", destinationName);
-    console.log("Detail:", detail);
-
     setDestinationNameError("");
-    createNewDestination();
-    navigateTo("/destination");
+    setIsLoading(true);
+
+    // Add a 2-second delay
+    setTimeout(async () => {
+      await createNewDestination();
+      setIsLoading(false);
+      navigate("/destination");
+    }, 2000);
   };
 
   return (
@@ -250,7 +254,12 @@ const CreateDestination: React.FC = () => {
           </Box>
           <Spacer />
           <Box>
-            <Button variant="solid" onClick={handleCreateDestination}>
+            <Button
+              variant="solid"
+              isLoading={isLoading}
+              loadingText="Create destination"
+              onClick={handleCreateDestination}
+            >
               Create destination
             </Button>
           </Box>

@@ -26,7 +26,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
-import { PipelineApiResponse, Pipeline, deleteResource } from "../utils/apis";
+import { PipelineApiResponse, Pipeline, useDeleteData } from "../utils/apis";
 import SourceField from "./SourceField";
 import DestinationField from "./DestinationField";
 import { CustomTd } from "../utils/chakraUtils";
@@ -79,19 +79,10 @@ const PhaseIndicator = (
 );
 
 const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
-  const handleDelete = async (id: number) => {
-    const url = `/api/pipelines/${id}`;
-    const result = await deleteResource(url);
+  const { mutate: deletePipeline, isLoading: isDeleting } = useDeleteData();
 
-    if (result.error) {
-      console.error(result.error);
-    } else {
-      console.log("Resource deleted successfully", result.data);
-    }
-  };
-
-  const onDeleteHandler = (id: number) => {
-    handleDelete(id);
+  const onDeleteHandler = (id: string) => {
+    deletePipeline(id);
   };
 
   return (
@@ -138,8 +129,8 @@ const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
                     <MenuItem isDisabled>Overview</MenuItem>
                     <MenuItem isDisabled>Edit</MenuItem>
                     <MenuDivider />
-                    <MenuItem onClick={() => onDeleteHandler(pipeline.id)}>
-                      Delete
+                    <MenuItem onClick={() => onDeleteHandler("" + pipeline.id)}>
+                      {isDeleting ? "Deleting..." : "Delete"}
                     </MenuItem>
                   </MenuList>
                 </Menu>

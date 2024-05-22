@@ -46,7 +46,7 @@ export const getConnectorTypeName = (connectorType: string) => {
     case connectorType.includes("pubsub"):
       name = "Pub/Sub";
       break;
-    case connectorType.includes("raabbitmq"):
+    case connectorType.includes("rabbitmq"):
       name = "RabbitMQ";
       break;
     case connectorType.includes("natsstreaming"):
