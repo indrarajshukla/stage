@@ -8,13 +8,13 @@
   {
     "name": "MySQL",
     "id": "mysql",
-    "type": "io.debezium.connector.mysql.MqSqlConnector",
+    "type": "io.debezium.connector.mysql.MySqlConnector",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   },
   { 
     "name": "PostgreSQL",
     "id": "postgresql",
-    "type": "io.debezium.connector.postgresql.PostgreSqlConnector",
+    "type": "io.debezium.connector.postgresql.PostgresConnector",
     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
   },
   {
