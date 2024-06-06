@@ -1,6 +1,7 @@
-import { Avatar, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import SideNavigation from "./AppSideNavigation";
 import { AppThemeGreen } from "../utils/constants";
+import UserAction from "../components/UserAction";
 // import AppHeader from "./AppHeader";
 
 interface IAppLayout {
@@ -30,14 +31,15 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
         bg={AppThemeGreen.Background}
         area={"main"}
       >
-        <Avatar
+        {/* <Avatar
           size="sm"
           bg="grey"
           src="https://bit.ly/dan-abramov-broken"
           position="absolute"
           right="4"
           top="4"
-        />
+        /> */}
+        <UserAction/>
         {children}
       </GridItem>
       <GridItem pl="2" bg={AppThemeGreen.Background} area={"footer"}></GridItem>
