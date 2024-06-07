@@ -1,7 +1,7 @@
 import React, { useCallback } from "react";
 import PageHeader from "../../components/PageHeader";
 import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
-import CreationFlow from "../../components/CreationFlow";
+import CreationFlow from "../../components/dataFlow/CreationFlow";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../DataContext";
 import { Destination, Source } from "../../utils/apis";

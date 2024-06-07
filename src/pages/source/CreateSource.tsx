@@ -21,12 +21,12 @@ import { BsCodeSquare } from "react-icons/bs";
 import { AppThemeGreen } from "../../utils/constants";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
-import ConnectorTypeImage from "../../components/ConnectorTypeImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { convertMapToObject } from "../../utils/helpers";
 import { createPost } from "../../utils/apis";
 import sourceCatalog from "../../mockData/SourceCatalog.json";
 import _ from "lodash";
+import ConnectorImage from "../../components/ConnectorImage";
 
 const CreateSource: React.FC = () => {
   const { sourceId } = useParams<{ sourceId: string }>();
@@ -85,7 +85,7 @@ const CreateSource: React.FC = () => {
   const createNewSource = async () => {
     const payload = {
       description: detail,
-      type: _.find(sourceCatalog, { 'id': sourceId })?.type || "",
+      type: _.find(sourceCatalog, { id: sourceId })?.type || "",
       schema: "schema321",
       vaults: [],
       config: convertMapToObject(properties),
@@ -161,7 +161,7 @@ const CreateSource: React.FC = () => {
                 <FormControl isRequired pb="1">
                   <FormLabel>Source type</FormLabel>
                   <Box width="50px">
-                    <ConnectorTypeImage type={sourceId || ""} />
+                    <ConnectorImage connectorType={sourceId || ""} />
                   </Box>
                 </FormControl>
                 <FormControl isRequired pb="1">

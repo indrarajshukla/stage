@@ -43,7 +43,7 @@ const SourceField: React.FC<SourceFieldProps> = ({ pipelineSource }) => {
   return (
     <CustomTd>
       <Stack direction="row" align="center" spacing={2}>
-        {source && <ConnectorImage connectorType={(source as Source).type} />}
+        {source && <ConnectorImage connectorType={(source as Source).type} size={8} />}
 
         <td>{pipelineSource.name}</td>
       </Stack>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Spacer, Button, Box, Text } from "@chakra-ui/react";
 import PageHeader from "../../components/PageHeader";
-import PipelineFlow from "../../components/PipelineFlow";
+import PipelineFlow from "../../components/dataFlow/PipelineFlow";
 import { useNavigate } from "react-router-dom";
 
 const CreateVault: React.FC = () => {

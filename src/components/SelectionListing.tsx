@@ -22,26 +22,30 @@ import { MdArrowDownward } from "react-icons/md";
 import { CustomTd } from "../utils/chakraUtils";
 import { BsTags } from "react-icons/bs";
 import { AppThemeGreen } from "../utils/constants";
-import { Source, fetchData } from "../utils/apis";
+import { Destination, Source, fetchData } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
 import { getConnectorTypeName } from "../utils/helpers";
 import { useQuery } from "react-query";
 
-interface SourceListingProps {
-  onSourceSelection: (source: Source) => void;
+interface SelectionListingProps {
+  onSelection: (selection: Source | Destination) => void;
+  type: "source" | "destination";
 }
 
-const SourceListing: React.FC<SourceListingProps> = ({ onSourceSelection }) => {
+const SelectionListing: React.FC<SelectionListingProps> = ({
+  onSelection,
+  type,
+}) => {
   const {
-    data: sources = [],
+    data = [],
     error,
     isLoading,
   } = useQuery<Source[], Error>(
-    "sourcesListing",
-    () => fetchData<Source[]>("/api/sources"),
-    {
-      refetchInterval: 7000, // Polling every 15 seconds
-    }
+    type === "source" ? "sourcesListing" : "destinationsListing",
+    () =>
+      fetchData<Source[] | Destination[]>(
+        type === "source" ? "/api/sources" : "/api/destinations"
+      )
   );
 
   if (isLoading) {
@@ -57,8 +61,11 @@ const SourceListing: React.FC<SourceListingProps> = ({ onSourceSelection }) => {
       <Flex minWidth="max-content" alignItems="center">
         <Spacer />
         <Box pr="4" pb="2">
-          <Link color="teal.500" href="/source/catalog">
-            Create a new source
+          <Link
+            color="teal.500"
+            href={type === "source" ? "/source" : "/destination" + "/catalog"}
+          >
+            Create a new {type === "source" ? "source" : "destination"}
           </Link>
         </Box>
       </Flex>
@@ -90,17 +97,17 @@ const SourceListing: React.FC<SourceListingProps> = ({ onSourceSelection }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {sources.map((source: Source) => (
+            {data.map((source: Source | Destination) => (
               <Tr
                 key={source.id}
                 _hover={{ bg: `${AppThemeGreen.Theme}.50`, shadow: "lg" }}
                 cursor="pointer"
-                onClick={() => onSourceSelection(source)}
+                onClick={() => onSelection(source)}
               >
                 <Td>{source.name}</Td>
                 <CustomTd>
                   <Stack direction="row" align="center" spacing={2}>
-                    <ConnectorImage connectorType={source.type} />
+                    <ConnectorImage connectorType={source.type} size={8} />
                     <Text fontSize="md">
                       {getConnectorTypeName(source.type)}
                     </Text>
@@ -130,4 +137,4 @@ const SourceListing: React.FC<SourceListingProps> = ({ onSourceSelection }) => {
   );
 };
 
-export default SourceListing;
+export default SelectionListing;

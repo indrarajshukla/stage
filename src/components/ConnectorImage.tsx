@@ -24,7 +24,7 @@ interface ConnectorImageProps {
 
 const ConnectorImage: React.FC<ConnectorImageProps> = ({
   connectorType = "",
-  size = 8,
+  size,
 }) => {
   let src = "";
 
@@ -79,8 +79,10 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
       break;
   }
 
-  return (
+  return size ? (
     <Image boxSize={size} objectFit="fill" src={src} alt={connectorType} />
+  ) : (
+    <Image objectFit="fill" src={src} alt={connectorType} />
   );
 };
 

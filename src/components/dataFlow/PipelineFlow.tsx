@@ -13,9 +13,9 @@ import ReactFlow, {
 import { Image } from "@chakra-ui/react";
 import AddTransformationNode from "./AddTransformationNode";
 import DataNode from "./DataNode";
-import cassandra from "../assets/Cassandra.png";
+import cassandra from "../../assets/Cassandra.png";
 import TransformationNode from "./TransformationNode";
-import apachePulsar from "../assets/apachePulsar.png";
+import apachePulsar from "../../assets/apachePulsar.png";
 
 const initialNodes = [
   {

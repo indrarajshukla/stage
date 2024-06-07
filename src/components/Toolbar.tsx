@@ -17,12 +17,7 @@ interface ToolbarProps {
   primaryAction: React.ReactNode;
 }
 
-const Toolbar: React.FC<ToolbarProps> = (
-  {
-    primaryAction
-  }
-) => {
-
+const Toolbar: React.FC<ToolbarProps> = ({ primaryAction }) => {
   return (
     <Flex mt="4" pb="4">
       <Box>

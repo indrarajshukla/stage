@@ -10,8 +10,6 @@ import {
   Icon,
   Input,
   FormHelperText,
-  Grid,
-  GridItem,
   Button,
   HStack,
   Select,
@@ -22,9 +20,9 @@ import { AppThemeGreen } from "../../utils/constants";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 import { useData } from "../DataContext";
-import ConnectorTypeImage from "../../components/ConnectorTypeImage";
 import { useNavigate } from "react-router-dom";
 import { createPost } from "../../utils/apis";
+import ConnectorImage from "../../components/ConnectorImage";
 
 const ConfigurePipeline: React.FC = () => {
   const navigate = useNavigate();
@@ -158,12 +156,14 @@ const ConfigurePipeline: React.FC = () => {
                   <FormLabel>Pipeline</FormLabel>
                   <HStack>
                     <Box width="35px">
-                      <ConnectorTypeImage type={source ? source.type : ""} />
+                      <ConnectorImage
+                        connectorType={source ? source.type : ""}
+                      />
                     </Box>
                     <Icon boxSize="6" as={ArrowForwardIcon} />
                     <Box width="35px">
-                      <ConnectorTypeImage
-                        type={destination ? destination.type : ""}
+                      <ConnectorImage
+                        connectorType={destination ? destination.type : ""}
                       />
                     </Box>
                   </HStack>

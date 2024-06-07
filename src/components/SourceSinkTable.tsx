@@ -90,7 +90,7 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
               <Td>{instance.name}</Td>
               <CustomTd>
                 <Stack direction="row" align="center" spacing={2}>
-                  <ConnectorImage connectorType={instance.type} />
+                  <ConnectorImage connectorType={instance.type} size={8} />
                   <Text fontSize="md">
                     {getConnectorTypeName(instance.type)}
                   </Text>

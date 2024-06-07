@@ -45,7 +45,7 @@ const DestinationField: React.FC<DestinationFieldProps> = ({
   return (
     <CustomTd>
       <Stack direction="row" align="center" spacing={2}>
-        {destination && <ConnectorImage connectorType={(destination as Destination).type} />}
+        {destination && <ConnectorImage connectorType={(destination as Destination).type} size={8} />}
 
         <td>{pipelineDestination.name}</td>
       </Stack>

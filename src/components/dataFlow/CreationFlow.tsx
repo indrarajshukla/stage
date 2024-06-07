@@ -25,13 +25,11 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import DestinationListing from "./DestinationListing";
-import SourceListing from "./SourceListing";
+import SelectionListing from "../SelectionListing";
 import DataNode from "./DataNode";
-import { Destination, Source } from "../utils/apis";
-import ConnectorImage from "./ConnectorImage";
-import { getConnectorTypeName } from "../utils/helpers";
-// import { isEmpty } from "../utils/helpers";
+import { Destination, Source } from "../../utils/apis";
+import ConnectorImage from "../ConnectorImage";
+import { getConnectorTypeName } from "../../utils/helpers";
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -194,7 +192,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
   );
   const onConnect = useCallback(
     (connection: Connection) => {
-      setEdges((eds: Edge[]) => addEdge(connection, eds)); // Call addEdge here
+      setEdges((eds: Edge[]) => addEdge(connection, eds));
     },
     [setEdges]
   );
@@ -204,7 +202,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
       const selectedSourceNode = {
         id: "source",
         data: {
-          image: <ConnectorImage connectorType={source.type} />,
+          image: <ConnectorImage connectorType={source.type} size={8} />,
           label: getConnectorTypeName(source.type),
           type: "source",
           draggable: false,
@@ -248,7 +246,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
       const selectedDestinationNode = {
         id: "destination",
         data: {
-          image: <ConnectorImage connectorType={destination.type} />,
+          image: <ConnectorImage connectorType={destination.type} size={8} />,
           label: getConnectorTypeName(destination.type),
           type: "destination",
           draggable: false,
@@ -310,7 +308,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <SourceListing onSourceSelection={onSourceSelection} />
+              <SelectionListing onSelection={onSourceSelection} type="source" />
             </Box>
           </ModalBody>
         </ModalContent>
@@ -322,8 +320,9 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <DestinationListing
-                onDestinationSelection={onDestinationSelection}
+              <SelectionListing
+                onSelection={onDestinationSelection}
+                type="destination"
               />
             </Box>
           </ModalBody>

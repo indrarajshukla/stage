@@ -20,7 +20,7 @@ import { MdAddCircleOutline } from "react-icons/md";
 import destinationCatalog from "../../mockData/DestinationCatalog.json";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
-import ConnectorTypeImage from "../../components/ConnectorTypeImage";
+import ConnectorImage from "../../components/ConnectorImage";
 
 const DestinationCatalog: React.FC = () => {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ const DestinationCatalog: React.FC = () => {
                 alignItems="center"
                 justifyContent="center"
               >
-                <ConnectorTypeImage type={destinationType.type} />
+                <ConnectorImage connectorType={destinationType.type} />
               </Box>
 
               <Stack>

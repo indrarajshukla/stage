@@ -23,7 +23,7 @@ import PageHeader from "../../components/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { convertMapToObject } from "../../utils/helpers";
 import { createPost } from "../../utils/apis";
-import ConnectorTypeImage from "../../components/ConnectorTypeImage";
+import ConnectorImage from "../../components/ConnectorImage";
 
 const CreateDestination: React.FC = () => {
   const { destinationId } = useParams<{ destinationId: string }>();
@@ -151,7 +151,7 @@ const CreateDestination: React.FC = () => {
             <FormControl isRequired>
               <FormLabel>Destination type</FormLabel>
               <Box width="50px">
-                <ConnectorTypeImage type={destinationId || ""} />
+                <ConnectorImage connectorType={destinationId || ""} />
               </Box>
             </FormControl>
             <FormControl isRequired>

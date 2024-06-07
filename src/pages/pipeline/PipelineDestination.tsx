@@ -24,7 +24,6 @@ const PipelineDestination: React.FC = () => {
                 </Button>
               }
             />
-            {/* <DestinationListing /> */}
           </Box>
         </>
       )}
