@@ -16,10 +16,11 @@ import {
   Flex,
   Link,
   Spacer,
+  useColorMode,
+  Button,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward } from "react-icons/md";
-import { CustomTd } from "../utils/chakraUtils";
 import { BsTags } from "react-icons/bs";
 import { AppThemeGreen } from "../utils/constants";
 import { Destination, Source, fetchData } from "../utils/apis";
@@ -36,6 +37,7 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
   onSelection,
   type,
 }) => {
+  const { colorMode } = useColorMode();
   const {
     data = [],
     error,
@@ -62,19 +64,20 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
         <Spacer />
         <Box pr="4" pb="2">
           <Link
-            color="teal.500"
             href={type === "source" ? "/source" : "/destination" + "/catalog"}
           >
-            Create a new {type === "source" ? "source" : "destination"}
+            <Button variant="link">
+              Create a new {type === "source" ? "source" : "destination"}
+            </Button>
           </Link>
         </Box>
       </Flex>
       <TableContainer
-        bg="white"
+        bg={colorMode !== "dark" ? "white" : "gray.700"}
         borderRadius="lg"
         p="2"
         border="1px"
-        borderColor="gray.200"
+        borderColor={colorMode !== "dark" ? "gray.200" : "gray.600"}
       >
         <Table variant="simple">
           <TableCaption>List of configured active source.</TableCaption>
@@ -100,19 +103,25 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
             {data.map((source: Source | Destination) => (
               <Tr
                 key={source.id}
-                _hover={{ bg: `${AppThemeGreen.Theme}.50`, shadow: "lg" }}
+                _hover={{
+                  bg:
+                    colorMode === "dark"
+                      ? "gray.600"
+                      : `${AppThemeGreen.Theme}.50`,
+                  shadow: "lg",
+                }}
                 cursor="pointer"
                 onClick={() => onSelection(source)}
               >
                 <Td>{source.name}</Td>
-                <CustomTd>
+                <Td>
                   <Stack direction="row" align="center" spacing={2}>
                     <ConnectorImage connectorType={source.type} size={8} />
                     <Text fontSize="md">
                       {getConnectorTypeName(source.type)}
                     </Text>
                   </Stack>
-                </CustomTd>
+                </Td>
                 <Td>
                   <Badge
                     variant="outline"

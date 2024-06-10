@@ -15,6 +15,7 @@ import {
   Button,
   Center,
   Tooltip,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
@@ -29,6 +30,7 @@ import _ from "lodash";
 import ConnectorImage from "../../components/ConnectorImage";
 
 const CreateSource: React.FC = () => {
+  const { colorMode } = useColorMode();
   const { sourceId } = useParams<{ sourceId: string }>();
   const navigate = useNavigate();
 
@@ -120,7 +122,7 @@ const CreateSource: React.FC = () => {
   return (
     <>
       <PageHeader title="Create source" isPadded />
-      <Box mr="32" ml="32" bg="white" borderRadius="lg" p="4" shadow="md">
+      <Box mr="32" ml="32" bg={colorMode === "dark" ? "gray.700" : "white"} borderRadius="lg" p="4" shadow="md">
         <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
@@ -150,7 +152,9 @@ const CreateSource: React.FC = () => {
             <Box pt="2">
               <Text fontSize="md">1. Capture details</Text>
               <Box
-                bg={`${AppThemeGreen.Background}`}
+                bg={`${
+                  colorMode === "dark" ? "gray.800" : `${AppThemeGreen.Background}`
+                }`}
                 mt="1"
                 pr="3"
                 pl="3"
@@ -168,7 +172,7 @@ const CreateSource: React.FC = () => {
                   <FormLabel>Source name</FormLabel>
                   <Input
                     type="text"
-                    bg="white"
+                    bg={colorMode === "dark" ? "gray.700" : "white"}
                     isInvalid={!!sourceNameError}
                     errorBorderColor="crimson"
                     value={sourceName}
@@ -179,7 +183,7 @@ const CreateSource: React.FC = () => {
                   <FormLabel>Detail</FormLabel>
                   <Input
                     type="text"
-                    bg="white"
+                    bg={colorMode === "dark" ? "gray.700" : "white"}
                     value={detail}
                     onChange={(e) => setDetail(e.target.value)}
                   />
@@ -193,7 +197,9 @@ const CreateSource: React.FC = () => {
             <Box pt="2">
               <Text fontSize="md">2. Configuration properties</Text>
               <Box
-                bg={`${AppThemeGreen.Background}`}
+                bg={`${
+                  colorMode === "dark" ? "gray.800" : `${AppThemeGreen.Background}`
+                }`}
                 mt="1"
                 pr="3"
                 pl="3"
@@ -252,7 +258,7 @@ const CreateSource: React.FC = () => {
                     <GridItem>
                       <Input
                         type="text"
-                        bg="white"
+                        bg={colorMode === "dark" ? "gray.700" : "white"}
                         placeholder="Property key"
                         value={properties.get(key)?.key || ""}
                         onChange={(e) =>
@@ -263,7 +269,7 @@ const CreateSource: React.FC = () => {
                     <GridItem>
                       <Input
                         type="text"
-                        bg="white"
+                        bg={colorMode === "dark" ? "gray.700" : "white"}
                         placeholder="Property value"
                         value={properties.get(key)?.value || ""}
                         onChange={(e) =>
@@ -275,7 +281,7 @@ const CreateSource: React.FC = () => {
                       <Center height="100%">
                         <Tooltip label="Delete property" aria-label="A tooltip">
                           <Center
-                            bg="white"
+                            bg={colorMode === "dark" ? "gray.700" : "white"}
                             height="100%"
                             width="50px"
                             borderRadius="md"

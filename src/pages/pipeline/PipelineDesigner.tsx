@@ -1,12 +1,13 @@
 import React, { useCallback } from "react";
 import PageHeader from "../../components/PageHeader";
-import { Box, Button, Flex, Spacer, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Spacer, Text, useColorMode } from "@chakra-ui/react";
 import CreationFlow from "../../components/dataFlow/CreationFlow";
 import { useNavigate } from "react-router-dom";
 import { useData } from "../DataContext";
 import { Destination, Source } from "../../utils/apis";
 
 const PipelineDesigner: React.FC = () => {
+  const { colorMode } = useColorMode();
   const navigate = useNavigate();
 
   const [isSourceConfigured, setIsSourceConfigured] = React.useState(false);
@@ -47,7 +48,7 @@ const PipelineDesigner: React.FC = () => {
   return (
     <>
       <PageHeader title="Pipeline designer" isPadded={false} />
-      <Box bg="white" borderRadius="lg" p="4" shadow="md">
+      <Box bg={colorMode !== "dark" ? "white" : "gray.700"} borderRadius="lg" p="4" shadow="md">
         <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">

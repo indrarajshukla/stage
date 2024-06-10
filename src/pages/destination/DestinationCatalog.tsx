@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SearchIcon } from "@chakra-ui/icons";
 import {
   Box,
   Card,
@@ -7,13 +6,11 @@ import {
   Flex,
   Heading,
   Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
   SimpleGrid,
   Spacer,
   Stack,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
@@ -21,8 +18,10 @@ import destinationCatalog from "../../mockData/DestinationCatalog.json";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
 import ConnectorImage from "../../components/ConnectorImage";
+import SearchInput from "../../components/SearchInput";
 
 const DestinationCatalog: React.FC = () => {
+  const { colorMode } = useColorMode();
   const navigate = useNavigate();
   const [destinationTypes, setDestinationTypes] = useState<any[]>([]);
 
@@ -41,16 +40,9 @@ const DestinationCatalog: React.FC = () => {
       />
       <Box pr="32" pl="32">
         <Flex pb="4">
-          <Box>
-            <InputGroup bg="white" width="450px">
-              <InputLeftElement pointerEvents="none">
-                <SearchIcon color="gray.300" />
-              </InputLeftElement>
-              <Input type="text" placeholder="Search" />
-            </InputGroup>
-          </Box>
+        <SearchInput placeholder="Search" />
           <Spacer />
-          <Box>12 Connectors</Box>
+          <Box>{destinationTypes.length} Connectors</Box>
         </Flex>
         <SimpleGrid columns={2} spacing={6}>
           {destinationTypes.map((destinationType) => (
@@ -62,6 +54,7 @@ const DestinationCatalog: React.FC = () => {
               cursor="pointer"
               _hover={{ boxShadow: "md" }}
               onClick={() => onCardClick(destinationType.id)}
+              bg={colorMode === "dark" ? "gray.700" : ""}
             >
               <Box
                 width="70px"
@@ -87,6 +80,7 @@ const DestinationCatalog: React.FC = () => {
             variant="outline"
             cursor="pointer"
             _hover={{ boxShadow: "md" }}
+            bg={colorMode === "dark" ? "gray.700" : ""}
           >
             <Box
               width="70px"

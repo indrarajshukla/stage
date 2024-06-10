@@ -8,29 +8,36 @@ import {
   Box,
   Text,
   Image,
+  useColorMode,
 } from "@chakra-ui/react";
 
 import React, { useState } from "react";
 import debeziumLogo from "./../assets/dbz.svg";
 import { routes } from "../routes";
 import { NavLink, useNavigate } from "react-router-dom";
-import { SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { AppThemeGreen } from "../utils/constants";
 
 interface SideNavigationProps {}
 
 const SideNavigation: React.FC<SideNavigationProps> = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    toggleColorMode();
+  };
 
   const takeMeHome = () => {
     navigate(`/`);
   };
   return (
     <GridItem
-      bg="white"
+      bg={colorMode !== "dark" ? "white" : "gray.900"}
       borderRight="1px"
-      borderColor="gray.200"
+      borderColor={colorMode !== "dark" ? "gray.300" : "blackAlpha.800"}
       area={"nav"}
       display="flex"
       flexDirection="column"
@@ -56,9 +63,21 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
                     mb="1"
                     cursor="pointer"
                     _hover={
-                      !isActive ? { bg: `${AppThemeGreen.Theme}.50` } : {}
+                      !isActive
+                        ? colorMode === "dark"
+                          ? { bg: `gray.800` }
+                          : { bg: `${AppThemeGreen.Theme}.50` }
+                        : {}
                     }
-                    bg={isActive ? `${AppThemeGreen.Theme}.200` : "white"}
+                    bg={
+                      colorMode === "dark"
+                        ? isActive
+                          ? `gray.700`
+                          : ""
+                        : isActive
+                        ? `${AppThemeGreen.Theme}.200`
+                        : "white"
+                    }
                   >
                     <Center h="64px">
                       <VStack gap="0">
@@ -81,7 +100,8 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
 
         {routes.map((route) => {
           return (
-            !route.isMain && !route.isSubPath && (
+            !route.isMain &&
+            !route.isSubPath && (
               <NavLink to={route.path} key={route.label}>
                 {({ isActive }) => (
                   <Box
@@ -91,9 +111,21 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
                     mb="1"
                     cursor="pointer"
                     _hover={
-                      !isActive ? { bg: `${AppThemeGreen.Theme}.50` } : {}
+                      !isActive
+                        ? colorMode === "dark"
+                          ? { bg: `gray.800` }
+                          : { bg: `${AppThemeGreen.Theme}.50` }
+                        : {}
                     }
-                    bg={isActive ? `${AppThemeGreen.Theme}.200` : "white"}
+                    bg={
+                      colorMode === "dark"
+                        ? isActive
+                          ? `gray.700`
+                          : ""
+                        : isActive
+                        ? `${AppThemeGreen.Theme}.200`
+                        : "white"
+                    }
                   >
                     <Center h="64px">
                       <VStack gap="0">
@@ -116,14 +148,17 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
           borderRadius="lg"
           mb="1"
           cursor="pointer"
-          _hover={{ bg: `${AppThemeGreen.Theme}.50` }}
-          bg={isDarkMode ? `${AppThemeGreen.Theme}.200` : "white"}
-          onClick={() => setIsDarkMode(!isDarkMode)}
+          _hover={
+            colorMode === "dark"
+              ? { bg: "gray.800" }
+              : { bg: `${AppThemeGreen.Theme}.50` }
+          }
+          onClick={toggleDarkMode}
         >
           <Center h="64px">
             <VStack gap="0">
               <Box>
-                <Icon as={SunIcon} boxSize={5} />
+                <Icon as={isDarkMode ? SunIcon : MoonIcon} boxSize={5} />
               </Box>
             </VStack>
           </Center>

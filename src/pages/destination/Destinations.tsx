@@ -25,7 +25,7 @@ const Destinations: React.FC = () => {
     "destinations",
     () => fetchData<Destination[]>("/api/destinations"),
     {
-      refetchInterval: 7000, // Polling every 15 seconds
+      refetchInterval: 7000,
     }
   );
 

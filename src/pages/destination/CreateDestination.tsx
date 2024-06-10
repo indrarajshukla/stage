@@ -14,6 +14,7 @@ import {
   Button,
   Center,
   Tooltip,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
@@ -26,6 +27,7 @@ import { createPost } from "../../utils/apis";
 import ConnectorImage from "../../components/ConnectorImage";
 
 const CreateDestination: React.FC = () => {
+  const { colorMode } = useColorMode();
   const { destinationId } = useParams<{ destinationId: string }>();
   const navigate = useNavigate();
 
@@ -116,7 +118,14 @@ const CreateDestination: React.FC = () => {
   return (
     <>
       <PageHeader title="Create destination" isPadded />
-      <Box mr="32" ml="32" bg="white" borderRadius="lg" p="4" shadow="md">
+      <Box
+        mr="32"
+        ml="32"
+        bg={`${colorMode === "dark" ? "gray.700" : "white"}`}
+        borderRadius="lg"
+        p="4"
+        shadow="md"
+      >
         <Flex borderBottom="1px solid" pb="1">
           <Box>
             <Text fontSize="md">
@@ -140,7 +149,9 @@ const CreateDestination: React.FC = () => {
         <Box pt="2">
           <Text fontSize="md">1. Capture details</Text>
           <Box
-            bg={`${AppThemeGreen.Background}`}
+            bg={`${
+              colorMode === "dark" ? "gray.800" : `${AppThemeGreen.Background}`
+            }`}
             mt="1"
             pr="3"
             pl="3"
@@ -158,7 +169,7 @@ const CreateDestination: React.FC = () => {
               <FormLabel>Destination name</FormLabel>
               <Input
                 type="text"
-                bg="white"
+                bg={colorMode === "dark" ? "gray.700" : "white"}
                 isInvalid={!!destinationNameError}
                 errorBorderColor="crimson"
                 value={destinationName}
@@ -169,7 +180,7 @@ const CreateDestination: React.FC = () => {
               <FormLabel>Detail</FormLabel>
               <Input
                 type="text"
-                bg="white"
+                bg={colorMode === "dark" ? "gray.700" : "white"}
                 value={detail}
                 onChange={(e) => setDetail(e.target.value)}
               />
@@ -183,7 +194,9 @@ const CreateDestination: React.FC = () => {
         <Box pt="2">
           <Text fontSize="md">2. Configuration properties</Text>
           <Box
-            bg={`${AppThemeGreen.Background}`}
+            bg={`${
+              colorMode === "dark" ? "gray.800" : `${AppThemeGreen.Background}`
+            }`}
             mt="1"
             pr="3"
             pl="3"
@@ -196,7 +209,7 @@ const CreateDestination: React.FC = () => {
                 <GridItem>
                   <Input
                     type="text"
-                    bg="white"
+                    bg={colorMode === "dark" ? "gray.700" : "white"}
                     placeholder="Property key"
                     value={properties.get(key)?.key || ""}
                     onChange={(e) =>
@@ -207,7 +220,7 @@ const CreateDestination: React.FC = () => {
                 <GridItem>
                   <Input
                     type="text"
-                    bg="white"
+                    bg={colorMode === "dark" ? "gray.700" : "white"}
                     placeholder="Property value"
                     value={properties.get(key)?.value || ""}
                     onChange={(e) =>
@@ -219,7 +232,7 @@ const CreateDestination: React.FC = () => {
                   <Center height="100%">
                     <Tooltip label="Delete property" aria-label="A tooltip">
                       <Center
-                        bg="white"
+                        bg={colorMode === "dark" ? "gray.700" : "white"}
                         height="100%"
                         width="50px"
                         borderRadius="md"

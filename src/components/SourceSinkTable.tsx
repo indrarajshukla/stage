@@ -18,10 +18,10 @@ import {
   MenuItem,
   MenuList,
   MenuDivider,
+  useColorMode,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
-import { CustomTd } from "../utils/chakraUtils";
 import {
   DestinationApiResponse,
   Source,
@@ -41,6 +41,7 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
   data,
   tableType,
 }) => {
+  const { colorMode } = useColorMode();
   const handleDelete = async (id: number, type: string) => {
     const resourceType = type === "source" ? "sources" : "destinations";
     const url = `/api/${resourceType}/${id}`;
@@ -58,11 +59,11 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
   };
   return (
     <TableContainer
-      bg="white"
+      bg={colorMode !== "dark" ? "white" : "gray.700"}
       borderRadius="lg"
       p="2"
       border="1px"
-      borderColor="gray.200"
+      borderColor={colorMode !== "dark" ? "gray.300" : "gray.600"}
     >
       <Table variant="simple">
         <TableCaption>{`List of configured active ${tableType}.`}</TableCaption>
@@ -88,14 +89,14 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
           {data.map((instance: Source) => (
             <Tr key={instance.id}>
               <Td>{instance.name}</Td>
-              <CustomTd>
+              <Td>
                 <Stack direction="row" align="center" spacing={2}>
                   <ConnectorImage connectorType={instance.type} size={8} />
                   <Text fontSize="md">
                     {getConnectorTypeName(instance.type)}
                   </Text>
                 </Stack>
-              </CustomTd>
+              </Td>
               <Td>
                 <Tooltip label={`Used in 0 pipeline`}>
                   <Badge

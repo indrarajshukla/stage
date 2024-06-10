@@ -1,4 +1,4 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import SideNavigation from "./AppSideNavigation";
 import { AppThemeGreen } from "../utils/constants";
 import UserIcon from "../components/UserIcon";
@@ -8,6 +8,7 @@ interface IAppLayout {
 }
 
 const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
+  const { colorMode } = useColorMode();
   return (
     <Grid
       templateAreas={`
@@ -27,13 +28,17 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
         pl="4"
         pr="4"
         pt="4"
-        bg={AppThemeGreen.Background}
+        bg={colorMode !== "dark" ? AppThemeGreen.Background : ""}
         area={"main"}
       >
         <UserIcon />
         {children}
       </GridItem>
-      <GridItem pl="2" bg={AppThemeGreen.Background} area={"footer"}></GridItem>
+      <GridItem
+        pl="2"
+        bg={colorMode !== "dark" ? AppThemeGreen.Background : ""}
+        area={"footer"}
+      ></GridItem>
     </Grid>
   );
 };

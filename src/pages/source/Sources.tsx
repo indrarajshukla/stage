@@ -26,7 +26,7 @@ const Sources: React.FC = () => {
     "sources",
     () => fetchData<Source[]>("/api/sources"),
     {
-      refetchInterval: 7000, // Polling every 15 seconds
+      refetchInterval: 7000, 
     }
   );
 

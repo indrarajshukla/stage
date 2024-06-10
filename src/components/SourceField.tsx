@@ -1,8 +1,7 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack, Td } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PipelineSource, Source, fetchDataTypeTwo } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
-import { CustomTd } from "../utils/chakraUtils";
 
 interface SourceFieldProps {
   pipelineSource: PipelineSource;
@@ -41,13 +40,15 @@ const SourceField: React.FC<SourceFieldProps> = ({ pipelineSource }) => {
   }
 
   return (
-    <CustomTd>
+    <Td>
       <Stack direction="row" align="center" spacing={2}>
-        {source && <ConnectorImage connectorType={(source as Source).type} size={8} />}
+        {source && (
+          <ConnectorImage connectorType={(source as Source).type} size={8} />
+        )}
 
         <td>{pipelineSource.name}</td>
       </Stack>
-    </CustomTd>
+    </Td>
   );
 };
 

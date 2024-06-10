@@ -23,6 +23,7 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  useColorMode,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
@@ -79,6 +80,7 @@ const PhaseIndicator = (
 );
 
 const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
+  const { colorMode } = useColorMode();
   const { mutate: deletePipeline, isLoading: isDeleting } = useDeleteData();
 
   const onDeleteHandler = (id: string) => {
@@ -87,11 +89,11 @@ const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
 
   return (
     <TableContainer
-      bg="white"
+    bg={colorMode !== "dark" ? "white" : "gray.700"}
       borderRadius="lg"
       p="2"
       border="1px"
-      borderColor="gray.200"
+      borderColor={colorMode !== "dark" ? "gray.300" : "gray.600"}
     >
       <Table variant="simple">
         <TableCaption>{`List of configured active pipeline.`}</TableCaption>

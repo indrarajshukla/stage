@@ -1,4 +1,4 @@
-import { Box, Text, Center, Flex } from "@chakra-ui/react";
+import { Box, Text, Center, Flex, useColorMode } from "@chakra-ui/react";
 import { Handle, Position } from "reactflow";
 
 interface DataNodeProps {
@@ -6,6 +6,7 @@ interface DataNodeProps {
 }
 
 const DataNode: React.FC<DataNodeProps> = ({ data }) => {
+  const { colorMode } = useColorMode();
   return (
     <Box shadow="md" style={{ borderRadius: "25px" }}>
       {data.type === "source" && (
@@ -15,7 +16,10 @@ const DataNode: React.FC<DataNodeProps> = ({ data }) => {
       <Center
         bg="gray.100"
         p="2"
-        style={{ background: `white`, borderRadius: "25px" }}
+        style={{
+          background: colorMode === "dark" ? "#1a202c" : "white",
+          borderRadius: "25px",
+        }}
       >
         <Flex direction="column">
           <Center>{data.image}</Center>

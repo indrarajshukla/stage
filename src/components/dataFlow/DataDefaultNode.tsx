@@ -5,6 +5,7 @@ import {
   ComponentWithAs,
   Flex,
   IconProps,
+  useColorMode,
 } from "@chakra-ui/react";
 import { Handle, Position } from "reactflow";
 
@@ -13,6 +14,7 @@ interface DataDefaultNodeProps {
 }
 
 const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
+  const { colorMode } = useColorMode();
   // const navigate = useNavigate();
 
   // const navigateTo = (navigateTo: string) => {
@@ -25,7 +27,10 @@ const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
         <Handle type="source" position={Position.Right} id="smt-input" />
       )}
 
-      <Center bg="gray.100" p="2" style={{ background: `white`, borderRadius: "25px" }}>
+      <Center bg="gray.100" p="2" style={{
+        background: colorMode === "dark" ? "#1a202c" : "white",
+        borderRadius: "25px",
+      }}>
         <Flex direction="column">
           <Center>
             <Icon as={data.icon} boxSize={12}  />

@@ -1,8 +1,12 @@
-import { Stack } from "@chakra-ui/react";
+import { Stack, Td } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Destination, PipelineDestination, Source, fetchDataTypeTwo } from "../utils/apis";
+import {
+  Destination,
+  PipelineDestination,
+  Source,
+  fetchDataTypeTwo,
+} from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
-import { CustomTd } from "../utils/chakraUtils";
 
 interface DestinationFieldProps {
   pipelineDestination: PipelineDestination;
@@ -43,13 +47,18 @@ const DestinationField: React.FC<DestinationFieldProps> = ({
   }
 
   return (
-    <CustomTd>
+    <Td>
       <Stack direction="row" align="center" spacing={2}>
-        {destination && <ConnectorImage connectorType={(destination as Destination).type} size={8} />}
+        {destination && (
+          <ConnectorImage
+            connectorType={(destination as Destination).type}
+            size={8}
+          />
+        )}
 
         <td>{pipelineDestination.name}</td>
       </Stack>
-    </CustomTd>
+    </Td>
   );
 };
 
