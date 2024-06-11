@@ -9,6 +9,7 @@ import EmptyState from "../../components/EmptyState";
 import { MdLogin } from "react-icons/md";
 import SourceSinkTable from "../../components/SourceSinkTable";
 import { useQuery } from "react-query";
+import { API_URL } from "../../utils/constants";
 
 const Destinations: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Destinations: React.FC = () => {
     isLoading,
   } = useQuery<Destination[], Error>(
     "destinations",
-    () => fetchData<Destination[]>("/api/destinations"),
+    () => fetchData<Destination[]>(`${API_URL}/api/destinations`),
     {
       refetchInterval: 7000,
     }

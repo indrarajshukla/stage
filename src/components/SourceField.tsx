@@ -2,6 +2,7 @@ import { Stack, Td } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import { PipelineSource, Source, fetchDataTypeTwo } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
+import { API_URL } from "../utils/constants";
 
 interface SourceFieldProps {
   pipelineSource: PipelineSource;
@@ -16,7 +17,7 @@ const SourceField: React.FC<SourceFieldProps> = ({ pipelineSource }) => {
     const fetchSources = async () => {
       setIsLoading(true);
       const response = await fetchDataTypeTwo<Source>(
-        `/api/sources/${pipelineSource.id}`
+        `${API_URL}/api/sources/${pipelineSource.id}`
       );
 
       if (response.error) {

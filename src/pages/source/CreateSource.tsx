@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
-import { AppThemeGreen } from "../../utils/constants";
+import { API_URL, AppThemeGreen } from "../../utils/constants";
 import { AddIcon, DeleteIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
@@ -94,7 +94,7 @@ const CreateSource: React.FC = () => {
       name: sourceName,
     };
 
-    const response = await createPost("/api/sources", payload);
+    const response = await createPost(`${API_URL}/api/sources`, payload);
 
     if (response.error) {
       console.error("Failed to create source:", response.error);

@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BsCodeSquare } from "react-icons/bs";
-import { AppThemeGreen } from "../../utils/constants";
+import { API_URL, AppThemeGreen } from "../../utils/constants";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import PageHeader from "../../components/PageHeader";
 import { useData } from "../DataContext";
@@ -71,7 +71,7 @@ const ConfigurePipeline: React.FC = () => {
       logLevel: logLevel,
     };
 
-    const response = await createPost("/api/pipelines", payload);
+    const response = await createPost(`${API_URL}/api/pipelines`, payload);
 
     if (response.error) {
       console.error("Failed to create source:", response.error);
@@ -90,19 +90,19 @@ const ConfigurePipeline: React.FC = () => {
       return;
     }
 
-    const payload = {
-      name: pipelineName,
-      source: {
-        name: source?.name,
-        id: source?.id,
-      },
-      destination: {
-        name: destination?.name,
-        id: destination?.id,
-      },
-      transforms: [],
-      logLevel: logLevel,
-    };
+    // const payload = {
+    //   name: pipelineName,
+    //   source: {
+    //     name: source?.name,
+    //     id: source?.id,
+    //   },
+    //   destination: {
+    //     name: destination?.name,
+    //     id: destination?.id,
+    //   },
+    //   transforms: [],
+    //   logLevel: logLevel,
+    // };
 
     setIsLoading(true);
 

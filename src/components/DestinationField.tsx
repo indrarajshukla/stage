@@ -7,6 +7,7 @@ import {
   fetchDataTypeTwo,
 } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
+import { API_URL } from "../utils/constants";
 
 interface DestinationFieldProps {
   pipelineDestination: PipelineDestination;
@@ -23,7 +24,7 @@ const DestinationField: React.FC<DestinationFieldProps> = ({
     const fetchDestination = async () => {
       setIsLoading(true);
       const response = await fetchDataTypeTwo<Source>(
-        `/api/destinations/${pipelineDestination.id}`
+        API_URL + `/api/destinations/${pipelineDestination.id}`
       );
 
       if (response.error) {

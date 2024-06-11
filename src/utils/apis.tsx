@@ -1,4 +1,5 @@
 import { QueryClient, useMutation, useQueryClient } from "react-query";
+import { API_URL } from "./constants";
 const queryClient = new QueryClient();
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -165,7 +166,7 @@ export const useDeleteData = () => {
   const queryClient = useQueryClient();
 
   return useMutation<void, Error, string>(
-    (id: string) => deleteData(`/api/pipelines/${id}`),
+    (id: string) => deleteData(`${API_URL}/api/pipelines/${id}`),
     {
       onSuccess: () => {
         // Invalidate and refetch the data after deletion

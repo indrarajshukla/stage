@@ -10,6 +10,7 @@ import SourceSinkTable from "../../components/SourceSinkTable";
 import Toolbar from "../../components/Toolbar";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import { API_URL } from "../../utils/constants";
 
 const Sources: React.FC = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const Sources: React.FC = () => {
     isLoading,
   } = useQuery<Source[], Error>(
     "sources",
-    () => fetchData<Source[]>("/api/sources"),
+    () => fetchData<Source[]>(`${API_URL}/api/sources`),
     {
       refetchInterval: 7000, 
     }

@@ -9,6 +9,7 @@ import PipelineTable from "../../components/PipelineTable";
 import Toolbar from "../../components/Toolbar";
 import { Pipeline, fetchData } from "../../utils/apis";
 import { useQuery } from "react-query";
+import { API_URL } from "../../utils/constants";
 
 const Pipelines: React.FC = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const Pipelines: React.FC = () => {
     isLoading,
   } = useQuery<Pipeline[], Error>(
     "pipelines",
-    () => fetchData<Pipeline[]>("/api/pipelines"),
+    () => fetchData<Pipeline[]>(`${API_URL}/api/pipelines`),
     {
       refetchInterval: 7000, // Polling every 15 seconds
     }

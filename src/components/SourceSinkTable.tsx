@@ -31,6 +31,7 @@ import {
 import { BsTags } from "react-icons/bs";
 import ConnectorImage from "./ConnectorImage";
 import { getConnectorTypeName } from "../utils/helpers";
+import { API_URL } from "../utils/constants";
 
 interface SourceSinkTableProps {
   tableType: "source" | "destination";
@@ -44,7 +45,7 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
   const { colorMode } = useColorMode();
   const handleDelete = async (id: number, type: string) => {
     const resourceType = type === "source" ? "sources" : "destinations";
-    const url = `/api/${resourceType}/${id}`;
+    const url = `${API_URL}/api/${resourceType}/${id}`;
     const result = await deleteResource(url);
 
     if (result.error) {

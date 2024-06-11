@@ -11,13 +11,6 @@ import {
   Td,
   Text,
   Switch,
-  Box,
-  Step,
-  StepIcon,
-  StepIndicator,
-  StepSeparator,
-  StepStatus,
-  Stepper,
   Menu,
   MenuButton,
   MenuDivider,
@@ -30,54 +23,53 @@ import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
 import { PipelineApiResponse, Pipeline, useDeleteData } from "../utils/apis";
 import SourceField from "./SourceField";
 import DestinationField from "./DestinationField";
-import { CustomTd } from "../utils/chakraUtils";
 
 interface PipelineTableProps {
   data: PipelineApiResponse;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const PhaseIndicator = (
-  <CustomTd>
-    <Box w="150px">
-      <Stepper index={3} size="sx" colorScheme="blue">
-        <Step>
-          <StepIndicator border="2px" borderColor="gray.200">
-            <StepStatus
-              complete={<StepIcon />}
-              incomplete={<StepIcon />}
-              active={<StepIcon />}
-            />
-          </StepIndicator>
+// const PhaseIndicator = (
+//   <CustomTd>
+//     <Box w="150px">
+//       <Stepper index={3} size="sx" colorScheme="blue">
+//         <Step>
+//           <StepIndicator border="2px" borderColor="gray.200">
+//             <StepStatus
+//               complete={<StepIcon />}
+//               incomplete={<StepIcon />}
+//               active={<StepIcon />}
+//             />
+//           </StepIndicator>
 
-          <StepSeparator />
-        </Step>
-        <Step>
-          <StepIndicator border="2px" borderColor="gray.200">
-            <StepStatus
-              complete={<StepIcon />}
-              incomplete={<StepIcon />}
-              active={<StepIcon />}
-            />
-          </StepIndicator>
+//           <StepSeparator />
+//         </Step>
+//         <Step>
+//           <StepIndicator border="2px" borderColor="gray.200">
+//             <StepStatus
+//               complete={<StepIcon />}
+//               incomplete={<StepIcon />}
+//               active={<StepIcon />}
+//             />
+//           </StepIndicator>
 
-          <StepSeparator />
-        </Step>
-        <Step>
-          <StepIndicator border="2px" borderColor="gray.200">
-            <StepStatus
-              complete={<StepIcon />}
-              incomplete={<StepIcon />}
-              active={<StepIcon />}
-            />
-          </StepIndicator>
+//           <StepSeparator />
+//         </Step>
+//         <Step>
+//           <StepIndicator border="2px" borderColor="gray.200">
+//             <StepStatus
+//               complete={<StepIcon />}
+//               incomplete={<StepIcon />}
+//               active={<StepIcon />}
+//             />
+//           </StepIndicator>
 
-          <StepSeparator />
-        </Step>
-      </Stepper>
-    </Box>
-  </CustomTd>
-);
+//           <StepSeparator />
+//         </Step>
+//       </Stepper>
+//     </Box>
+//   </CustomTd>
+// );
 
 const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
   const { colorMode } = useColorMode();
@@ -89,7 +81,7 @@ const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
 
   return (
     <TableContainer
-    bg={colorMode !== "dark" ? "white" : "gray.700"}
+      bg={colorMode !== "dark" ? "white" : "gray.700"}
       borderRadius="lg"
       p="2"
       border="1px"

@@ -22,7 +22,7 @@ import {
 import React from "react";
 import { MdArrowDownward } from "react-icons/md";
 import { BsTags } from "react-icons/bs";
-import { AppThemeGreen } from "../utils/constants";
+import { API_URL, AppThemeGreen } from "../utils/constants";
 import { Destination, Source, fetchData } from "../utils/apis";
 import ConnectorImage from "./ConnectorImage";
 import { getConnectorTypeName } from "../utils/helpers";
@@ -46,7 +46,7 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
     type === "source" ? "sourcesListing" : "destinationsListing",
     () =>
       fetchData<Source[] | Destination[]>(
-        type === "source" ? "/api/sources" : "/api/destinations"
+        type === "source" ? `${API_URL}/api/sources` : `${API_URL}/api/destinations`
       )
   );
 
