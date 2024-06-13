@@ -1,43 +1,102 @@
-# React + TypeScript + Vite
+[![License](http://img.shields.io/:license-apache%202.0-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![User chat](https://img.shields.io/badge/chat-users-brightgreen.svg)](https://debezium.zulipchat.com/#narrow/stream/302529-users)
+[![Developer chat](https://img.shields.io/badge/chat-devs-brightgreen.svg)](https://debezium.zulipchat.com/#narrow/stream/302533-dev)
+[![Google Group](https://img.shields.io/:mailing%20list-debezium-brightgreen.svg)](https://groups.google.com/forum/#!forum/debezium)
+[![Stack Overflow](http://img.shields.io/:stack%20overflow-debezium-brightgreen.svg)](http://stackoverflow.com/questions/tagged/debezium)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Copyright Debezium Authors.
+Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
-Currently, two official plugins are available:
+# Debezium platform stage
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This repository contains a new web-based UI for Debezium operator. The Stage UI is a React-based Single Page Application.
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+This project is under active development, any contributions are very welcome.
 
 ## Requirements
-node (version 18.x.x or higher) and yarn (version 1.22.X or higher).
+node (version 18.x.x or higher) and npm (version 1.22.x or higher).
 
 ## Quick-start
 
-To quickly start react based web app UI locally. 
+### Running UI app locally
+
+To quickly start react app locally. 
 
 ```bash
-yarn 
-
-yarn dev
+git clone https://github.com/indraraj/stage-chakra
+cd stage-chakra
+yarn && yarn dev
 ```
+
+Stage UI will be available on [http://localhost:5173](http://localhost:5173)  
+
+## Running UI app with local backend
+
+### DEV Infrastructure with Docker-Compose
+
+```bash
+git clone https://github.com/indraraj/stage-chakra
+cd stage-chakra
+```
+
+You can setup a running DEV infrastructure with platform-conductor and postgres using docker compose:
+
+```
+## start containers
+$ docker compose up -d
+
+```
+    
+Platform conductor REST API will be available on local port **8080**.   
+Postgres will be available on local port **5432**.  
+
+### Cleanup
+
+later stop running containers.
+
+```
+$ docker compose down
+
+```
+
+## UI Development
+
+Install all the dependencies
+```bash
+yarn
+```
+
+Running UI web app targeting local dev setup 
+```bash
+VITE_BACKEND_BASE_URL={backend_URL} && yarn dev
+```
+
+Debezium UI will be available on [http://localhost:5173](http://localhost:5173)  
+
+## Development scripts
+```sh
+# Install development/build dependencies
+yarn
+
+# Start the development server
+yarn dev
+
+# Run a production build (outputs to "dist" dir)
+yarn build
+
+# Run the test suite
+yarn test
+
+# Run the linter
+yarn lint
+
+# Start the dev server (run a production build first)
+yarn preview
+```
+
+## Contributing
+
+The Debezium community welcomes anyone that wants to help out in any way, whether that includes
+reporting problems, helping with documentation, or contributing code changes to fix bugs, add tests,
+or implement new features.
+See [this document](https://github.com/debezium/debezium/blob/main/CONTRIBUTE.md) for details.
