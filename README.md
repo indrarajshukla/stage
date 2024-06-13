@@ -9,12 +9,14 @@ Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/
 
 # Debezium platform stage
 
-This repository contains a new web-based UI for Debezium operator. The Stage UI is a React-based Single Page Application.
+This repository contains a new web-based UI for the Debezium operator. The Stage UI is a React+Typescript-based Single Page Application built with Vite.
+
+<img width="1171" alt="image" src="https://github.com/indraraj/stage-chakra/assets/8264372/98908e43-3093-42a3-84b3-570d6eb0139f">
 
 This project is under active development, any contributions are very welcome.
 
 ## Requirements
-node (version 18.x.x or higher) and npm (version 1.22.x or higher).
+node (version 20.x.x or higher) and yarn (version 1.22.x or higher).
 
 ## Quick-start
 
@@ -30,7 +32,7 @@ yarn && yarn dev
 
 Stage UI will be available on [http://localhost:5173](http://localhost:5173)  
 
-## Running UI app with local backend
+## Running UI app with backend via docker
 
 ### DEV Infrastructure with Docker-Compose
 
@@ -39,16 +41,16 @@ git clone https://github.com/indraraj/stage-chakra
 cd stage-chakra
 ```
 
-You can setup a running DEV infrastructure with platform-conductor and postgres using docker compose:
+You can set up a running DEV infrastructure with platform-conductor and Postgres using docker compose:
 
 ```
 ## start containers
 $ docker compose up -d
-
 ```
     
 Platform conductor REST API will be available on local port **8080**.   
-Postgres will be available on local port **5432**.  
+Postgres will be available on local port **5432**.   
+Platform Stage UI will be available on [http://localhost:3000](http://localhost:3000) 
 
 ### Cleanup
 
