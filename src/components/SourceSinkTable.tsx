@@ -19,6 +19,7 @@ import {
   MenuList,
   MenuDivider,
   useColorMode,
+  Button,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
@@ -36,11 +37,15 @@ import { API_URL } from "../utils/constants";
 interface SourceSinkTableProps {
   tableType: "source" | "destination";
   data: SourceApiResponse | DestinationApiResponse;
+  onClear: () => void;
+  isFiltered: boolean;
 }
 
 const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
   data,
   tableType,
+  onClear,
+  isFiltered,
 }) => {
   const { colorMode } = useColorMode();
   const handleDelete = async (id: number, type: string) => {
@@ -67,7 +72,21 @@ const SourceSinkTable: React.FC<SourceSinkTableProps> = ({
       borderColor={colorMode !== "dark" ? "gray.300" : "gray.600"}
     >
       <Table variant="simple">
-        <TableCaption>{`List of configured active ${tableType}.`}</TableCaption>
+        <TableCaption>
+          {!isFiltered ? (
+            `List of configured active ${tableType}.`
+          ) : data.length === 0 ? (
+            <>
+              {`No matching ${tableType} is present. `}
+              <br />
+              <Button variant={"link"} onClick={onClear}>
+                Clear search field
+              </Button>
+            </>
+          ) : (
+            `List of configured active ${tableType} matching the search result.`
+          )}
+        </TableCaption>
         <Thead>
           <Tr>
             <Th>

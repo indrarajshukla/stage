@@ -17,6 +17,7 @@ import {
   MenuItem,
   MenuList,
   useColorMode,
+  Button,
 } from "@chakra-ui/react";
 import React from "react";
 import { MdArrowDownward, MdOutlineMoreVert } from "react-icons/md";
@@ -26,6 +27,8 @@ import DestinationField from "./DestinationField";
 
 interface PipelineTableProps {
   data: PipelineApiResponse;
+  onClear: () => void;
+  isFiltered: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -71,7 +74,11 @@ interface PipelineTableProps {
 //   </CustomTd>
 // );
 
-const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
+const PipelineTable: React.FC<PipelineTableProps> = ({
+  data,
+  onClear,
+  isFiltered,
+}) => {
   const { colorMode } = useColorMode();
   const { mutate: deletePipeline, isLoading: isDeleting } = useDeleteData();
 
@@ -88,7 +95,21 @@ const PipelineTable: React.FC<PipelineTableProps> = ({ data }) => {
       borderColor={colorMode !== "dark" ? "gray.300" : "gray.600"}
     >
       <Table variant="simple">
-        <TableCaption>{`List of configured active pipeline.`}</TableCaption>
+        <TableCaption>
+          {!isFiltered ? (
+            `List of configured active pipelines.`
+          ) : data.length === 0 ? (
+            <>
+              {`No matching pipeline is present. `}
+              <br />
+              <Button variant={"link"} onClick={onClear}>
+                Clear search field
+              </Button>
+            </>
+          ) : (
+            `List of configured active pipelines matching the search result.`
+          )}
+        </TableCaption>
         <Thead>
           <Tr>
             <Th>

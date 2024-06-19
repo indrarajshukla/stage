@@ -6,12 +6,23 @@ import SearchInput from "./SearchInput";
 
 interface ToolbarProps {
   primaryAction: React.ReactNode;
+  searchQuery: string;
+  onSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Toolbar: React.FC<ToolbarProps> = ({ primaryAction }) => {
+const Toolbar: React.FC<ToolbarProps> = ({
+  primaryAction,
+  searchQuery,
+  onSearch,
+}) => {
   return (
     <Flex mt="4" pb="4">
-      <SearchInput placeholder="Search" size="400px" />
+      <SearchInput
+        placeholder="Search"
+        size="400px"
+        searchInput={searchQuery}
+        onSearch={onSearch}
+      />
       <Spacer />
       <Box>
         <Stack direction="row" spacing={4}>
