@@ -5,12 +5,10 @@ import { AppBranding } from "./utils/constants";
 import Sources from "./pages/source/Sources";
 import Destinations from "./pages/destination/Destinations";
 import Pipelines from "./pages/pipeline/Pipelines";
-import Setting from "./pages/setting/Setting";
 import {
   MdLogin,
   MdLogout,
   MdOutlineHome,
-  MdOutlineSettings,
   MdOutlineVpnKey,
   MdSwapCalls,
 } from "react-icons/md";
@@ -160,14 +158,15 @@ const routes: AppRouteConfig[] = [
     isSubPath: true,
     icon: MdSwapCalls,
   },
-  {
-    component: Setting,
-    label: "Setting",
-    path: "/setting",
-    title: `${AppBranding} | Setting`,
-    isMain: false,
-    icon: MdOutlineSettings,
-  },
+  // Hide setting page for now
+  // {
+  //   component: Setting,
+  //   label: "Setting",
+  //   path: "/setting",
+  //   title: `${AppBranding} | Setting`,
+  //   isMain: false,
+  //   icon: MdOutlineSettings,
+  // },
 ];
 
 export { routes };

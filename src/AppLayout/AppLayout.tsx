@@ -1,7 +1,6 @@
 import { Grid, GridItem, useColorMode } from "@chakra-ui/react";
 import SideNavigation from "./AppSideNavigation";
 import { AppThemeGreen } from "../utils/constants";
-import UserIcon from "../components/UserIcon";
 
 interface IAppLayout {
   children: React.ReactNode;
@@ -31,7 +30,8 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
         bg={colorMode !== "dark" ? AppThemeGreen.Background : ""}
         area={"main"}
       >
-        <UserIcon />
+        {/* Hide user account until militancy support is implemented */}
+        {/* <UserIcon /> */}
         {children}
       </GridItem>
       <GridItem

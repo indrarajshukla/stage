@@ -16,7 +16,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   onSearch,
 }) => {
   return (
-    <Flex mt="4" pb="4">
+    <Flex pb="4">
       <SearchInput
         placeholder="Search"
         size="400px"
