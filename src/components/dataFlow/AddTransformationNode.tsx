@@ -12,24 +12,33 @@ const AddTransformationNode: React.FC<AddTransformationNodeProps> = ({
   data,
 }) => {
   const { colorMode } = useColorMode();
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const navigateTo = (navigateTo: string) => {
     navigate(`/pipeline/pipeline_designer/${navigateTo}`);
   };
   return (
-    <Box shadow="md" style={{ borderRadius: "5px" }}>
+    <Box shadow="md" style={{ borderRadius: "15px" }}>
       <Handle type="target" id="smt-input" position={data.targetPosition} />
-      <Center p="2" style={{
-        background: colorMode === "dark" ? "#1a202c" : "white",
-        borderRadius: "5px",
-      }}>
+      <Center
+        p="1"
+        style={{
+          background: colorMode === "dark" ? "#2D3748" : "white",
+          borderRadius: "15px",
+        }}
+      >
         <Flex direction="column">
-          <Center >
-            <Icon as={MdOutlineAutoFixHigh} boxSize={8} />
+          <Center>
+            <Icon as={MdOutlineAutoFixHigh} boxSize={6} />
           </Center>
-          <Box pr="2" pl="2" pt="2" pb="1">
-            <Button variant="outline" leftIcon={<AddIcon />} size="xs" onClick={()=>navigateTo("destination")} isDisabled>
+          <Box>
+            <Button
+              variant="ghost"
+              leftIcon={<AddIcon />}
+              size="xs"
+              onClick={() => navigateTo("destination")}
+              fontSize="x-small"
+            >
               {data.label}
             </Button>
           </Box>

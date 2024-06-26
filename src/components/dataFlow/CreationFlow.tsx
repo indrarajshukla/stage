@@ -10,9 +10,9 @@ import ReactFlow, {
   EdgeChange,
   Edge,
   Connection,
+  Background,
 } from "reactflow";
 import AddTransformationNode from "./AddTransformationNode";
-import { FiDatabase } from "react-icons/fi";
 import {
   Modal,
   ModalOverlay,
@@ -23,13 +23,13 @@ import {
   useDisclosure,
   Box,
   Button,
+  useColorMode,
 } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
-import SelectionListing from "../SelectionListing";
+import PipelineSelectionListing from "../PipelineSelectionListing";
 import DataNode from "./DataNode";
 import { Destination, Source } from "../../utils/apis";
-import ConnectorImage from "../ConnectorImage";
-import { getConnectorTypeName } from "../../utils/helpers";
+import { MdLogin, MdLogout } from "react-icons/md";
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -58,6 +58,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
   updateSelectedSource,
   updateSelectedDestination,
 }) => {
+  const { colorMode } = useColorMode();
   const [updatedSourceNodes, setUpdatedSourceNodes] = useState<any>();
   const [updatedDestinationNodes, setUpdatedDestinationNodes] = useState<any>();
 
@@ -76,18 +77,21 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
     return {
       id: "source",
       data: {
-        icon: FiDatabase,
+        icon: MdLogout,
         label: "Source",
         type: "source",
         action: (
-          <Button
-            variant="outline"
-            onClick={onSourceOpen}
-            leftIcon={<AddIcon />}
-            size="xs"
-          >
-            Source
-          </Button>
+          <Box>
+            <Button
+              variant="ghost"
+              onClick={onSourceOpen}
+              leftIcon={<AddIcon />}
+              size="xs"
+              fontSize="x-small"
+            >
+               Source
+            </Button>
+          </Box>
         ),
       },
       position: { x: 100, y: 150 },
@@ -121,7 +125,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
         sourcePosition: "right",
         targetPosition: "left",
       },
-      position: { x: 25, y: 35 },
+      position: { x: 40, y: 40 },
       targetPosition: "left",
       type: "addTransformation",
       parentId: "transformation_group",
@@ -134,18 +138,21 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
     return {
       id: "destination",
       data: {
-        icon: FiDatabase,
+        icon: MdLogin,
         label: "Destination",
         type: "destination",
         action: (
-          <Button
-            variant="outline"
-            onClick={onDestinationOpen}
-            leftIcon={<AddIcon />}
-            size="xs"
-          >
-            Destination
-          </Button>
+          <Box>
+            <Button
+              variant="ghost"
+              onClick={onDestinationOpen}
+              leftIcon={<AddIcon />}
+              size="xs"
+              fontSize="x-small"
+            >
+              Destination
+            </Button>
+          </Box>
         ),
       },
       position: { x: 650, y: 150 },
@@ -202,10 +209,11 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
       const selectedSourceNode = {
         id: "source",
         data: {
-          image: <ConnectorImage connectorType={source.type} size={8} />,
-          label: getConnectorTypeName(source.type),
+          connectorType: source.type,
+          label: source.name,
           type: "source",
           draggable: false,
+          editAction: onSourceOpen,
         },
         position: { x: 100, y: 160 },
         type: "dataNode",
@@ -238,6 +246,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
       isDestinationConfigured,
       updatedDestinationNodes,
       updateSelectedSource,
+      onSourceOpen,
     ]
   );
 
@@ -246,10 +255,11 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
       const selectedDestinationNode = {
         id: "destination",
         data: {
-          image: <ConnectorImage connectorType={destination.type} size={8} />,
-          label: getConnectorTypeName(destination.type),
+          connectorType: destination.type,
+          label: destination.name,
           type: "destination",
           draggable: false,
+          editAction: onDestinationOpen,
         },
         position: { x: 650, y: 160 },
         type: "dataNode",
@@ -283,6 +293,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
       isSourceConfigured,
       updatedSourceNodes,
       updateSelectedDestination,
+      onDestinationOpen,
     ]
   );
 
@@ -300,7 +311,16 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
         maxZoom={1.5}
         minZoom={1.5}
         panOnDrag={false}
-      ></ReactFlow>
+      >
+        <Background
+          style={{
+            background: colorMode === "dark" ? "#1A202C" : "#F8FAF6",
+            borderRadius: "5px",
+          }}
+          gap={15}
+          color={colorMode === "dark" ? "#1A202C" : "#F8FAF6"}
+        />
+      </ReactFlow>
       <Modal onClose={onSourceClose} size="xl" isOpen={isSourceOpen}>
         <ModalOverlay />
         <ModalContent style={{ maxWidth: "80vw" }}>
@@ -308,7 +328,10 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <SelectionListing onSelection={onSourceSelection} type="source" />
+              <PipelineSelectionListing
+                onSelection={onSourceSelection}
+                type="source"
+              />
             </Box>
           </ModalBody>
         </ModalContent>
@@ -320,7 +343,7 @@ const CreationFlow: React.FC<CreationFlowProps> = ({
           <ModalCloseButton />
           <ModalBody>
             <Box>
-              <SelectionListing
+              <PipelineSelectionListing
                 onSelection={onDestinationSelection}
                 type="destination"
               />

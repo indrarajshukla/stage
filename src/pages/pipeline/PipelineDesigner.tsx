@@ -80,7 +80,7 @@ const PipelineDesigner: React.FC = () => {
             updateSelectedDestination={updateSelectedDestination}
           />
         </Box>
-        <Flex pt="4">
+        <Flex>
           <Box>
             <Button variant="outline" onClick={() => navigateTo("/pipeline")}>
               Back

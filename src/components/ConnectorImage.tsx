@@ -53,9 +53,7 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
     case connectorType.includes("eventhub"):
       src = eventHub;
       break;
-    case connectorType.includes("pubsub"):
-      src = pubsub;
-      break;
+
     case connectorType.includes("rabbitmq"):
       src = rabbitMq;
       break;
@@ -71,6 +69,9 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
     case connectorType.includes("pubsublite"):
       src = pubsubLite;
       break;
+    case connectorType.includes("pubsub"):
+      src = pubsub;
+      break;
     case connectorType.includes("pravega"):
       src = pravega;
       break;
@@ -80,9 +81,9 @@ const ConnectorImage: React.FC<ConnectorImageProps> = ({
   }
 
   return size ? (
-    <Image boxSize={size} objectFit="fill" src={src} alt={connectorType} />
+    <Image boxSize={size} objectFit="contain" src={src} alt={connectorType} />
   ) : (
-    <Image objectFit="fill" src={src} alt={connectorType} />
+    <Image objectFit="contain" src={src} alt={connectorType} />
   );
 };
 

@@ -12,7 +12,7 @@ const PageNotFound: React.FC = () => {
     navigate("/");
   };
   return (
-    <Box mt="100px">
+    <Box mt="4">
       <EmptyState
         icon={<Icon as={MdOutlineWrongLocation} boxSize={20} />}
         title="404 Page not found"

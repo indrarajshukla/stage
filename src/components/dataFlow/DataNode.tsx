@@ -1,30 +1,65 @@
-import { Box, Text, Center, Flex, useColorMode } from "@chakra-ui/react";
+import { EditIcon } from "@chakra-ui/icons";
+import { Box, Text, Center, Flex, useColorMode, Icon } from "@chakra-ui/react";
 import { Handle, Position } from "reactflow";
+import ConnectorImage from "../ConnectorImage";
+import { AppThemeGreen } from "../../utils/constants";
 
 interface DataNodeProps {
-  data: { image: React.ReactNode; label: string, type: string};
+  data: {
+    connectorType: string;
+    label: string;
+    type: string;
+    editAction: () => void;
+  };
 }
 
 const DataNode: React.FC<DataNodeProps> = ({ data }) => {
   const { colorMode } = useColorMode();
   return (
-    <Box shadow="md" style={{ borderRadius: "25px" }}>
+    <Box
+      shadow="md"
+      cursor="auto"
+      style={{
+        borderRadius: "15px",
+        padding: "5px",
+        background: colorMode === "dark" ? "#2D3748" : "white",
+      }}
+    >
       {data.type === "source" && (
         <Handle type="source" position={Position.Right} id="smt-input" />
       )}
+      <Icon
+        as={EditIcon} // Change this to whatever icon you need
+        position="absolute"
+        top="4px"
+        right="4px"
+        boxSize={2.5}
+        cursor="pointer"
+        onClick={data.editAction}
+      />
 
       <Center
-        bg="gray.100"
-        p="2"
         style={{
-          background: colorMode === "dark" ? "#1a202c" : "white",
-          borderRadius: "25px",
+          background: colorMode === "dark" ? "#2D3748" : "white",
         }}
+        mt="1"
+        mr="1"
+        ml="1"
       >
         <Flex direction="column">
-          <Center>{data.image}</Center>
-          <Box pr="2" pl="2" pt="2" pb="1">
-            <Text fontSize="sm" fontWeight="bold">
+          <Center>
+            <Box
+              bg={colorMode === "dark" ? "#2D3748" : AppThemeGreen.Background}
+              lineHeight="normal"
+              borderRadius="5"
+              p="1"
+            >
+              <ConnectorImage connectorType={data.connectorType} size={9} />
+            </Box>
+          </Center>
+
+          <Box pt="1" textAlign="center">
+            <Text fontSize="x-small" fontWeight="bold">
               {data.label}
             </Text>
           </Box>

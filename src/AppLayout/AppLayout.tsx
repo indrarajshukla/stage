@@ -13,7 +13,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
       templateAreas={`
                     "nav main"
                     "nav footer"`}
-      gridTemplateRows={"1fr 30px"}
+      gridTemplateRows={"1fr 10px"}
       gridTemplateColumns={"80px 1fr"}
       h="100vh"
       gap="0"
@@ -29,6 +29,7 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
         pt="4"
         bg={colorMode !== "dark" ? AppThemeGreen.Background : ""}
         area={"main"}
+        overflowY="scroll"
       >
         {/* Hide user account until militancy support is implemented */}
         {/* <UserIcon /> */}
@@ -37,7 +38,6 @@ const AppLayout: React.FunctionComponent<IAppLayout> = ({ children }) => {
       <GridItem
         pl="2"
         bg={colorMode !== "dark" ? AppThemeGreen.Background : ""}
-        area={"footer"}
       ></GridItem>
     </Grid>
   );

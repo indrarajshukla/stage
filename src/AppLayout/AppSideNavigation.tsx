@@ -41,6 +41,7 @@ const SideNavigation: React.FC<SideNavigationProps> = () => {
       area={"nav"}
       display="flex"
       flexDirection="column"
+      maxHeight="100vh"
     >
       <Center h="70px" mb="20px" onClick={takeMeHome} cursor="pointer">
         <Image

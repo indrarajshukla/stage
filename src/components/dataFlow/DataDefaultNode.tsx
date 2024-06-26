@@ -8,9 +8,15 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Handle, Position } from "reactflow";
+import { AppThemeGreen } from "../../utils/constants";
 
 interface DataDefaultNodeProps {
-  data: { icon: ComponentWithAs<"svg", IconProps>; label: string, type: string, action: React.ReactNode};
+  data: {
+    icon: ComponentWithAs<"svg", IconProps>;
+    label: string;
+    type: string;
+    action: React.ReactNode;
+  };
 }
 
 const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
@@ -20,27 +26,40 @@ const DataDefaultNode: React.FC<DataDefaultNodeProps> = ({ data }) => {
   // const navigateTo = (navigateTo: string) => {
   //   navigate(`/pipeline/pipeline_designer/${navigateTo}`);
   // };
-  
+
   return (
-    <Box shadow="md" style={{ borderRadius: "25px" }}>
+    <Box
+      shadow="md"
+      cursor="auto"
+      style={{
+        borderRadius: "15px",
+        padding: "5px",
+        background: colorMode === "dark" ? "#2D3748" : "white",
+      }}
+    >
       {data.type === "source" && (
         <Handle type="source" position={Position.Right} id="smt-input" />
       )}
 
-      <Center bg="gray.100" p="2" style={{
-        background: colorMode === "dark" ? "#1a202c" : "white",
-        borderRadius: "25px",
-      }}>
+      <Center
+        style={{
+          background: colorMode === "dark" ? "#2D3748" : "white",
+        }}
+        // mt="1.5"
+      >
         <Flex direction="column">
           <Center>
-            <Icon as={data.icon} boxSize={12}  />
+            <Box
+              bg={colorMode === "dark" ? "#1A202C" : AppThemeGreen.Background}
+              lineHeight="normal"
+              borderRadius="5"
+              p="1"
+            >
+              <Icon as={data.icon} boxSize={7} />
+            </Box>
           </Center>
-          <Box pr="2" pl="2" pt="2" pb="1">
-            {/* <Button variant="outline" leftIcon={<AddIcon />} size="xs" onClick={() => navigateTo(data.type)}>
-              {data.label}
-            </Button> */}
-            {data.action}
-          </Box>
+
+          {data.action}
         </Flex>
       </Center>
       {data.type === "destination" && (

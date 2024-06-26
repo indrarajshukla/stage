@@ -28,12 +28,12 @@ import ConnectorImage from "./ConnectorImage";
 import { getConnectorTypeName } from "../utils/helpers";
 import { useQuery } from "react-query";
 
-interface SelectionListingProps {
+interface PipelineSelectionListingProps {
   onSelection: (selection: Source | Destination) => void;
   type: "source" | "destination";
 }
 
-const SelectionListing: React.FC<SelectionListingProps> = ({
+const PipelineSelectionListing: React.FC<PipelineSelectionListingProps> = ({
   onSelection,
   type,
 }) => {
@@ -46,7 +46,9 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
     type === "source" ? "sourcesListing" : "destinationsListing",
     () =>
       fetchData<Source[] | Destination[]>(
-        type === "source" ? `${API_URL}/api/sources` : `${API_URL}/api/destinations`
+        type === "source"
+          ? `${API_URL}/api/sources`
+          : `${API_URL}/api/destinations`
       )
   );
 
@@ -108,7 +110,7 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
                     colorMode === "dark"
                       ? "gray.600"
                       : `${AppThemeGreen.Theme}.50`,
-                  shadow: "lg",
+                  shadow: "md",
                 }}
                 cursor="pointer"
                 onClick={() => onSelection(source)}
@@ -146,4 +148,4 @@ const SelectionListing: React.FC<SelectionListingProps> = ({
   );
 };
 
-export default SelectionListing;
+export default PipelineSelectionListing;
