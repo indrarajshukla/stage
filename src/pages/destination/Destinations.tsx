@@ -95,7 +95,7 @@ const Destinations: React.FC = () => {
 
           <SourceSinkTable
             data={searchQuery.length > 0 ? searchResult : destinationsList}
-            tableType="source"
+            tableType="destination"
             onClear={onClear}
             isFiltered={searchQuery.length > 0}
           />
@@ -103,8 +103,8 @@ const Destinations: React.FC = () => {
       ) : (
         <EmptyState
           icon={<Icon as={MdLogin} boxSize={20} />}
-          title="No source available"
-          message="No source configured for this cluster, setup a source to get started."
+          title="No destination available"
+          message="No destination configured for this cluster, setup a destination to get started."
           action={
             <Button leftIcon={<AddIcon />} onClick={navigateTo}>
               New destination

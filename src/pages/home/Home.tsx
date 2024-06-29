@@ -12,7 +12,7 @@ const Home: React.FC = () => {
       <PageHeading title={"Home"} />
       <EmptyState
         icon={<Icon as={MdOutlineHome} boxSize={20} />}
-        title="Coming Soon!"
+        title="Coming soon!"
         message="We are working on this feature. Please check back later."
         // action={<Button leftIcon={<AddIcon />}>New Home</Button>}
       />

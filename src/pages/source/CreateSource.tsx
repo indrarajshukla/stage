@@ -25,7 +25,7 @@ import PageHeader from "../../components/PageHeader";
 import { useNavigate, useParams } from "react-router-dom";
 import { convertMapToObject } from "../../utils/helpers";
 import { createPost } from "../../utils/apis";
-import sourceCatalog from "../../mockData/SourceCatalog.json";
+import sourceCatalog from "../../mocks/data/SourceCatalog.json";
 import _ from "lodash";
 import ConnectorImage from "../../components/ConnectorImage";
 

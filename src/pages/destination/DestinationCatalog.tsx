@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
-import destinationCatalog from "../../mockData/DestinationCatalog.json";
+import destinationCatalog from "../../mocks/data/DestinationCatalog.json";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
 import ConnectorImage from "../../components/ConnectorImage";

@@ -16,7 +16,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { MdAddCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/PageHeader";
-import sourceCatalog from "../../mockData/SourceCatalog.json";
+import sourceCatalog from "../../mocks/data/SourceCatalog.json";
 import ConnectorImage from "../../components/ConnectorImage";
 import SearchInput from "../../components/SearchInput";
 import _, { debounce } from "lodash";
